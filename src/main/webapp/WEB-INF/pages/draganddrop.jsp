@@ -48,16 +48,15 @@
             </div>
 
             <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <input type="checkbox" name="vehicle" value="Bike">car
-                <input type="checkbox" name="vehicle" value="Car">Better car
+                option: <input type="checkbox" name="option" value="option">
             </div>
 
             <div id="text" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <p style="pointer-events: none">test1</p>
+                <p style="pointer-events: none">Text</p>
             </div>
 
             <div id="link" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <a href="javascript:void(0)">Link label</a>
+                <a href="javascript:void(0)">Link text</a>
             </div>
 
             <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
@@ -85,11 +84,11 @@
             </div>
 
             <div id="radio" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <input type="radio" name="group" value="option">Label
+                Radio Button: <input type="radio" name="group" value="option">
             </div>
 
             <div id="calculationfield" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <p style="background-color: green;">label</p>
+                <p style="pointer-events: none;">Calculation field</p>
             </div>
 
             <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
@@ -232,375 +231,416 @@ $(document).ready(function(){
         drop: onDrop
     });
 
+    function onDrop(e, droppedComponent){
+        var componentData = returnObservableType(droppedComponent.draggable.attr("id"));
+
+        if(droppedComponent.draggable.hasClass("draggable")){
+            $("#droppable ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
+            form.push(componentData);
+            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+        }
+    };
+
     function returnObservableType(type){
         objectId = new Date().getUTCMilliseconds();
         console.log(type);
         switch (type){
             case "text":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    labelWidth: 100,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    viewToCall: "text-configuration-menu"
-                });
+                return createTextObservableObject(objectId, type);
                 break;
 
             case "link":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    toolTips: "A simple tooltip",
-                    labelWidth: 100,
-                    labelPosition: "Vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    textFormat: "Chars",
-                    textFormatSrc: textFormatSrc,
-                    componentWidth: 150,
-                    type: type,
-                    url: "http://",
-                    viewToCall: "link-configuration-menu"
-                });
+                return createLinkObservableObject(objectId, type);
                 break;
 
             case "input":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    toolTips: "tip",
-                    labelWidth: 100,
-                    labelPosition: "vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    textFormat: "Chars",
-                    textFormatSrc: textFormatSrc,
-                    mandatoryInfo: false,
-                    personNumber: false,
-                    componentHeight: 18,
-                    componentWidth: 150,
-                    in_mappingDefValue: "",
-                    from_mappingField: "choose..",
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    inputLength: 200,
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    readOnly: false,
-                    doNotShow: false,
-                    keepAfterAdding: false,
-                    viewToCall: "input-configuration-menu"
-                });
-                console.log(type);
+                return createInputObservableObject(objectId, type);
                 break;
 
             case "combobox":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    toolTips: "tip",
-                    labelWidth: 100,
-                    labelPosition: "vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    textFormat: "Chars",
-                    textFormatSrc: textFormatSrc,
-                    mandatoryInfo: false,
-                    personNumber: false,
-                    componentHeight: 18,
-                    componentWidth: 150,
-                    in_mappingDefValue: "",
-                    from_mappingField: "choose..",
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    inputLength: 200,
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    readOnly: false,
-                    doNotShow: false,
-                    keepAfterAdding: false,
-                    addedOptions: [],
-                    newOption: optionTemplate,
-                    viewToCall: "combobox-configuration-menu"
-                });
-                console.log(type);
+                return createComboboxObservableObject(objectId, type);
                 break;
 
             case "radio":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    toolTips: "tip",
-                    labelWidth: 100,
-                    labelPosition: "vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    textFormat: "Chars",
-                    textFormatSrc: textFormatSrc,
-                    mandatoryInfo: false,
-                    personNumber: false,
-                    componentHeight: 18,
-                    componentWidth: 150,
-                    in_mappingDefValue: "",
-                    from_mappingField: "choose..",
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    inputLength: 200,
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    readOnly: false,
-                    doNotShow: false,
-                    group: "",
-                    keepAfterAdding: false,
-                    addedOptions: [],
-                    newOption: optionTemplate,
-                    viewToCall: "radio-configuration-menu"
-                });
-                console.log(type);
+                return createRadioObservableObject(objectId, type);
                 break;
 
             case "linkbutton":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage: [],
-                    toolTips: "A Simple Tooltip",
-                    url: "http://",
-                    type: type,
-                    viewToCall: "linkbutton-configuration-menu"
-                });
-                console.log(type);
+                return createLinkButtonObservableObject(objectId, type);
                 break;
 
             case "image":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage: [],
-                    toolTips: "A Simple Tooltip",
-                    type: type,
-                    url: "http://",
-                    componentHeight: 18,
-                    componentWidth: 150,
-                    imageResize: "Crop",
-                    imageResizeSrc: imageResizeSrc,
-                    viewToCall: "image-configuration-menu"
-                });
-                console.log(type);
+                return createImageObservableObject(objectId, type);
                 break;
 
             case "calculationfield":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    type: type,
-                    mappingOperation: "",
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    viewToCall: "calc-configuration-menu"
-                });
+                return createCalculationfieldObservableObject(objectId, type);
                 break;
 
             case "suppcelector":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    toolTips: "tip",
-                    labelWidth: 100,
-                    labelPosition: "vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    textFormat: "Chars",
-                    textFormatSrc: textFormatSrc,
-                    mandatoryInfo: false,
-                    personNumber: false,
-                    componentHeight: 18,
-                    componentWidth: 150,
-                    in_mappingDefValue: "",
-                    from_mappingField: "choose..",
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    inputLength: 200,
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    readOnly: false,
-                    doNotShow: false,
-                    keepAfterAdding: false,
-                    viewToCall: "supp-configuration-menu"
-                });
-                console.log(type);
+                return createSuppcelectorObservableObject(objectId, type);
                 break;
 
             case "checkbox":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    newLanguage:labelLanguagetemplate,
-                    labelLanguage:[],
-                    toolTips: "tip",
-                    labelWidth: 100,
-                    labelPosition: "vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    textFormat: "Chars",
-                    textFormatSrc: textFormatSrc,
-                    mandatoryInfo: false,
-                    personNumber: false,
-                    componentHeight: 18,
-                    componentWidth: 150,
-                    in_mappingDefValue: "",
-                    from_mappingField: "choose..",
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    inputLength: 200,
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    readOnly: false,
-                    doNotShow: false,
-                    keepAfterAdding: false,
-                    addedOptions: [],
-                    newOption: optionTemplate,
-                    checked: false,
-                    viewToCall: "checkbox-configuration-menu"
-                });
-                console.log(type);
+                return createCheckboxObservableObject(objectId, type);
                 break;
 
             case "textarea":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    labelLanguage:[],
-                    newLanguage:labelLanguagetemplate,
-                    toolTips: "tip",
-                    labelWidth: 100,
-                    labelPosition: "vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    mandatoryInfo: false,
-                    componentHeight: 18,
-                    componentWidth: 150,
-                    in_mappingDefValue: "",
-                    from_mappingField: "choose..",
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    inputLength: 200,
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    readOnly: false,
-                    doNotShow: false,
-                    keepAfterAdding: false,
-                    viewToCall: "textarea-configuration-menu"
-                });
-                console.log(type);
+                return createTextareaObservableObject(objectId, type);
                 break;
 
             case "datecomp":
-                return new kendo.data.ObservableObject({
-                    uniqueId: objectId,
-                    label: "name",
-                    labelLanguage:[],
-                    newLanguage:labelLanguagetemplate,
-                    toolTips: "tip",
-                    labelWidth: 100,
-                    labelPosition: "vertical",
-                    labelPositionSrc: labelPositionSrc,
-                    textStyle: "Normal",
-                    textStyleSrc: textStyleSrc,
-                    type: type,
-                    textSize: 12,
-                    textSizeSrc: textSizeSrc,
-                    textFormat: "Chars",
-                    textFormatSrc: textFormatSrc,
-                    mandatoryInfo: false,
-                    componentWidth: 150,
-                    in_mappingDefValue: "",
-                    from_mappingField: "choose..",
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: "choose..",
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: "Otto",
-                    printOnApprovalMail: false,
-                    printOnOrderMail: false,
-                    keepAfterAdding: false,
-                    viewToCall: "datecomp-configuration-menu"
-                });
-                console.log(type);
+                return createDatecompObservableObject(objectId, type);
                 break;
         }
     };
 
-    function onDrop(e, ui){
-        var uiElement = returnObservableType(ui.draggable.attr("id"));
+    function createTextObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            labelWidth: 100,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            viewToCall: "text-configuration-menu"
+        });
+    }
 
-        if(ui.draggable.hasClass("draggable")){
-            $("#droppable ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + ui.draggable.html() + "</li>");
-            form.push(uiElement);
-            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
-        }
-    };
+    function createLinkObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            toolTips: "A simple tooltip",
+            labelWidth: 100,
+            labelPosition: "Vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            textFormat: "Chars",
+            textFormatSrc: textFormatSrc,
+            componentWidth: 150,
+            type: type,
+            url: "http://",
+            viewToCall: "link-configuration-menu"
+        });
+    }
+
+    function createInputObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            toolTips: "tip",
+            labelWidth: 100,
+            labelPosition: "vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            textFormat: "Chars",
+            textFormatSrc: textFormatSrc,
+            mandatoryInfo: false,
+            personNumber: false,
+            componentHeight: 18,
+            componentWidth: 150,
+            in_mappingDefValue: "",
+            from_mappingField: "choose..",
+            from_mappingFielSrc: from_to_mappingFieldSrc,
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            inputLength: 200,
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            readOnly: false,
+            doNotShow: false,
+            keepAfterAdding: false,
+            viewToCall: "input-configuration-menu"
+        });
+    }
+
+    function createComboboxObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            toolTips: "tip",
+            labelWidth: 100,
+            labelPosition: "vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            textFormat: "Chars",
+            textFormatSrc: textFormatSrc,
+            mandatoryInfo: false,
+            personNumber: false,
+            componentHeight: 18,
+            componentWidth: 150,
+            in_mappingDefValue: "",
+            from_mappingField: "choose..",
+            from_mappingFielSrc: from_to_mappingFieldSrc,
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            inputLength: 200,
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            readOnly: false,
+            doNotShow: false,
+            keepAfterAdding: false,
+            addedOptions: [],
+            newOption: optionTemplate,
+            viewToCall: "combobox-configuration-menu"
+        });
+    }
+
+    function createRadioObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            toolTips: "tip",
+            labelWidth: 100,
+            labelPosition: "vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            textFormat: "Chars",
+            textFormatSrc: textFormatSrc,
+            mandatoryInfo: false,
+            personNumber: false,
+            componentHeight: 18,
+            componentWidth: 150,
+            in_mappingDefValue: "",
+            from_mappingField: "choose..",
+            from_mappingFielSrc: from_to_mappingFieldSrc,
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            inputLength: 200,
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            readOnly: false,
+            doNotShow: false,
+            group: "",
+            keepAfterAdding: false,
+            addedOptions: [],
+            newOption: optionTemplate,
+            viewToCall: "radio-configuration-menu"
+        });
+    }
+
+    function createLinkButtonObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage: [],
+            toolTips: "A Simple Tooltip",
+            url: "http://",
+            type: type,
+            viewToCall: "linkbutton-configuration-menu"
+        });
+    }
+
+    function createImageObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage: [],
+            toolTips: "A Simple Tooltip",
+            type: type,
+            url: "http://",
+            componentHeight: 18,
+            componentWidth: 150,
+            imageResize: "Crop",
+            imageResizeSrc: imageResizeSrc,
+            viewToCall: "image-configuration-menu"
+        });
+    }
+
+    function createCalculationfieldObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            type: type,
+            mappingOperation: "",
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            viewToCall: "calc-configuration-menu"
+        });
+    }
+
+    function createSuppcelectorObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            toolTips: "tip",
+            labelWidth: 100,
+            labelPosition: "vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            textFormat: "Chars",
+            textFormatSrc: textFormatSrc,
+            mandatoryInfo: false,
+            personNumber: false,
+            componentHeight: 18,
+            componentWidth: 150,
+            in_mappingDefValue: "",
+            from_mappingField: "choose..",
+            from_mappingFielSrc: from_to_mappingFieldSrc,
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            inputLength: 200,
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            readOnly: false,
+            doNotShow: false,
+            keepAfterAdding: false,
+            viewToCall: "supp-configuration-menu"
+        });
+    }
+
+    function createCheckboxObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            newLanguage:labelLanguagetemplate,
+            labelLanguage:[],
+            toolTips: "tip",
+            labelWidth: 100,
+            labelPosition: "vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            textFormat: "Chars",
+            textFormatSrc: textFormatSrc,
+            mandatoryInfo: false,
+            personNumber: false,
+            componentHeight: 18,
+            componentWidth: 150,
+            in_mappingDefValue: "",
+            from_mappingField: "choose..",
+            from_mappingFielSrc: from_to_mappingFieldSrc,
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            inputLength: 200,
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            readOnly: false,
+            doNotShow: false,
+            keepAfterAdding: false,
+            addedOptions: [],
+            newOption: optionTemplate,
+            checked: false,
+            viewToCall: "checkbox-configuration-menu"
+        });
+    }
+
+    function createTextareaObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            labelLanguage:[],
+            newLanguage:labelLanguagetemplate,
+            toolTips: "tip",
+            labelWidth: 100,
+            labelPosition: "vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            mandatoryInfo: false,
+            componentHeight: 18,
+            componentWidth: 150,
+            in_mappingDefValue: "",
+            from_mappingField: "choose..",
+            from_mappingFielSrc: from_to_mappingFieldSrc,
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            inputLength: 200,
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            readOnly: false,
+            doNotShow: false,
+            keepAfterAdding: false,
+            viewToCall: "textarea-configuration-menu"
+        });
+    }
+
+    function createDatecompObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            label: "name",
+            labelLanguage:[],
+            newLanguage:labelLanguagetemplate,
+            toolTips: "tip",
+            labelWidth: 100,
+            labelPosition: "vertical",
+            labelPositionSrc: labelPositionSrc,
+            textStyle: "Normal",
+            textStyleSrc: textStyleSrc,
+            type: type,
+            textSize: 12,
+            textSizeSrc: textSizeSrc,
+            textFormat: "Chars",
+            textFormatSrc: textFormatSrc,
+            mandatoryInfo: false,
+            componentWidth: 150,
+            in_mappingDefValue: "",
+            from_mappingField: "choose..",
+            from_mappingFielSrc: from_to_mappingFieldSrc,
+            to_mappingField: "choose..",
+            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            printOrder: "Otto",
+            printOnApprovalMail: false,
+            printOnOrderMail: false,
+            keepAfterAdding: false,
+            viewToCall: "datecomp-configuration-menu"
+        });
+    }
+
+
 
     $("#sortable").sortable({
         revert: true
@@ -661,427 +701,438 @@ $(document).ready(function(){
 
     function renderForm(data){
         $("#droppable ul li").remove();
-        var list = data == null ? [] : (data instanceof Array ? data : [data]);
 
-        $.each(list, function(index, UIpart) {
-            create(UIpart);
+        var list;
+
+        if (data == null) {
+            list = [];
+        } else {
+            if (data instanceof Array) {
+                list = data;
+            } else {
+                list = [data];
+            }
+        }
+
+        $.each(list, function(index, formComponentData) {
+            create(formComponentData);
         });
         console.log("Element count: " + form.length);
     };
 
-    function create(UIpart){
-        switch (UIpart.type){
+    function create(formComponentData){
+        switch (formComponentData.type){
             case "text":
                 console.log("text")
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> <div>"+ UIpart.label +" </div></li>");
+                        "</span> <div>"+ formComponentData.label +" </div></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
-                    labelLanguage:UIpart.labelLanguage,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
+                    labelLanguage:formComponentData.labelLanguage,
                     newLanguage:labelLanguagetemplate,
-                    labelWidth: UIpart.labelWidth,
-                    textStyle: UIpart.textStyle,
+                    labelWidth: formComponentData.labelWidth,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    viewToCall: UIpart.viewToCall
+                    viewToCall: formComponentData.viewToCall
                 });
-                form.push(uiElement);
+                form.push(componentData);
                 console.log(JSON.stringify(form));
                 break;
 
             case "link":
                 console.log("Link")
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span><a href='"+ UIpart.url +"'>"+ UIpart.label +"</a></li>");
+                        "</span><a href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
                     newLanguage:labelLanguagetemplate,
-                    labelLanguage:UIpart.labelLanguage,
-                    tooltip: UIpart.tooltip,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    labelLanguage:formComponentData.labelLanguage,
+                    tooltip: formComponentData.tooltip,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    textFormat: UIpart.textFormat,
+                    textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
-                    componentWidth: UIpart.componentWidth,
-                    url: UIpart.url,
-                    viewToCall: UIpart.viewToCall
+                    componentWidth: formComponentData.componentWidth,
+                    url: formComponentData.url,
+                    viewToCall: formComponentData.viewToCall
                 });
-                form.push(uiElement);
+                form.push(componentData);
                 break;
 
             case "input":
                 console.log("input")
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+UIpart.label+" :   <input id='"+ UIpart.uniqueId +"' type='text'></input></li>");
+                        "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
                     newLanguage:labelLanguagetemplate,
-                    labelLanguage:UIpart.labelLanguage,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    labelLanguage:formComponentData.labelLanguage,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    textFormat: UIpart.textFormat,
+                    textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
-                    mandatoryInfo: UIpart.mandatoryInfo,
-                    personNumber: UIpart.personNumber,
-                    componentHeight: UIpart.componentHeight,
-                    componentWidth: UIpart.componentWidth,
-                    in_mappingDefValue: UIpart.in_mappingDefValue,
-                    from_mappingField: UIpart.from_mappingField,
+                    mandatoryInfo: formComponentData.mandatoryInfo,
+                    personNumber: formComponentData.personNumber,
+                    componentHeight: formComponentData.componentHeight,
+                    componentWidth: formComponentData.componentWidth,
+                    in_mappingDefValue: formComponentData.in_mappingDefValue,
+                    from_mappingField: formComponentData.from_mappingField,
                     from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: UIpart.to_mappingField,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
+                    printOrder: formComponentData.printOrder,
                     inputLength: 200,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    readOnly: UIpart.readOnly,
-                    doNotShow: UIpart.doNotShow,
-                    keepAfterAdding: UIpart.keepAfterAdding,
-                    viewToCall: UIpart.viewToCall
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    readOnly: formComponentData.readOnly,
+                    doNotShow: formComponentData.doNotShow,
+                    keepAfterAdding: formComponentData.keepAfterAdding,
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
             case "combobox":
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+UIpart.label+" :   <select id='"+ UIpart.uniqueId +"'>"+getSavedOptions(UIpart.addedOptions)+"</select></li>");
+                        "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getSavedOptions(formComponentData.addedOptions)+"</select></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
-                    labelLanguage:UIpart.labelLanguage,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
+                    labelLanguage:formComponentData.labelLanguage,
                     newLanguage:labelLanguagetemplate,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    textFormat: UIpart.textFormat,
+                    textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
-                    mandatoryInfo: UIpart.mandatoryInfo,
-                    personNumber: UIpart.personNumber,
-                    componentHeight: UIpart.componentHeight,
-                    componentWidth: UIpart.componentWidth,
-                    in_mappingDefValue: UIpart.in_mappingDefValue,
-                    from_mappingField: UIpart.from_mappingField,
+                    mandatoryInfo: formComponentData.mandatoryInfo,
+                    personNumber: formComponentData.personNumber,
+                    componentHeight: formComponentData.componentHeight,
+                    componentWidth: formComponentData.componentWidth,
+                    in_mappingDefValue: formComponentData.in_mappingDefValue,
+                    from_mappingField: formComponentData.from_mappingField,
                     from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: UIpart.to_mappingField,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
+                    printOrder: formComponentData.printOrder,
                     inputLength: 200,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    readOnly: UIpart.readOnly,
-                    doNotShow: UIpart.doNotShow,
-                    keepAfterAdding: UIpart.keepAfterAdding,
-                    addedOptions: UIpart.addedOptions,
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    readOnly: formComponentData.readOnly,
+                    doNotShow: formComponentData.doNotShow,
+                    keepAfterAdding: formComponentData.keepAfterAdding,
+                    addedOptions: formComponentData.addedOptions,
                     newOption: optionTemplate,
-                    viewToCall: UIpart.viewToCall
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
             case "radio":
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+UIpart.label+" :   <input id='"+ UIpart.uniqueId +"' name='"+ UIpart.group +"' type='"+ UIpart.type +"' > </input></li>");
+                        "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
-                    labelLanguage:UIpart.labelLanguage,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
+                    labelLanguage:formComponentData.labelLanguage,
                     newLanguage:labelLanguagetemplate,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    textFormat: UIpart.textFormat,
+                    textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
-                    mandatoryInfo: UIpart.mandatoryInfo,
-                    personNumber: UIpart.personNumber,
-                    componentHeight: UIpart.componentHeight,
-                    componentWidth: UIpart.componentWidth,
-                    in_mappingDefValue: UIpart.in_mappingDefValue,
-                    from_mappingField: UIpart.from_mappingField,
+                    mandatoryInfo: formComponentData.mandatoryInfo,
+                    personNumber: formComponentData.personNumber,
+                    componentHeight: formComponentData.componentHeight,
+                    componentWidth: formComponentData.componentWidth,
+                    in_mappingDefValue: formComponentData.in_mappingDefValue,
+                    from_mappingField: formComponentData.from_mappingField,
                     from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: UIpart.to_mappingField,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
+                    printOrder: formComponentData.printOrder,
                     inputLength: 200,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    readOnly: UIpart.readOnly,
-                    doNotShow: UIpart.doNotShow,
-                    group: UIpart.group,
-                    keepAfterAdding: UIpart.keepAfterAdding,
-                    addedOptions: UIpart.addedOptions,
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    readOnly: formComponentData.readOnly,
+                    doNotShow: formComponentData.doNotShow,
+                    group: formComponentData.group,
+                    keepAfterAdding: formComponentData.keepAfterAdding,
+                    addedOptions: formComponentData.addedOptions,
                     newOption: optionTemplate,
-                    viewToCall: UIpart.viewToCall
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
             case "linkbutton":
-                $('#sortable').append("<li id=" + UIpart.uniqueId + " class='ui-state-default'>" +
+                $('#sortable').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span><a href='"+ UIpart.url+ "'><button>"+ UIpart.label +"</button></a></li>");
+                        "</span><a href='"+ formComponentData.url+ "'><button>"+ formComponentData.label +"</button></a></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    type: UIpart.type,
-                    label: UIpart.label,
-                    labelLanguage: UIpart.labelLanguage,
-                    toolTips: UIpart.toolTips,
-                    url: UIpart.url,
-                    viewToCall: UIpart.viewToCall
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    type: formComponentData.type,
+                    label: formComponentData.label,
+                    labelLanguage: formComponentData.labelLanguage,
+                    toolTips: formComponentData.toolTips,
+                    url: formComponentData.url,
+                    viewToCall: formComponentData.viewToCall
                 });
-                form.push(uiElement);
+                form.push(componentData);
                 break;
 
             case "image":
-                $('#sortable').append("<li id=" + UIpart.uniqueId + " class='ui-state-default'>" +
+                $('#sortable').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span><img src='"+ UIpart.url+ "'></li>");
+                        "</span><img src='"+ formComponentData.url+ "'></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    type: UIpart.type,
-                    label: UIpart.label,
-                    labelLanguage: UIpart.labelLanguage,
-                    toolTips: UIpart.toolTips,
-                    url: UIpart.url,
-                    componentHeight: UIpart.componentHeight,
-                    componentWidth: UIpart.componentWidth,
-                    imageResize: UIpart.imageResize,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    type: formComponentData.type,
+                    label: formComponentData.label,
+                    labelLanguage: formComponentData.labelLanguage,
+                    toolTips: formComponentData.toolTips,
+                    url: formComponentData.url,
+                    componentHeight: formComponentData.componentHeight,
+                    componentWidth: formComponentData.componentWidth,
+                    imageResize: formComponentData.imageResize,
                     imageResizeSrc: imageResizeSrc,
-                    viewToCall: UIpart.viewToCall
+                    viewToCall: formComponentData.viewToCall
                 });
-                form.push(uiElement);
+                form.push(componentData);
                 break;
 
             case "calculationfield":
                 console.log("calculationfield")
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> <div>"+ UIpart.label +" </div></li>");
+                        "</span> <div>"+ formComponentData.label +" </div></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
                     newLanguage:labelLanguagetemplate,
-                    labelLanguage: UIpart.labelLanguage,
-                    type: UIpart.type,
-                    mappingOperation: UIpart.mappingOperation,
-                    to_mappingField: UIpart.to_mappingField,
+                    labelLanguage: formComponentData.labelLanguage,
+                    type: formComponentData.type,
+                    mappingOperation: formComponentData.mappingOperation,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    viewToCall: UIpart.viewToCall
+                    printOrder: formComponentData.printOrder,
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
             case "suppcelector":
                 console.log("input")
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+UIpart.label+" :   <input id='"+ UIpart.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
+                        "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
                     newLanguage:labelLanguagetemplate,
-                    labelLanguage:UIpart.labelLanguage,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    labelLanguage:formComponentData.labelLanguage,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    textFormat: UIpart.textFormat,
+                    textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
-                    mandatoryInfo: UIpart.mandatoryInfo,
-                    personNumber: UIpart.personNumber,
-                    componentHeight: UIpart.componentHeight,
-                    componentWidth: UIpart.componentWidth,
-                    in_mappingDefValue: UIpart.in_mappingDefValue,
-                    from_mappingField: UIpart.from_mappingField,
+                    mandatoryInfo: formComponentData.mandatoryInfo,
+                    personNumber: formComponentData.personNumber,
+                    componentHeight: formComponentData.componentHeight,
+                    componentWidth: formComponentData.componentWidth,
+                    in_mappingDefValue: formComponentData.in_mappingDefValue,
+                    from_mappingField: formComponentData.from_mappingField,
                     from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: UIpart.to_mappingField,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
+                    printOrder: formComponentData.printOrder,
                     inputLength: 200,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    readOnly: UIpart.readOnly,
-                    doNotShow: UIpart.doNotShow,
-                    keepAfterAdding: UIpart.keepAfterAdding,
-                    viewToCall: UIpart.viewToCall
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    readOnly: formComponentData.readOnly,
+                    doNotShow: formComponentData.doNotShow,
+                    keepAfterAdding: formComponentData.keepAfterAdding,
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
             case "checkbox":
                 console.log("checkbox");
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+UIpart.label+" : <input id='"+ UIpart.uniqueId +"' type='checkbox'></input></li>");
+                        "</span> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' type='checkbox'></input></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
-                    labelLanguage: UIpart.labelLanguage,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
+                    labelLanguage: formComponentData.labelLanguage,
                     newLanguage:labelLanguagetemplate,
-                    toolTips: UIpart.toolTips,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    toolTips: formComponentData.toolTips,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    textFormat: UIpart.textFormat,
+                    textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
-                    mandatoryInfo: UIpart.mandatoryInfo,
-                    personNumber: UIpart.personNumber,
-                    componentHeight: UIpart.componentHeight,
-                    componentWidth: UIpart.componentWidth,
-                    in_mappingDefValue: UIpart.in_mappingDefValue,
-                    from_mappingField: UIpart.from_mappingField,
+                    mandatoryInfo: formComponentData.mandatoryInfo,
+                    personNumber: formComponentData.personNumber,
+                    componentHeight: formComponentData.componentHeight,
+                    componentWidth: formComponentData.componentWidth,
+                    in_mappingDefValue: formComponentData.in_mappingDefValue,
+                    from_mappingField: formComponentData.from_mappingField,
                     from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: UIpart.to_mappingField,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
+                    printOrder: formComponentData.printOrder,
                     inputLength: 200,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    readOnly: UIpart.readOnly,
-                    doNotShow: UIpart.doNotShow,
-                    keepAfterAdding: UIpart.keepAfterAdding,
-                    addedOptions: UIpart.addedOptions,
-                    checked: UIpart.checked,
-                    viewToCall: UIpart.viewToCall
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    readOnly: formComponentData.readOnly,
+                    doNotShow: formComponentData.doNotShow,
+                    keepAfterAdding: formComponentData.keepAfterAdding,
+                    addedOptions: formComponentData.addedOptions,
+                    checked: formComponentData.checked,
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
             case "textarea":
                 console.log("textarea")
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+UIpart.label+" :   <textarea id='"+ UIpart.uniqueId +"'></textarea></li>");
+                        "</span> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"'></textarea></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
-                    labelLanguage: UIpart.labelLanguage,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
+                    labelLanguage: formComponentData.labelLanguage,
                     newLanguage:labelLanguagetemplate,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    mandatoryInfo: UIpart.mandatoryInfo,
-                    componentHeight: UIpart.componentHeight,
-                    componentWidth: UIpart.componentWidth,
-                    in_mappingDefValue: UIpart.in_mappingDefValue,
-                    from_mappingField: UIpart.from_mappingField,
+                    mandatoryInfo: formComponentData.mandatoryInfo,
+                    componentHeight: formComponentData.componentHeight,
+                    componentWidth: formComponentData.componentWidth,
+                    in_mappingDefValue: formComponentData.in_mappingDefValue,
+                    from_mappingField: formComponentData.from_mappingField,
                     from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: UIpart.to_mappingField,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
+                    printOrder: formComponentData.printOrder,
                     inputLength: 200,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    readOnly: UIpart.readOnly,
-                    doNotShow: UIpart.doNotShow,
-                    keepAfterAdding: UIpart.keepAfterAdding,
-                    viewToCall: UIpart.viewToCall
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    readOnly: formComponentData.readOnly,
+                    doNotShow: formComponentData.doNotShow,
+                    keepAfterAdding: formComponentData.keepAfterAdding,
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
             case "datecomp":
                 console.log("datecomp");
-                $('#sortable').append("<li id="+ UIpart.uniqueId +" class='ui-state-default'>" +
+                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+UIpart.label+" :   <input id='"+ UIpart.uniqueId +"' type='date'></input></li>");
+                        "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='date'></input></li>");
 
-                var uiElement = new kendo.data.ObservableObject({
-                    uniqueId: UIpart.uniqueId,
-                    label: UIpart.label,
-                    labelLanguage: UIpart.labelLanguage,
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    label: formComponentData.label,
+                    labelLanguage: formComponentData.labelLanguage,
                     newLanguage:labelLanguagetemplate,
-                    labelWidth: UIpart.labelWidth,
-                    labelPosition: UIpart.labelPosition,
+                    labelWidth: formComponentData.labelWidth,
+                    labelPosition: formComponentData.labelPosition,
                     labelPositionSrc: labelPositionSrc,
-                    textStyle: UIpart.textStyle,
+                    textStyle: formComponentData.textStyle,
                     textStyleSrc: textStyleSrc,
-                    type: UIpart.type,
-                    textSize: UIpart.textSize,
+                    type: formComponentData.type,
+                    textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    textFormat: UIpart.textFormat,
+                    textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
-                    mandatoryInfo: UIpart.mandatoryInfo,
-                    componentWidth: UIpart.componentWidth,
-                    in_mappingDefValue: UIpart.in_mappingDefValue,
-                    from_mappingField: UIpart.from_mappingField,
+                    mandatoryInfo: formComponentData.mandatoryInfo,
+                    componentWidth: formComponentData.componentWidth,
+                    in_mappingDefValue: formComponentData.in_mappingDefValue,
+                    from_mappingField: formComponentData.from_mappingField,
                     from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: UIpart.to_mappingField,
+                    to_mappingField: formComponentData.to_mappingField,
                     to_mappingFieldSrc: from_to_mappingFieldSrc,
-                    printOrder: UIpart.printOrder,
-                    printOnApprovalMail: UIpart.printOnApprovalMail,
-                    printOnOrderMail: UIpart.printOnOrderMail,
-                    keepAfterAdding: UIpart.keepAfterAdding,
-                    viewToCall: UIpart.viewToCall
+                    printOrder: formComponentData.printOrder,
+                    printOnApprovalMail: formComponentData.printOnApprovalMail,
+                    printOnOrderMail: formComponentData.printOnOrderMail,
+                    keepAfterAdding: formComponentData.keepAfterAdding,
+                    viewToCall: formComponentData.viewToCall
                 });
-                checkBoxValidation(uiElement);
-                form.push(uiElement);
+                checkBoxValidation(componentData);
+                form.push(componentData);
                 break;
 
         }
