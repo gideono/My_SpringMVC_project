@@ -29,7 +29,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test-mvc:1.0.0.M2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.0-RC10" level="application_server_libraries" />

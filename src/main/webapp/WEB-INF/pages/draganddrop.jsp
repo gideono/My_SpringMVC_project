@@ -117,9 +117,11 @@
 
     <button id="saveBtn" class="btn default-btn">Save</button>
     <button id="updateBtn" class="btn default-btn">Update</button>
+    <button id="previewBtn" class="btn default-btn">Preview</button>
 
 
     <div id="window" style="display: none"> </div>
+    <div id="previewWindow" style="display: none"> </div>
     <div id="labelGrid" style="display: none"> </div>
     <div id="optionGrid" style="display: none"> </div>
 
@@ -1361,6 +1363,17 @@ $(document).ready(function(){
         }
     };
 
+    $("#previewBtn").on("click", function(){
+        $("#previewWindow").data("kendoWindow").center().open();
+        console.log("Click click click");
+    })
+
+    $("#previewWindow").kendoWindow({
+        width: "600px",
+        height: "450px",
+        modal: true,
+        title: "Form preview"
+    }).data("kendoWindow");
 
 
 
