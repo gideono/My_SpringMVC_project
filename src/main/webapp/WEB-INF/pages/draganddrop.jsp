@@ -236,13 +236,16 @@ $(document).ready(function(){
         drop: onDrop
     });
 
+    var previewForm = [];
     function onDrop(e, droppedComponent){
         var componentData = returnObservableType(droppedComponent.draggable.attr("id"));
 
         if(droppedComponent.draggable.hasClass("draggable")){
             $("#droppable ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
-            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+//            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+            previewForm.push(droppedComponent.draggable.html());
+
         }
     };
 
@@ -1365,8 +1368,14 @@ $(document).ready(function(){
     };
 
     $("#previewBtn").on("click", function(){
+        $.each(previewForm, function(index, list){
+            $("#previewWindow").append(list);
+            //console.log(list);
+        });
+
         $("#previewWindow").data("kendoWindow").center().open();
-        console.log("Click click click");
+
+
     })
 
     $("#previewWindow").kendoWindow({
