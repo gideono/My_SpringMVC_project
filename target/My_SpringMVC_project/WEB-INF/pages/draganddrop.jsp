@@ -196,6 +196,7 @@ $(document).ready(function(){
     var optionTemplate = {text: "", value: "", returnValue: "", numValue: 0, txtValue: "", english: "", finnish: "", norwegian: "", german:"", danish:"", polish:"", _default: false, invalid: false};
     var labelLanguagetemplate = {language:"",phrase:""};
 
+    //text comment
 
     /****************************************************/
     /*************Right click functionality**************/

@@ -197,6 +197,7 @@ $(document).ready(function(){
     var labelLanguagetemplate = {language:"",phrase:""};
 
     //text comment
+    //added another comment
 
     /****************************************************/
     /*************Right click functionality**************/
