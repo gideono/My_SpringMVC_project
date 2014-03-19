@@ -200,6 +200,7 @@ $(document).ready(function(){
 
     //text comment
     //added another comment
+    //Otto's comment.
 
     /****************************************************/
     /*************Right click functionality**************/
