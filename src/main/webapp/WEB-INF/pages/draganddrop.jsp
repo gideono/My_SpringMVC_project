@@ -28,9 +28,9 @@
 
 <style>
 
-    #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em;}
-    #sortable li span { position: absolute; margin-left: -1.3em; }
+    #sortableList { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+    #sortableList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em;}
+    #sortableList li span { position: absolute; margin-left: -1.3em; }
 
 </style>
 
@@ -56,7 +56,7 @@
             </div>
 
             <div id="link" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <a href="javascript:void(0)">Link text</a>
+                <a href="#" onclick="false">Link text</a>
             </div>
 
             <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
@@ -76,7 +76,7 @@
             </div>
 
             <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <button><a href="javascript:void(0)"></a>Link Button</button>
+                <button><a href="#" onclick="false"></a>Link Button</button>
             </div>
 
             <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
@@ -110,8 +110,8 @@
     <%------------------%>
     <%--Droppable area--%>
     <%------------------%>
-    <div id="droppable" class="ui-widget-header" style="width: 1150px; height: 300px; padding: 0.5em; margin: 10px;">
-        <ul id="sortable">
+    <div id="droppableArea" class="ui-widget-header" style="width: 1150px; height: 300px; padding: 0.5em; margin: 10px;">
+        <ul id="sortableList">
         </ul>
     </div>
 
@@ -140,7 +140,7 @@ $(document).ready(function(){
     var optionGridCreated = false;
     var languageGridCreated = false;
     var i;
-    var from_to_mappingFieldSrc = [
+    var fromToMappingFieldSrc = [
         { name: "Delivary Day" },
         { name: "Price" },
         { name: "Quantity" },
@@ -232,7 +232,7 @@ $(document).ready(function(){
         helper: "clone"
     });
 
-    $("#droppable").droppable({
+    $("#droppableArea").droppable({
         drop: onDrop
     });
 
@@ -241,7 +241,7 @@ $(document).ready(function(){
         var componentData = returnObservableType(droppedComponent.draggable.attr("id"));
 
         if(droppedComponent.draggable.hasClass("draggable")){
-            $("#droppable ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
+            $("#droppableArea ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
 //            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             previewForm.push(droppedComponent.draggable.html());
@@ -363,11 +363,11 @@ $(document).ready(function(){
             personNumber: false,
             componentHeight: 18,
             componentWidth: 150,
-            in_mappingDefValue: "",
-            from_mappingField: "choose..",
-            from_mappingFielSrc: from_to_mappingFieldSrc,
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            inMappingDefValue: "",
+            fromMappingField: "choose..",
+            fromMappingFieldSrc: fromToMappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             inputLength: 200,
             printOnApprovalMail: false,
@@ -400,11 +400,11 @@ $(document).ready(function(){
             personNumber: false,
             componentHeight: 18,
             componentWidth: 150,
-            in_mappingDefValue: "",
-            from_mappingField: "choose..",
-            from_mappingFielSrc: from_to_mappingFieldSrc,
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            inMappingDefValue: "",
+            fromMappingField: "choose..",
+            fromMappingFieldSrc: fromToMappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             inputLength: 200,
             printOnApprovalMail: false,
@@ -439,11 +439,11 @@ $(document).ready(function(){
             personNumber: false,
             componentHeight: 18,
             componentWidth: 150,
-            in_mappingDefValue: "",
-            from_mappingField: "choose..",
-            from_mappingFielSrc: from_to_mappingFieldSrc,
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            inMappingDefValue: "",
+            fromMappingField: "choose..",
+            fromMappingFieldSrc: fromToMappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             inputLength: 200,
             printOnApprovalMail: false,
@@ -496,8 +496,8 @@ $(document).ready(function(){
             labelLanguage:[],
             type: type,
             mappingOperation: "",
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             printOnApprovalMail: false,
             printOnOrderMail: false,
@@ -526,11 +526,11 @@ $(document).ready(function(){
             personNumber: false,
             componentHeight: 18,
             componentWidth: 150,
-            in_mappingDefValue: "",
-            from_mappingField: "choose..",
-            from_mappingFielSrc: from_to_mappingFieldSrc,
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            inMappingDefValue: "",
+            fromMappingField: "choose..",
+            fromMappingFieldSrc: fromToMappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             inputLength: 200,
             printOnApprovalMail: false,
@@ -563,11 +563,11 @@ $(document).ready(function(){
             personNumber: false,
             componentHeight: 18,
             componentWidth: 150,
-            in_mappingDefValue: "",
-            from_mappingField: "choose..",
-            from_mappingFielSrc: from_to_mappingFieldSrc,
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            inMappingDefValue: "",
+            fromMappingField: "choose..",
+            fromMappingFieldSrc: fromToMappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             inputLength: 200,
             printOnApprovalMail: false,
@@ -600,11 +600,11 @@ $(document).ready(function(){
             mandatoryInfo: false,
             componentHeight: 18,
             componentWidth: 150,
-            in_mappingDefValue: "",
-            from_mappingField: "choose..",
-            from_mappingFielSrc: from_to_mappingFieldSrc,
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            inMappingDefValue: "",
+            fromMappingField: "choose..",
+            fromMappingFieldSrc: fromToMappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             inputLength: 200,
             printOnApprovalMail: false,
@@ -635,11 +635,11 @@ $(document).ready(function(){
             textFormatSrc: textFormatSrc,
             mandatoryInfo: false,
             componentWidth: 150,
-            in_mappingDefValue: "",
-            from_mappingField: "choose..",
-            from_mappingFielSrc: from_to_mappingFieldSrc,
-            to_mappingField: "choose..",
-            to_mappingFieldSrc: from_to_mappingFieldSrc,
+            inMappingDefValue: "",
+            fromMappingField: "choose..",
+            fromMappingFieldSrc: fromToMappingFieldSrc,
+            toMappingField: "choose..",
+            toMappingFieldSrc: fromToMappingFieldSrc,
             printOrder: "Otto",
             printOnApprovalMail: false,
             printOnOrderMail: false,
@@ -650,7 +650,7 @@ $(document).ready(function(){
 
 
 
-    $("#sortable").sortable({
+    $("#sortableList").sortable({
         revert: true
     });
 
@@ -669,7 +669,7 @@ $(document).ready(function(){
                     console.log("u are cool");
                 }
             });
-            $("#droppable ul li").remove();
+            $("#droppableArea ul li").remove();
             form = [];
         }else{
             alert("Form is empty, please add components");
@@ -708,7 +708,7 @@ $(document).ready(function(){
     });
 
     function renderForm(data){
-        $("#droppable ul li").remove();
+        $("#droppableArea ul li").remove();
 
         var list;
 
@@ -732,7 +732,7 @@ $(document).ready(function(){
         switch (formComponentData.type){
             case "text":
                 console.log("text")
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
@@ -755,7 +755,7 @@ $(document).ready(function(){
 
             case "link":
                 console.log("Link")
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><a href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></li>");
 
@@ -784,7 +784,7 @@ $(document).ready(function(){
 
             case "input":
                 console.log("input")
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
 
@@ -807,11 +807,11 @@ $(document).ready(function(){
                     personNumber: formComponentData.personNumber,
                     componentHeight: formComponentData.componentHeight,
                     componentWidth: formComponentData.componentWidth,
-                    in_mappingDefValue: formComponentData.in_mappingDefValue,
-                    from_mappingField: formComponentData.from_mappingField,
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    inMappingDefValue: formComponentData.inMappingDefValue,
+                    fromMappingField: formComponentData.fromMappingField,
+                    fromMappingFieldSrc: fromToMappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     inputLength: 200,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
@@ -826,7 +826,7 @@ $(document).ready(function(){
                 break;
 
             case "combobox":
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getSavedOptions(formComponentData.addedOptions)+"</select></li>");
 
@@ -849,11 +849,11 @@ $(document).ready(function(){
                     personNumber: formComponentData.personNumber,
                     componentHeight: formComponentData.componentHeight,
                     componentWidth: formComponentData.componentWidth,
-                    in_mappingDefValue: formComponentData.in_mappingDefValue,
-                    from_mappingField: formComponentData.from_mappingField,
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    inMappingDefValue: formComponentData.inMappingDefValue,
+                    fromMappingField: formComponentData.fromMappingField,
+                    fromMappingFieldSrc: fromToMappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     inputLength: 200,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
@@ -870,7 +870,7 @@ $(document).ready(function(){
                 break;
 
             case "radio":
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
 
@@ -893,11 +893,11 @@ $(document).ready(function(){
                     personNumber: formComponentData.personNumber,
                     componentHeight: formComponentData.componentHeight,
                     componentWidth: formComponentData.componentWidth,
-                    in_mappingDefValue: formComponentData.in_mappingDefValue,
-                    from_mappingField: formComponentData.from_mappingField,
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    inMappingDefValue: formComponentData.inMappingDefValue,
+                    fromMappingField: formComponentData.fromMappingField,
+                    fromMappingFieldSrc: fromToMappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     inputLength: 200,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
@@ -915,7 +915,7 @@ $(document).ready(function(){
                 break;
 
             case "linkbutton":
-                $('#sortable').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
+                $('#sortableList').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><a href='"+ formComponentData.url+ "'><button>"+ formComponentData.label +"</button></a></li>");
 
@@ -932,7 +932,7 @@ $(document).ready(function(){
                 break;
 
             case "image":
-                $('#sortable').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
+                $('#sortableList').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><img src='"+ formComponentData.url+ "'></li>");
 
@@ -954,7 +954,7 @@ $(document).ready(function(){
 
             case "calculationfield":
                 console.log("calculationfield")
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
@@ -965,8 +965,8 @@ $(document).ready(function(){
                     labelLanguage: formComponentData.labelLanguage,
                     type: formComponentData.type,
                     mappingOperation: formComponentData.mappingOperation,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
                     printOnOrderMail: formComponentData.printOnOrderMail,
@@ -978,7 +978,7 @@ $(document).ready(function(){
 
             case "suppcelector":
                 console.log("input")
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
 
@@ -1001,11 +1001,11 @@ $(document).ready(function(){
                     personNumber: formComponentData.personNumber,
                     componentHeight: formComponentData.componentHeight,
                     componentWidth: formComponentData.componentWidth,
-                    in_mappingDefValue: formComponentData.in_mappingDefValue,
-                    from_mappingField: formComponentData.from_mappingField,
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    inMappingDefValue: formComponentData.inMappingDefValue,
+                    fromMappingField: formComponentData.fromMappingField,
+                    fromMappingFieldSrc: fromToMappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     inputLength: 200,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
@@ -1021,7 +1021,7 @@ $(document).ready(function(){
 
             case "checkbox":
                 console.log("checkbox");
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' type='checkbox'></input></li>");
 
@@ -1045,11 +1045,11 @@ $(document).ready(function(){
                     personNumber: formComponentData.personNumber,
                     componentHeight: formComponentData.componentHeight,
                     componentWidth: formComponentData.componentWidth,
-                    in_mappingDefValue: formComponentData.in_mappingDefValue,
-                    from_mappingField: formComponentData.from_mappingField,
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    inMappingDefValue: formComponentData.inMappingDefValue,
+                    fromMappingField: formComponentData.fromMappingField,
+                    fromMappingFieldSrc: fromToMappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     inputLength: 200,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
@@ -1067,7 +1067,7 @@ $(document).ready(function(){
 
             case "textarea":
                 console.log("textarea")
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"'></textarea></li>");
 
@@ -1087,11 +1087,11 @@ $(document).ready(function(){
                     mandatoryInfo: formComponentData.mandatoryInfo,
                     componentHeight: formComponentData.componentHeight,
                     componentWidth: formComponentData.componentWidth,
-                    in_mappingDefValue: formComponentData.in_mappingDefValue,
-                    from_mappingField: formComponentData.from_mappingField,
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    inMappingDefValue: formComponentData.inMappingDefValue,
+                    fromMappingField: formComponentData.fromMappingField,
+                    fromMappingFieldSrc: fromToMappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     inputLength: 200,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
@@ -1107,7 +1107,7 @@ $(document).ready(function(){
 
             case "datecomp":
                 console.log("datecomp");
-                $('#sortable').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='date'></input></li>");
 
@@ -1128,11 +1128,11 @@ $(document).ready(function(){
                     textFormatSrc: textFormatSrc,
                     mandatoryInfo: formComponentData.mandatoryInfo,
                     componentWidth: formComponentData.componentWidth,
-                    in_mappingDefValue: formComponentData.in_mappingDefValue,
-                    from_mappingField: formComponentData.from_mappingField,
-                    from_mappingFielSrc: from_to_mappingFieldSrc,
-                    to_mappingField: formComponentData.to_mappingField,
-                    to_mappingFieldSrc: from_to_mappingFieldSrc,
+                    inMappingDefValue: formComponentData.inMappingDefValue,
+                    fromMappingField: formComponentData.fromMappingField,
+                    fromMappingFieldSrc: fromToMappingFieldSrc,
+                    toMappingField: formComponentData.toMappingField,
+                    toMappingFieldSrc: fromToMappingFieldSrc,
                     printOrder: formComponentData.printOrder,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
                     printOnOrderMail: formComponentData.printOnOrderMail,
@@ -1157,7 +1157,7 @@ $(document).ready(function(){
                 console.log("U are cool");
             }
         });
-        $("#droppable ul li").remove();
+        $("#droppableArea ul li").remove();
         form = [];
         $('#saveBtn').attr("disabled", false);
 
@@ -1186,7 +1186,7 @@ $(document).ready(function(){
         }
     };
 
-    $("#droppable").on("dblclick", ".ui-state-default", openConfigurationMenu);
+    $("#droppableArea").on("dblclick", ".ui-state-default", openConfigurationMenu);
 
     function openConfigurationMenu (e){
         var Observable = getKendoObservable(e);
@@ -1566,22 +1566,22 @@ $(document).ready(function(){
             <label for="componentWidth">Component Width:</label>
             <input type="text" data-bind="value: componentWidth" class="form-control">
 
-            <label for="in_mappingDefValue">In-mapping default value:</label>
-            <input type="text" data-bind="value: in_mappingDefValue" class="form-control">
+            <label for="inMappingDefValue">In-mapping default value:</label>
+            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
 
             <hr>
 
-            <label for="from_mappingFiel">From-mapping field:</label>
+            <label for="fromMappingField">From-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: from_mappingFielSrc, value: from_mappingFiel"></select>
+                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
 
-            <label for="to_mappingField">To-mapping field:</label>
+            <label for="toMappingField">To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
 
             <hr>
 
@@ -1661,19 +1661,19 @@ $(document).ready(function(){
             <input type="text" data-bind="value: componentHeight" class="form-control">
             <label for="componentWidth">Component Width:</label>
             <input type="text" data-bind="value: componentWidth" class="form-control">
-            <label for="in_mappingDefValue">In-mapping default value:</label>
-            <input type="text" data-bind="value: in_mappingDefValue" class="form-control">
+            <label for="inMappingDefValue">In-mapping default value:</label>
+            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
             <hr>
-            <label for="from_mappingFiel">From-mapping field:</label>
+            <label for="fromMappingFiel">From-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: from_mappingFielSrc, value: from_mappingFiel"></select>
-            <label for="to_mappingField">To-mapping field:</label>
+                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
+            <label for="toMappingField">To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
             <hr>
             <label for="printOrder">Print order:</label>
             <input type="text" data-bind="value: printOrder" class="form-control">
@@ -1785,11 +1785,11 @@ $(document).ready(function(){
             <textarea  type="text" data-bind="value: mappingOperation" class="form-control" ></textarea>
 
             <hr>
-            <label for="to_mappingField">To-mapping field:</label>
+            <label for="toMappingField">To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
             <hr>
             <label for="printOrder">Print order:</label>
             <input type="text" data-bind="value: printOrder" class="form-control">
@@ -1864,22 +1864,22 @@ $(document).ready(function(){
             <label for="componentWidth">Component Width:</label>
             <input type="text" data-bind="value: componentWidth" class="form-control">
 
-            <label for="in_mappingDefValue">In-mapping default value:</label>
-            <input type="text" data-bind="value: in_mappingDefValue" class="form-control">
+            <label for="inMappingDefValue">In-mapping default value:</label>
+            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
 
             <hr>
 
-            <label for="from_mappingFiel">From-mapping field:</label>
+            <label for="fromMappingField">From-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: from_mappingFielSrc, value: from_mappingFiel"></select>
+                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
 
-            <label for="to_mappingField">To-mapping field:</label>
+            <label for="toMappingField">To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
 
             <hr>
 
@@ -1971,7 +1971,7 @@ $(document).ready(function(){
             <input type="text" data-bind="value: componentWidth" class="form-control">
 
             <label>In-mapping default value:</label>
-            <input type="text" data-bind="value: in_mappingDefValue" class="form-control">
+            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
 
             <hr>
 
@@ -1979,13 +1979,13 @@ $(document).ready(function(){
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: from_mappingFielSrc, value: from_mappingFiel"></select>
+                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
 
             <label>To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
 
             <hr>
 
@@ -2075,19 +2075,19 @@ $(document).ready(function(){
             <input type="text" data-bind="value: componentHeight" class="form-control">
             <label for="componentWidth">Component Width:</label>
             <input type="text" data-bind="value: componentWidth" class="form-control">
-            <label for="in_mappingDefValue">In-mapping default value:</label>
-            <input type="text" data-bind="value: in_mappingDefValue" class="form-control">
+            <label for="inMappingDefValue">In-mapping default value:</label>
+            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
             <hr>
-            <label for="from_mappingFiel">From-mapping field:</label>
+            <label for="fromMappingField">From-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: from_mappingFielSrc, value: from_mappingFiel"></select>
-            <label for="to_mappingField">To-mapping field:</label>
+                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
+            <label for="toMappingField">To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
             <hr>
             <label for="printOrder">Print order:</label>
             <input type="text" data-bind="value: printOrder" class="form-control">
@@ -2167,7 +2167,7 @@ $(document).ready(function(){
             <input type="text" data-bind="value: componentWidth" class="form-control">
 
             <label>In-mapping default value:</label>
-            <input type="text" data-bind="value: in_mappingDefValue" class="form-control">
+            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
 
             <hr>
 
@@ -2175,13 +2175,13 @@ $(document).ready(function(){
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: from_mappingFielSrc, value: from_mappingFiel"></select>
+                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
 
             <label>To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
 
             <hr>
 
@@ -2269,7 +2269,7 @@ $(document).ready(function(){
             <input type="text" data-bind="value: componentWidth" class="form-control">
 
             <label>In-mapping default value:</label>
-            <input type="text" data-bind="value: in_mappingDefValue" class="form-control">
+            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
 
             <hr>
 
@@ -2277,13 +2277,13 @@ $(document).ready(function(){
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: from_mappingFielSrc, value: from_mappingFiel"></select>
+                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
 
             <label>To-mapping field:</label>
             <select data-role="dropdownlist"
                     data-text-field="name"
                     data-value-field="value"
-                    data-bind="source: to_mappingFieldSrc, value: to_mappingField"></select>
+                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
 
             <hr>
 

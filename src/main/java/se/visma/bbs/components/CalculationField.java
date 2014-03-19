@@ -18,7 +18,7 @@ public class CalculationField extends UITemplate{
     private String label = null;
     private List<Languages> labelLanguage = new ArrayList<Languages>();
     private String mappingOperation = null;
-    private String to_mappingField = null;
+    private String toMappingField = null;
     private String printOrder = null;
     private boolean printOnApprovalMail = false;
     private boolean printOnOrderMail = false;
@@ -66,13 +66,13 @@ public class CalculationField extends UITemplate{
         this.mappingOperation = mappingOperation;
     }
 
-    public String getTo_mappingField() {
-        return to_mappingField;
+    public String getToMappingField() {
+        return toMappingField;
     }
 
     @XmlElement
-    public void setTo_mappingField(String to_mappingField) {
-        this.to_mappingField = to_mappingField;
+    public void setToMappingField(String toMappingField) {
+        this.toMappingField = toMappingField;
     }
 
     public String getPrintOrder() {
@@ -127,7 +127,7 @@ public class CalculationField extends UITemplate{
                 ", label='" + label + '\'' +
                 ", labelLanguage=" + labelLanguage +
                 ", mappingOperation='" + mappingOperation + '\'' +
-                ", to_mappingField='" + to_mappingField + '\'' +
+                ", toMappingField='" + toMappingField + '\'' +
                 ", printOrder='" + printOrder + '\'' +
                 ", printOnApprovalMail=" + printOnApprovalMail +
                 ", printOnOrderMail=" + printOnOrderMail +

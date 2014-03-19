@@ -25,9 +25,9 @@ public class DateComp extends UITemplate {
     private String textFormat = null;
     private boolean mandatoryInfo = false;
     private int componentWidth = 0;
-    private String in_mappingDefValue = null;
-    private String from_mappingField = null;
-    private String to_mappingField = null;
+    private String inMappingDefValue = null;
+    private String fromMappingField = null;
+    private String toMappingField = null;
     private String printOrder = null;
     private boolean printOnApprovalMail = false;
     private boolean printOnOrderMail = false;
@@ -146,31 +146,31 @@ public class DateComp extends UITemplate {
         this.componentWidth = componentWidth;
     }
 
-    public String getIn_mappingDefValue() {
-        return in_mappingDefValue;
+    public String getInMappingDefValue() {
+        return inMappingDefValue;
     }
 
     @XmlElement
-    public void setIn_mappingDefValue(String in_mappingDefValue) {
-        this.in_mappingDefValue = in_mappingDefValue;
+    public void setInMappingDefValue(String inMappingDefValue) {
+        this.inMappingDefValue = inMappingDefValue;
     }
 
-    public String getFrom_mappingField() {
-        return from_mappingField;
-    }
-
-    @XmlElement
-    public void setFrom_mappingField(String from_mappingField) {
-        this.from_mappingField = from_mappingField;
-    }
-
-    public String getTo_mappingField() {
-        return to_mappingField;
+    public String getFromMappingField() {
+        return fromMappingField;
     }
 
     @XmlElement
-    public void setTo_mappingField(String to_mappingField) {
-        this.to_mappingField = to_mappingField;
+    public void setFromMappingField(String fromMappingField) {
+        this.fromMappingField = fromMappingField;
+    }
+
+    public String getToMappingField() {
+        return toMappingField;
+    }
+
+    @XmlElement
+    public void setToMappingField(String toMappingField) {
+        this.toMappingField = toMappingField;
     }
 
     public String getPrintOrder() {
@@ -233,9 +233,9 @@ public class DateComp extends UITemplate {
                 ", textFormat='" + textFormat + '\'' +
                 ", mandatoryInfo=" + mandatoryInfo +
                 ", componentWidth=" + componentWidth +
-                ", in_mappingDefValue='" + in_mappingDefValue + '\'' +
-                ", from_mappingField='" + from_mappingField + '\'' +
-                ", to_mappingField='" + to_mappingField + '\'' +
+                ", inMappingDefValue='" + inMappingDefValue + '\'' +
+                ", fromMappingField='" + fromMappingField + '\'' +
+                ", toMappingField='" + toMappingField + '\'' +
                 ", printOrder='" + printOrder + '\'' +
                 ", printOnApprovalMail=" + printOnApprovalMail +
                 ", printOnOrderMail=" + printOnOrderMail +
