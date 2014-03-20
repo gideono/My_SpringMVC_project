@@ -738,6 +738,9 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
+                    var htmlDomComponent = "<div class='form-group col-xs-2'>"+formComponentData.label+"</div>";
+                    addToPreviewForm(htmlDomComponent);
+
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
                     label: formComponentData.label,
@@ -792,6 +795,9 @@ $(document).ready(function(){
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
+
+                    var htmlDomComponent = "<div class='form-group col-xs-2'>"+formComponentData.label+": <input type='text'></div>";
+                    addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -882,6 +888,9 @@ $(document).ready(function(){
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
+
+                    var htmlDomComponent = "<div class='form-group col-xs-2'>"+formComponentData.label+": <input type='checkbox'></div>";
+                    addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
