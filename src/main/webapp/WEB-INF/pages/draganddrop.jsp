@@ -70,7 +70,7 @@
         </div>
         <div class="col-md-4">
             <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
-                <select>
+                <select >
                     <option value="option">options...</option>
                 </select>
             </div>
@@ -121,7 +121,9 @@
 
 
     <div id="window" style="display: none"> </div>
-    <div id="previewWindow" style="display: none"> </div>
+    <div id="previewWindow" style="display: none">
+        <form></form>
+    </div>
     <div id="labelGrid" style="display: none"> </div>
     <div id="optionGrid" style="display: none"> </div>
 
@@ -198,9 +200,7 @@ $(document).ready(function(){
     var optionTemplate = {text: "", value: "", returnValue: "", numValue: 0, txtValue: "", english: "", finnish: "", norwegian: "", german:"", danish:"", polish:"", _default: false, invalid: false};
     var labelLanguagetemplate = {language:"",phrase:""};
 
-    //text comment
-    //added another comment
-    //Otto's comment.
+    var previewForm = [];
 
     /****************************************************/
     /*************Right click functionality**************/
@@ -236,7 +236,6 @@ $(document).ready(function(){
         drop: onDrop
     });
 
-    var previewForm = [];
     function onDrop(e, droppedComponent){
         var componentData = returnObservableType(droppedComponent.draggable.attr("id"));
 
@@ -244,8 +243,7 @@ $(document).ready(function(){
             $("#droppableArea ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
 //            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
-            previewForm.push(droppedComponent.draggable.html());
-
+            addToPreviewForm(droppedComponent.draggable.html())
         }
     };
 
@@ -654,6 +652,10 @@ $(document).ready(function(){
         revert: true
     });
 
+    function addToPreviewForm(data){
+        previewForm.push(data);
+    }
+
     /****************************************************/
     /*******************Ajax Calles**********************/
     /****************************************************/
@@ -729,9 +731,9 @@ $(document).ready(function(){
     };
 
     function create(formComponentData){
+        console.log(formComponentData.type);
         switch (formComponentData.type){
             case "text":
-                console.log("text")
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
@@ -754,10 +756,14 @@ $(document).ready(function(){
                 break;
 
             case "link":
-                console.log("Link")
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><a href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></li>");
+
+                var htmlDomComponent = "<a href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a>";
+
+                addToPreviewForm(htmlDomComponent);
+
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -783,7 +789,6 @@ $(document).ready(function(){
                 break;
 
             case "input":
-                console.log("input")
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
@@ -829,6 +834,10 @@ $(document).ready(function(){
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getSavedOptions(formComponentData.addedOptions)+"</select></li>");
+
+                var htmlDomComponent = "<div class='form-group col-xs-2'>"+formComponentData.label+" : <select id='"+ formComponentData.uniqueId +"'class='form-control'>"+getSavedOptions(formComponentData.addedOptions)+"</select></div>";
+
+                addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -953,7 +962,6 @@ $(document).ready(function(){
                 break;
 
             case "calculationfield":
-                console.log("calculationfield")
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
@@ -977,7 +985,6 @@ $(document).ready(function(){
                 break;
 
             case "suppcelector":
-                console.log("input")
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
@@ -1020,7 +1027,6 @@ $(document).ready(function(){
                 break;
 
             case "checkbox":
-                console.log("checkbox");
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' type='checkbox'></input></li>");
@@ -1066,7 +1072,6 @@ $(document).ready(function(){
                 break;
 
             case "textarea":
-                console.log("textarea")
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"'></textarea></li>");
@@ -1106,7 +1111,6 @@ $(document).ready(function(){
                 break;
 
             case "datecomp":
-                console.log("datecomp");
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='date'></input></li>");
@@ -1368,14 +1372,13 @@ $(document).ready(function(){
     };
 
     $("#previewBtn").on("click", function(){
+        $("#previewWindow form").empty();
+
         $.each(previewForm, function(index, list){
-            $("#previewWindow").append(list);
-            //console.log(list);
+            $("#previewWindow form").append(list);
         });
 
         $("#previewWindow").data("kendoWindow").center().open();
-
-
     })
 
     $("#previewWindow").kendoWindow({
