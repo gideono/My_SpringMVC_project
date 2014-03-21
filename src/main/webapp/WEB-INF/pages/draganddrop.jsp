@@ -121,19 +121,47 @@
 
     <div id="window" style="display: none"> </div>
     <div id="previewWindow" style="display: none">
-        <div class="col-md-6">
-            <form role="form">
-                <div id="formComponents">
 
-                </div>
-                <hr>
-                <div class="form-group ">
-                    <button id="submit" class="btn default-btn">submit</button>
-                    <button id="cancel" class="btn default-btn">cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
+        h2>Form</h2>
+        <form action="" method="post">
+            First Name:<input type="text" name="Fname" maxlength="12" size="12"/> <br/>
+            Last Name:<input type="text" name="Lname" maxlength="36" size="12"/> <br/>
+            Gender:<br/>
+            Male:<input type="radio" name="gender" value="Male"/><br/>
+            Female:<input type="radio" name="gender" value="Female"/><br/>
+            Favorite Food:<br/>
+            Steak:<input type="checkbox" name="food[]" value="Steak"/><br/>
+            Pizza:<input type="checkbox" name="food[]" value="Pizza"/><br/>
+            Chicken:<input type="checkbox" name="food[]" value="Chicken"/><br/>
+            <textarea wrap="physical" cols="20" name="quote" rows="5">Enter your favorite quote!</textarea><br/>
+            Select a Level of Education:<br/>
+            <select name="education">
+                <option value="Jr.High">Jr.High</option>
+                <option value="HighSchool">HighSchool</option>
+                <option value="College">College</option></select><br/>
+            Select your favorite time of day:<br/>
+            <select size="3" name="TofD">
+                <option value="Morning">Morning</option>
+                <option value="Day">Day</option>
+                <option value="Night">Night</option></select>
+            <p><input type="submit" /></p>
+        </form>
+        <h2>JSON</h2>
+<pre id="result">
+</pre>
+        <%--<div class="col-md-6">--%>
+            <%--<form id= role="form">--%>
+                <%--<div id="formComponents">--%>
+
+                <%--</div>--%>
+                <%--<hr>--%>
+                <%--<div class="form-group ">--%>
+                    <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
+                    <%--<button id="preCancel" class="btn default-btn">cancel</button>--%>
+                <%--</div>--%>
+            <%--</form>--%>
+        <%--</div>--%>
+    <%--</div>--%>
     <div id="labelGrid" style="display: none"> </div>
     <div id="optionGrid" style="display: none"> </div>
 
@@ -750,7 +778,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
-                var htmlDomComponent = "<div class='form-group'><div class='form-group col-xs-2'>"+formComponentData.label+"</div></div>";
+                var htmlDomComponent = "<div class='form-group'><div id='"+ formComponentData.uniqueId +"' class='form-group '>"+formComponentData.label+"</div></div>";
                 addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -775,7 +803,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><a href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></li>");
 
-                var htmlDomComponent = "<div class='form-group'><a href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></div>";
+                var htmlDomComponent = "<div class='form-group'><a id='"+ formComponentData.uniqueId +"' href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></div>";
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -808,7 +836,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
 
-                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+": <input class='form-control input-sm' type='text'></div>";
+                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+": <input id='"+ formComponentData.uniqueId +"' class='form-control input-sm' type='text'></div>";
                 addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -901,7 +929,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
 
-                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></div>";
+                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"'> </input></div>";
                 addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -970,7 +998,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><img src='"+ formComponentData.url+ "'></li>");
 
-                var htmlDomComponent = "<div class='form-group'><img src='"+ formComponentData.url+ "'></div>" ;
+                var htmlDomComponent = "<div class='form-group'><img id='"+ formComponentData.uniqueId +"' src='"+ formComponentData.url+ "'></div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -995,7 +1023,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
-                var htmlDomComponent = "<div class='form-group'> <div>"+ formComponentData.label +" </div> </div>" ;
+                var htmlDomComponent = "<div class='form-group'> <div id='"+ formComponentData.uniqueId +"' >"+ formComponentData.label +" </div> </div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1022,7 +1050,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
 
-                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></div>" ;
+                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' class='form-control' type='text'></input><button>select</button> <button>clear</button></div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1296,6 +1324,24 @@ $(document).ready(function(){
         visible: false
     }).data("kendoWindow");
 
+    $.fn.serializeObject = function()
+    {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+
 
     /****************************************************/
     /*****************Configutation windows**************/
@@ -1420,25 +1466,6 @@ $(document).ready(function(){
         }
     };
 
-    $("#previewBtn").on("click", function(){
-        $("#formComponents").empty();
-        //  console.log("lenght of preview form: "+previewForm.length);
-        $.each(previewForm, function(index, list){
-            $("#formComponents").append(list);
-        });
-
-        $("#previewWindow").data("kendoWindow").center().open();
-    })
-
-    $("#previewWindow").kendoWindow({
-        width: "500px",
-        height: "450px",
-        modal: true,
-        title: "Form preview"
-    }).data("kendoWindow");
-
-
-
     $("#labelGrid").kendoWindow({
         width: "600px",
         height: "450px",
@@ -1452,6 +1479,54 @@ $(document).ready(function(){
         modal: true,
         title: "Add selectable options"
     }).data("kendoWindow");
+
+    /**********************************************/
+    /*****************Preview windows**************/
+    /**********************************************/
+
+    $("#previewBtn").on("click", function(){
+        $("#formComponents").empty();
+        //  console.log("lenght of preview form: "+previewForm.length);
+        $.each(previewForm, function(index, list){
+            $("#formComponents").append(list);
+        });
+        previewWindowController();
+        $("#previewWindow").data("kendoWindow").center().open();
+        console.log(JSON.stringify($('form').serializeObject()));
+
+    });
+
+
+    function previewWindowController(){
+        $("#preSubmit").on("click", function(){
+           console.log(JSON.stringify($("flen").serializeObject()));
+        });
+
+
+        $(function() {
+            $('form').submit(function() {
+                console.log(JSON.stringify($('form').serializeObject()));
+                return false;
+            });
+        });
+
+        $("#preCancel").on("click", function(){
+            $("#previewWindow").data("kendoWindow").close();
+        });
+
+    }
+
+
+    $("#previewWindow").kendoWindow({
+        width: "500px",
+        height: "450px",
+        modal: true,
+        title: "Form preview"
+    }).data("kendoWindow");
+
+
+
+
 });
 </script>
 
