@@ -150,21 +150,22 @@
 <pre id="result">
 </pre>
         <%--<div class="col-md-6">--%>
-            <%--<form id= role="form">--%>
-                <%--<div id="formComponents">--%>
+        <%--<form id= role="form">--%>
+        <%--<div id="formComponents">--%>
 
-                <%--</div>--%>
-                <%--<hr>--%>
-                <%--<div class="form-group ">--%>
-                    <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
-                    <%--<button id="preCancel" class="btn default-btn">cancel</button>--%>
-                <%--</div>--%>
-            <%--</form>--%>
         <%--</div>--%>
-    <%--</div>--%>
-    <div id="labelGrid" style="display: none"> </div>
-    <div id="optionGrid" style="display: none"> </div>
+        <%--<hr>--%>
+        <%--<div class="form-group ">--%>
+        <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
+        <%--<button id="preCancel" class="btn default-btn">cancel</button>--%>
+        <%--</div>--%>
+        <%--</form>--%>
+        <%--</div>--%>
+        <%--</div>--%>
+        <div id="labelGrid" style="display: none"> </div>
+        <div id="optionGrid" style="display: none"> </div>
 
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -1488,7 +1489,7 @@ $(document).ready(function(){
         $("#formComponents").empty();
         //  console.log("lenght of preview form: "+previewForm.length);
         $.each(previewForm, function(index, list){
-            $("#formComponents").append(list);
+            $("form").append(list);
         });
         previewWindowController();
         $("#previewWindow").data("kendoWindow").center().open();
@@ -1499,7 +1500,7 @@ $(document).ready(function(){
 
     function previewWindowController(){
         $("#preSubmit").on("click", function(){
-           console.log(JSON.stringify($("flen").serializeObject()));
+            console.log(JSON.stringify($("flen").serializeObject()));
         });
 
 
