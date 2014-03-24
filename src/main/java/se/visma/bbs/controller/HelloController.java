@@ -73,7 +73,6 @@ public class HelloController {
 
     @RequestMapping(value = "/previewPost", method = RequestMethod.POST)
     public @ResponseBody Map<String, List> previewForm(){
-        
       return null;
     }
 

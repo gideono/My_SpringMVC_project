@@ -1488,7 +1488,7 @@ $(document).ready(function(){
         $("#formComponents").empty();
         //  console.log("lenght of preview form: "+previewForm.length);
         $.each(previewForm, function(index, list){
-            $("#formComponents").append(list);
+            $("form").append(list);
         });
         previewWindowController();
         $("#previewWindow").data("kendoWindow").center().open();
@@ -1499,7 +1499,7 @@ $(document).ready(function(){
 
     function previewWindowController(){
         $("#preSubmit").on("click", function(){
-           console.log(JSON.stringify($("flen").serializeObject()));
+           console.log(JSON.stringify($("form").serializeObject()));
         });
 
 
