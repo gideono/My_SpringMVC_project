@@ -122,50 +122,18 @@
     <div id="window" style="display: none"> </div>
     <div id="previewWindow" style="display: none">
 
-        h2>Form</h2>
+        <h2>Form</h2>
         <form action="" method="post">
-            First Name:<input type="text" name="Fname" maxlength="12" size="12"/> <br/>
-            Last Name:<input type="text" name="Lname" maxlength="36" size="12"/> <br/>
-            Gender:<br/>
-            Male:<input type="radio" name="gender" value="Male"/><br/>
-            Female:<input type="radio" name="gender" value="Female"/><br/>
-            Favorite Food:<br/>
-            Steak:<input type="checkbox" name="food[]" value="Steak"/><br/>
-            Pizza:<input type="checkbox" name="food[]" value="Pizza"/><br/>
-            Chicken:<input type="checkbox" name="food[]" value="Chicken"/><br/>
-            <textarea wrap="physical" cols="20" name="quote" rows="5">Enter your favorite quote!</textarea><br/>
-            Select a Level of Education:<br/>
-            <select name="education">
-                <option value="Jr.High">Jr.High</option>
-                <option value="HighSchool">HighSchool</option>
-                <option value="College">College</option></select><br/>
-            Select your favorite time of day:<br/>
-            <select size="3" name="TofD">
-                <option value="Morning">Morning</option>
-                <option value="Day">Day</option>
-                <option value="Night">Night</option></select>
-            <p><input type="submit" /></p>
+            <div id="formComponents" class="col-md-6"></div>
         </form>
-        <h2>JSON</h2>
-<pre id="result">
-</pre>
-        <%--<div class="col-md-6">--%>
-        <%--<form id= role="form">--%>
-        <%--<div id="formComponents">--%>
-
-        <%--</div>--%>
-        <%--<hr>--%>
-        <%--<div class="form-group ">--%>
-        <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
-        <%--<button id="preCancel" class="btn default-btn">cancel</button>--%>
-        <%--</div>--%>
-        <%--</form>--%>
-        <%--</div>--%>
-        <%--</div>--%>
-        <div id="labelGrid" style="display: none"> </div>
-        <div id="optionGrid" style="display: none"> </div>
+        <div id="formComponents" class="col-md-6">
+            <hr>
+            <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
+        </div>
 
     </div>
+    <div id="labelGrid" style="display: none"> </div>
+    <div id="optionGrid" style="display: none"> </div>
 </div>
 
 <script type="text/javascript">
@@ -1024,7 +992,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
-                var htmlDomComponent = "<div class='form-group'> <div id='"+ formComponentData.uniqueId +"' >"+ formComponentData.label +" </div> </div>" ;
+                var htmlDomComponent = "<div class='form-group'> <div name='"+ formComponentData.uniqueId +"' >"+ formComponentData.label +" </div> </div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1051,7 +1019,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
 
-                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' class='form-control' type='text'></input><button>select</button> <button>clear</button></div>" ;
+                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' class='form-control' type='text'></input><button>select</button> <button>clear</button></div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1097,7 +1065,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' type='checkbox'></input></li>");
 
-                var htmlDomComponent = " <div class='form-group'>"+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +" class='form-control' ' type='checkbox'></input></div>" ;
+                var htmlDomComponent = " <div class='form-group'>"+formComponentData.label+" : <input name='"+ formComponentData.uniqueId +"'  type='checkbox' value='"+ formComponentData.checked +"' ></input></div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1146,7 +1114,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"'></textarea></li>");
 
-                var htmlDomComponent = " <div class='form-group'> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"' class='form-control'></textarea></div>" ;
+                var htmlDomComponent = " <div class='form-group'> "+formComponentData.label+" :   <textarea name='"+ formComponentData.uniqueId +"' value='textarea' class='form-control'></textarea></div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1189,7 +1157,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='date'></input></li>");
 
-                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' class='form-control' type='date'></input> </div>" ;
+                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' value='date' class='form-control' type='date'></input> </div>" ;
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1486,39 +1454,26 @@ $(document).ready(function(){
     /**********************************************/
 
     $("#previewBtn").on("click", function(){
-        $("#formComponents").empty();
-        //  console.log("lenght of preview form: "+previewForm.length);
+        $('#formComponents').empty();
+       // console.log("lenght of preview form: "+previewForm.length);
         $.each(previewForm, function(index, list){
-            $("form").append(list);
+            $('#formComponents').append(list);
         });
+
         previewWindowController();
         $("#previewWindow").data("kendoWindow").center().open();
-        console.log(JSON.stringify($('form').serializeObject()));
-
     });
 
 
     function previewWindowController(){
         $("#preSubmit").on("click", function(){
-<<<<<<< HEAD
-            console.log(JSON.stringify($("flen").serializeObject()));
-=======
-           console.log(JSON.stringify($("form").serializeObject()));
->>>>>>> a82365c8f516db4dc1e2c4c483ee9b85f66383cc
+            console.log(JSON.stringify($('form').serializeObject()));
         });
 
-
-        $(function() {
-            $('form').submit(function() {
-                console.log(JSON.stringify($('form').serializeObject()));
-                return false;
-            });
-        });
-
+        
         $("#preCancel").on("click", function(){
             $("#previewWindow").data("kendoWindow").close();
         });
-
     }
 
 
