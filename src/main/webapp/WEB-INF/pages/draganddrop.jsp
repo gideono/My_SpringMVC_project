@@ -1467,23 +1467,12 @@ $(document).ready(function(){
 
     function previewWindowController(){
         $("#preSubmit").on("click", function(){
-<<<<<<< HEAD
+
             console.log(JSON.stringify($('form').serializeObject()));
-=======
-            console.log(JSON.stringify($("flen").serializeObject()));
-           console.log(JSON.stringify($("form").serializeObject()));
+
         });
 
 
-        $(function() {
-            $('form').submit(function() {
-                console.log(JSON.stringify($('form').serializeObject()));
-                return false;
-            });
->>>>>>> 460f70b8b71190b3bd49022c8e2581ca31947e9f
-        });
-
-        
         $("#preCancel").on("click", function(){
             $("#previewWindow").data("kendoWindow").close();
         });
