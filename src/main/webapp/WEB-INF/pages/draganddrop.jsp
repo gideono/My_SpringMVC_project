@@ -747,7 +747,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
-                var htmlDomComponent = "<div class='form-group'><div id='"+ formComponentData.uniqueId +"' class='form-group '>"+formComponentData.label+"</div></div>";
+                var htmlDomComponent = "<div class='form-group'><div id='"+ formComponentData.uniqueId +"' class='form-group' >"+formComponentData.label+"</div></div>";
                 addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -805,7 +805,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
 
-                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+": <input id='"+ formComponentData.uniqueId +"' class='form-control input-sm' type='text'></div>";
+                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+": <input name='"+ formComponentData.uniqueId +"' class='form-control input-sm' type='text'></div>";
                 addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -850,7 +850,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getSavedOptions(formComponentData.addedOptions)+"</select></li>");
 
-                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+" : <select id='"+ formComponentData.uniqueId +"' class='form-control'>"+getSavedOptions(formComponentData.addedOptions)+"</select></div>";
+                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+" : <select name='"+ formComponentData.uniqueId +"' class='form-control'>"+getSavedOptions(formComponentData.addedOptions)+"</select></div>";
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -1467,7 +1467,20 @@ $(document).ready(function(){
 
     function previewWindowController(){
         $("#preSubmit").on("click", function(){
+<<<<<<< HEAD
             console.log(JSON.stringify($('form').serializeObject()));
+=======
+            console.log(JSON.stringify($("flen").serializeObject()));
+           console.log(JSON.stringify($("form").serializeObject()));
+        });
+
+
+        $(function() {
+            $('form').submit(function() {
+                console.log(JSON.stringify($('form').serializeObject()));
+                return false;
+            });
+>>>>>>> 460f70b8b71190b3bd49022c8e2581ca31947e9f
         });
 
         
