@@ -1500,7 +1500,11 @@ $(document).ready(function(){
 
     function previewWindowController(){
         $("#preSubmit").on("click", function(){
+<<<<<<< HEAD
             console.log(JSON.stringify($("flen").serializeObject()));
+=======
+           console.log(JSON.stringify($("form").serializeObject()));
+>>>>>>> a82365c8f516db4dc1e2c4c483ee9b85f66383cc
         });
 
 

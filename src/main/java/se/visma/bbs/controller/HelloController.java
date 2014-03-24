@@ -12,6 +12,7 @@ import se.visma.bbs.services.FormService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -68,6 +69,11 @@ public class HelloController {
         ArrayList components = new ArrayList(uiCollection.getUiTemplates());
         Form form = new Form(components);
         return form;
+    }
+
+    @RequestMapping(value = "/previewPost", method = RequestMethod.POST)
+    public @ResponseBody Map<String, List> previewForm(){
+      return null;
     }
 
 /*
