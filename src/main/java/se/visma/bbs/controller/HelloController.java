@@ -1,5 +1,7 @@
 package se.visma.bbs.controller;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,7 +12,9 @@ import se.visma.bbs.model.*;
 
 import se.visma.bbs.services.FormService;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +62,23 @@ public class HelloController {
 
     }
 
+    @RequestMapping(value = "/previewPost", method = RequestMethod.POST)
+    public @ResponseBody void previewForm(@RequestParam(value = "data") String jsonStr){
+        System.out.println(jsonStr);
+
+
+        Map<String,String> map = new HashMap<String,String>();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            map = mapper.readValue(jsonStr,
+                    new TypeReference<HashMap<String,String>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(map);
+    }
+
     @RequestMapping("/draganddrop")
     public String dragAndDrop() {
         return "draganddrop";
@@ -71,10 +92,6 @@ public class HelloController {
         return form;
     }
 
-    @RequestMapping(value = "/previewPost", method = RequestMethod.POST)
-    public @ResponseBody Map<String, List> previewForm(){
-      return null;
-    }
 
 /*
 
