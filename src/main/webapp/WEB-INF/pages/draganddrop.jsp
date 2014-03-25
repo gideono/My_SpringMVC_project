@@ -121,11 +121,20 @@
         <h2>Form</h2>
         <form action="" method="post">
             <div id="formComponents" class="col-md-6"></div>
+            <div id="formComponents" class="col-md-6">
+                <hr>
+                <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
+            </div>
+
         </form>
         <div id="formComponents" class="col-md-6">
-            <hr>
-            <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
+            <br>
+            <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
         </div>
+
+
+
+
 
     </div>
     <div id="labelGrid" style="display: none"> </div>
@@ -205,6 +214,8 @@ $(document).ready(function(){
 
     var previewForm = [];
 
+    $('#previewBtn').attr("disabled", true);
+
     /****************************************************/
     /*************Right click functionality**************/
     /****************************************************/
@@ -246,7 +257,7 @@ $(document).ready(function(){
             $("#droppableArea ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
             console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
-            addToPreviewForm(droppedComponent.draggable.html())
+            addToPreviewForm(droppedComponent.draggable.html());
         }
     };
 
@@ -451,7 +462,7 @@ $(document).ready(function(){
             printOnOrderMail: false,
             readOnly: false,
             doNotShow: false,
-            group: "",
+            group: "default",
             keepAfterAdding: false,
             addedOptions: [],
             newOption: optionTemplate,
@@ -649,8 +660,6 @@ $(document).ready(function(){
         });
     }
 
-
-
     $("#sortableList").sortable({
         revert: true
     });
@@ -690,8 +699,31 @@ $(document).ready(function(){
         });
     });
 
+    function postPreviewForm(data){
+        $.ajax({
+            type: 'POST',
+            //contentType: 'application/json',
+            url: "/previewPost",
+            dataType: "json",
+            data: {data: data},
+            success: function(){
+                console.log("u are cool");
+            }
+        });
+    }
+
     function renderList(data){
-        var list = data == null ? [] : (data instanceof Array ? data : [data]);
+        var list;
+
+        if (data == null) {
+            list = [];
+        } else {
+            if (data instanceof Array) {
+                list = data;
+            } else {
+                list = [data];
+            }
+        }
         $('#formList li').remove();
         $.each(list, function(index, form) {
             $('#formList').append('<li><a class="linkable" id='+ form.form_id +' href="javascript:void(0);">'+form.form_id+ " " +form.name+ " "+ form.date+'</a></li>');
@@ -711,6 +743,7 @@ $(document).ready(function(){
             success: renderForm
         });
         $('#saveBtn').attr("disabled", true);
+        $('#previewBtn').attr("disabled", false);
     });
 
     function renderForm(data){
@@ -1465,6 +1498,8 @@ $(document).ready(function(){
         $("#preSubmit").on("click", function(){
 
             console.log(JSON.stringify($('form').serializeObject()));
+            var data = JSON.stringify($('form').serializeObject());
+            postPreviewForm(data);
 
         });
 
