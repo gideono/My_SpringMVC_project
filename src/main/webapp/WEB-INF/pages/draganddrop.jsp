@@ -15,7 +15,6 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/res/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/res/js/jquery.contextMenu.js"></script>
 
-
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/jquery-ui-1.10.4.custom.min.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/jquery.appendGrid-1.3.1.min.css" />
@@ -42,60 +41,70 @@
     <div class="row">
         <div class="col-md-4">
 
-            <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none;">
+            <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none; z-index: 10">
                 <textarea></textarea>
             </div>
 
-            <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 option: <input type="checkbox" name="option" value="option">
             </div>
 
-            <div id="text" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="text" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <p style="pointer-events: none">Text</p>
             </div>
 
-            <div id="link" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="link" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <a href="#" onclick="false">Link text</a>
             </div>
 
-            <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <input type="text">
             </div>
 
-            <div id="datecomp" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="datecomp" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <input type="date">
             </div>
 
-        </div>
-        <div class="col-md-4">
-            <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <select >
                     <option value="option">options...</option>
                 </select>
             </div>
 
-            <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <button><a href="#" onclick="false"></a>Link Button</button>
             </div>
 
-            <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <p style="pointer-events: none;">Image</p>
             </div>
 
-            <div id="radio" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="radio" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 Radio Button: <input type="radio" name="group" value="option">
             </div>
 
-            <div id="calculationfield" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="calculationfield" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <p style="pointer-events: none;">Calculation field</p>
             </div>
 
-            <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;">
+            <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
                 <input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
             </div>
-
         </div>
+        <div class="col-md-6">
+            <%------------------%>
+            <%--Droppable area--%>
+            <%------------------%>
+            <div id="droppableArea" class="ui-widget-header" style="width: 740px; height: 500px; padding: 0.5em; margin: 10px;">
+                <ul id="sortableList">
+                </ul>
+            </div>
 
+            <button id="saveBtn" class="btn default-btn">Save</button>
+            <button id="updateBtn" class="btn default-btn">Update</button>
+            <button id="previewBtn" class="btn default-btn">Preview</button>
+        </div>
+    </div>
 
         <div id="savedForms" class="col-md-4">
             <h4>Saved forms</h4>
@@ -103,20 +112,7 @@
             </div>
             <button id="getBtn" class="btn default-btn">Get List</button>
         </div>
-    </div>
 
-    <hr>
-    <%------------------%>
-    <%--Droppable area--%>
-    <%------------------%>
-    <div id="droppableArea" class="ui-widget-header" style="width: 1150px; height: 300px; padding: 0.5em; margin: 10px;">
-        <ul id="sortableList">
-        </ul>
-    </div>
-
-    <button id="saveBtn" class="btn default-btn">Save</button>
-    <button id="updateBtn" class="btn default-btn">Update</button>
-    <button id="previewBtn" class="btn default-btn">Preview</button>
 
 
     <div id="window" style="display: none"> </div>
