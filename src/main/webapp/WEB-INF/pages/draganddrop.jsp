@@ -877,9 +877,9 @@ $(document).ready(function(){
             case "combobox":
                 $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getSavedOptions(formComponentData.addedOptions)+"</select></li>");
+                        "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getComboOptions(formComponentData.addedOptions)+"</select></li>");
 
-                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+" : <select name='"+ formComponentData.uniqueId +"' class='form-control'>"+getSavedOptions(formComponentData.addedOptions)+"</select></div>";
+                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+" : <select name='"+ formComponentData.uniqueId +"' class='form-control'>"+getComboOptions(formComponentData.addedOptions)+"</select></div>";
 
                 addToPreviewForm(htmlDomComponent);
 
@@ -927,7 +927,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
 
-                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"'> </input></div>";
+                var htmlDomComponent = " "+formComponentData.label+" : <div class='form-group'> "+ getRadioOptions(formComponentData.addedOptions, formComponentData.uniqueId) +" </div>";
                 addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -1242,12 +1242,18 @@ $(document).ready(function(){
 
     });
 
-    function getSavedOptions(arrayData){
-        var htmlOption = null;
+    function getComboOptions(arrayData){
+        var htmlOption = " ";
         for(var i = 0; i < arrayData.length ; i++){
-            // console.log("i is: " + i);
             htmlOption += "<option value='"+arrayData[i].text+"'>"+arrayData[i].text+"</option>";
-            // console.log(htmlOption);
+        }
+        return htmlOption;
+    }
+
+    function getRadioOptions(arrayData, componenetId){
+        var htmlOption = " ";
+        for(var i = 0; i < arrayData.length ; i++){
+            htmlOption += " "+ arrayData[i].text +" <input  name='"+ componenetId +"' type='radio' value='"+ arrayData[i].text +"'> </input>";
         }
         return htmlOption;
     }

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import se.visma.bbs.components.Input;
 import se.visma.bbs.components.JsonToPojo;
 import se.visma.bbs.components.UICollection;
 import se.visma.bbs.model.*;
@@ -68,14 +67,7 @@ public class HelloController {
 
     @RequestMapping(value = "/previewPost", method = RequestMethod.POST)
     public @ResponseBody void previewForm(@RequestParam(value = "data") String jsonStr){
-
-
-        for(int i = 0; i < form.size(); i++){
-            System.out.println(form.getForm().get(i).getClass());
-            System.out.println(form.getForm().get(i).getUniqueId());
-
-        }
-
+        String key;
         Map<String,String> map = new HashMap<String,String>();
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -85,7 +77,13 @@ public class HelloController {
             e.printStackTrace();
         }
 
-        System.out.println(map);
+        for(int i = 0; i < form.size(); i++){
+            key = String.valueOf(form.get(i).getUniqueId());
+            String value = map.get(key);
+            form.get(i).setValue(value);
+            System.out.println(form.get(i).getValue()+ " mapping to: " + form.get(i).getToMappingField());
+        }
+
     }
 
     @RequestMapping("/draganddrop")

@@ -27,6 +27,9 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
         @Type(value = DateComp.class, name = "datecomp")})
 public abstract class UITemplate {
     private long uniqueId;
+    private String fromMappingField = null;
+    private String toMappingField = null;
+    private String value = null;
 
     public long getUniqueId() {
         return uniqueId;
@@ -34,5 +37,29 @@ public abstract class UITemplate {
 
     public void setUniqueId(long uniqueId) {
         this.uniqueId = uniqueId;
+    }
+
+    public String getFromMappingField() {
+        return fromMappingField;
+    }
+
+    public void setFromMappingField(String fromMappingField) {
+        this.fromMappingField = fromMappingField;
+    }
+
+    public String getToMappingField() {
+        return toMappingField;
+    }
+
+    public void setToMappingField(String toMappingField) {
+        this.toMappingField = toMappingField;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }
