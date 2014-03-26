@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import se.visma.bbs.components.Input;
 import se.visma.bbs.components.JsonToPojo;
 import se.visma.bbs.components.UICollection;
 import se.visma.bbs.model.*;
@@ -26,6 +27,8 @@ public class HelloController {
     @Autowired
     private FormService formService;
 
+    private Form form = null;
+
     @RequestMapping(method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         User user = new User();
@@ -42,6 +45,7 @@ public class HelloController {
 
     @RequestMapping(value="/getForm/{id}", method = RequestMethod.GET)
     public @ResponseBody Form getFormById(@PathVariable long id){
+        this.form = formService.getForm(id);
         System.out.println(formService.getForm(id));
         return formService.getForm(id);
     }
@@ -64,8 +68,13 @@ public class HelloController {
 
     @RequestMapping(value = "/previewPost", method = RequestMethod.POST)
     public @ResponseBody void previewForm(@RequestParam(value = "data") String jsonStr){
-        System.out.println(jsonStr);
 
+
+        for(int i = 0; i < form.size(); i++){
+            System.out.println(form.getForm().get(i).getClass());
+            System.out.println(form.getForm().get(i).getUniqueId());
+
+        }
 
         Map<String,String> map = new HashMap<String,String>();
         ObjectMapper mapper = new ObjectMapper();

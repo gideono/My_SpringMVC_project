@@ -14,7 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CalculationField extends UITemplate{
 
-    private int uniqueId = 0;
+    private long uniqueId = 0;
     private String label = null;
     private List<Languages> labelLanguage = new ArrayList<Languages>();
     private String mappingOperation = null;
@@ -30,7 +30,7 @@ public class CalculationField extends UITemplate{
         this.type = this.getClass().getSimpleName().toLowerCase();
     }
 
-    public int getUniqueId() {
+    public long getUniqueId() {
         return uniqueId;
     }
 

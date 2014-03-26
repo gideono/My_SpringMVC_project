@@ -28,4 +28,11 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
 public abstract class UITemplate {
     private long uniqueId;
 
+    public long getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(long uniqueId) {
+        this.uniqueId = uniqueId;
+    }
 }
