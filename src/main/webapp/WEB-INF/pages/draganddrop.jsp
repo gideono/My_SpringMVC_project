@@ -32,6 +32,13 @@
     #sortableList li span { position: absolute; margin-left: -1.3em; }
 
 </style>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+        </div>
+    </div>
+</nav>
 
 <div class="container">
 
@@ -927,7 +934,11 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
 
+<<<<<<< HEAD
                 var htmlDomComponent = " "+formComponentData.label+" : <div class='form-group'> "+ getRadioOptions(formComponentData.addedOptions, formComponentData.uniqueId) +" </div>";
+=======
+                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' name='"+ getRadioOptions(formComponentData.addedOptions) +"' type='"+ formComponentData.type +"'> </input></div>";
+>>>>>>> 1d4c13fc5638d5d6b6e692dd6049547fb25ae79b
                 addToPreviewForm(htmlDomComponent);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -1245,6 +1256,10 @@ $(document).ready(function(){
     function getComboOptions(arrayData){
         var htmlOption = " ";
         for(var i = 0; i < arrayData.length ; i++){
+<<<<<<< HEAD
+=======
+            //console.log("i is: " + i);
+>>>>>>> 1d4c13fc5638d5d6b6e692dd6049547fb25ae79b
             htmlOption += "<option value='"+arrayData[i].text+"'>"+arrayData[i].text+"</option>";
         }
         return htmlOption;
