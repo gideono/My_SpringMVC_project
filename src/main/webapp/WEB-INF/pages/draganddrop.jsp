@@ -1408,13 +1408,16 @@ $(document).ready(function(){
                 Observable.set("labelLanguage", arr);
             });
 
+
             $(".editRow").click(function(){
-                console.log("clicked");
-//                var row = $(this).closest("li").attr("id");
+                var row = $(this).closest("li").attr("id");
+                console.log(row);
+
 //                $(this).closest('li').remove();
 //                arr.splice( $.inArray(row, arr), 1 );
 //                Observable.set("labelLanguage", arr);
             });
+
         }
     };
 
@@ -1429,8 +1432,9 @@ $(document).ready(function(){
                 $("#optionList ul").append("<li id='"+ index +"'>index:"+ index +" Text: "+ value.text +" "+" Value: "+ value.value +" " +
                         "Return: "+ value.returnValue +" Num value: "+ value.numValue +" Txt value: "+ value.txtValue +" English: "+ value.english +" Finnish: "+ value.finnish
                         +" Norwegian: "+ value.norwegian +" German: "+ value.german +" Danish: "+ value.danish +" polish: "+ value.polish +" " +
-                        "Default: "+ value._default +" Invalid: "+ value.invalid +"<button class='deleteRow'>delete</button><button class='editRow'>edit</button></li>");
+                        "Default: "+ value._default +" Invalid: "+ value.invalid +"<button class='deleteRow'>delete</button><button class='editRow'>edit</button><button id="+ 'nr'+ index +" class='saveRow'>save</button></li>");
             });
+            $('.saveRow').attr("disabled", true);
             rowButtons(Observable);
             activateOptionButtons(Observable);
         });
@@ -1449,13 +1453,13 @@ $(document).ready(function(){
 
         function optionTable(Observable){
             var arr = Observable.get("addedOptions");
-            console.log(JSON.stringify(arr));
+           // console.log(JSON.stringify(arr));
             var count = arr.length - 1;
             console.log(" language length: "+count+" and the content " + arr[count].text +" "+arr[count].value);
             $("#optionList ul").append("<li id='"+ count +"'>index:"+ count +" Text: "+ arr[count].text +" "+" Value: "+ arr[count].value +" " +
                     "Return: "+ arr[count].returnValue +" Num value: "+ arr[count].numValue +" Txt value: "+ arr[count].txtValue +" English: "+ arr[count].english +" Finnish: "+ arr[count].finnish
                     +" Norwegian: "+ arr[count].norwegian +" German: "+ arr[count].german +" Danish: "+ arr[count].danish +" polish: "+ arr[count].polish +" " +
-                    "Default: "+ arr[count]._default +" Invalid: "+ arr[count].invalid +"<button class='deleteRow'>delete</button><button class='editRow'>edit</button></li>");
+                    "Default: "+ arr[count]._default +" Invalid: "+ arr[count].invalid +"<button class='deleteRow'>delete</button><button class='editRow'>edit</button><button class='saveRow'>save</button></li>");
             rowButtons(Observable);
 
         }
@@ -1470,11 +1474,49 @@ $(document).ready(function(){
             });
 
             $(".editRow").click(function(){
-                console.log("clicked");
-//                var row = $(this).closest("li").attr("id");
-//                $(this).closest('li').remove();
-//                arr.splice( $.inArray(row, arr), 1 );
-//                Observable.set("labelLanguage", arr);
+                var row = $(this).closest("li").attr("id");
+                var buttonNr = "nr"+row;
+
+                $("#"+buttonNr).attr("disabled", false);
+                $("#optionText").val($(arr).get(row).text);
+                $("#optionValue").val($(arr).get(row).value);
+                $("#optionRtunValue").val($(arr).get(row).returnValue);
+                $("#optionNum").val($(arr).get(row).numValue);
+                $("#optionTxt").val($(arr).get(row).txtValue);
+                $("#optionDef").prop('checked', $(arr).get(row)._default);
+                $("#optionInv").prop('checked', $(arr).get(row).invalid);
+                $("#optionEng").val($(arr).get(row).english);
+                $("#optionFin").val($(arr).get(row).finnish);
+                $("#optionNor").val($(arr).get(row).norwegian);
+                $("#optionGer").val($(arr).get(row).german);
+                $("#optionDan").val($(arr).get(row).danish);
+                $("#optionPol").val($(arr).get(row).polish);
+
+            });
+
+            $(".saveRow").on("click", function(){
+                var row = $(this).closest("li").attr("id");
+                var buttonNr = "nr"+row;
+
+                var option = $(arr).get(row);
+                option["text"] = $("#optionText").val();
+                option["value"] = $("#optionValue").val();
+                option["returnValue"] = $("#optionRtunValue").val();
+                option["numValue"] = $("#optionNum").val();
+                option["txtValue"] = $("#optionTxt").val();
+                option["_default"] = $("#optionDef").is(':checked');
+                option["invalid"] = $("#optionInv").is(':checked');
+                option["english"] = $("#optionEng").val();
+                option["finnish"] = $("#optionFin").val();
+                option["norwegian"] = $("#optionNor").val();
+                option["german"] = $("#optionGer").val();
+                option["danish"] = $("#optionDan").val();
+                option["polish"] = $("#optionPol").val();
+
+                arr.splice( $.inArray(row, arr), 0 );
+                Observable.set("labelLanguage", arr);
+                console.log(JSON.stringify(Observable.addedOptions));
+                $("#"+buttonNr).attr("disabled", true);
             });
         }
     };
@@ -2440,7 +2482,6 @@ $(document).ready(function(){
     </div>
 </script>
 
-
 <script id="label-language-template" type="text/x-kendoui-template">
     <div class="row">
         <div class="col-md-8">
@@ -2472,46 +2513,46 @@ $(document).ready(function(){
         <div class="col-md-4">
 
             <label>Text(default)</label>
-            <input type="text" data-bind="value: newOption.text" class="form-control">
+            <input id="optionText" type="text" data-bind="value: newOption.text" class="form-control">
 
             <label>Value(mapping)</label>
-            <input type="text" data-bind="value: newOption.value" class="form-control">
+            <input id="optionValue" type="text" data-bind="value: newOption.value" class="form-control">
 
             <label>Return value(default)</label>
-            <input type="text" data-bind="value: newOption.returnValue" class="form-control">
+            <input id="optionRtunValue" type="text" data-bind="value: newOption.returnValue" class="form-control">
 
             <label>Num.Value(mapping)</label>
-            <input type="text" data-bind="value: newOption.numValue" class="form-control">
+            <input id="optionNum" type="text" data-bind="value: newOption.numValue" class="form-control">
 
             <label>Txt value(mapping)</label>
-            <input type="text" data-bind="value: newOption.txtValue" class="form-control">
+            <input id="optionTxt" type="text" data-bind="value: newOption.txtValue" class="form-control">
 
             <label>Default</label>
-            <input type="checkbox" data-bind="checked: newOption._default">
+            <input id="optionDef" type="checkbox" data-bind="checked: newOption._default">
 
             <label>Invalid</label>
-            <input type="checkbox" data-bind="checked: newOption.invalid">
+            <input id="optionInv" type="checkbox" data-bind="checked: newOption.invalid">
 
         </div>
 
         <div class="col-md-4">
             <label>English</label>
-            <input type="text" data-bind="value: newOption.english" class="form-control">
+            <input id="optionEng" type="text" data-bind="value: newOption.english" class="form-control">
 
             <label>Finnish</label>
-            <input type="text" data-bind="value: newOption.finnish" class="form-control">
+            <input id="optionFin" type="text" data-bind="value: newOption.finnish" class="form-control">
 
             <label>Norwegian</label>
-            <input type="text" data-bind="value: newOption.norwegian" class="form-control">
+            <input id="optionNor" type="text" data-bind="value: newOption.norwegian" class="form-control">
 
             <label>German</label>
-            <input type="text" data-bind="value: newOption.german" class="form-control">
+            <input id="optionGer" type="text" data-bind="value: newOption.german" class="form-control">
 
             <label>Danish</label>
-            <input type="text" data-bind="value: newOption.danish" class="form-control">
+            <input id="optionDan" type="text" data-bind="value: newOption.danish" class="form-control">
 
             <label>Polish</label>
-            <input type="text" data-bind="value: newOption.polish" class="form-control">
+            <input id="optionPol" type="text" data-bind="value: newOption.polish" class="form-control">
 
         </div>
 
@@ -2522,7 +2563,10 @@ $(document).ready(function(){
 
                 </ul>
             </div>
+            <hr>
         </div>
+
+
 
 
     </div>
