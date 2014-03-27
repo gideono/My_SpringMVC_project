@@ -15,8 +15,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/res/js/jquery-ui-1.10.4.custom.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/res/js/jquery.contextMenu.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/bootstrap.min.css">
-    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/jquery-ui-1.10.4.custom.min.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/jquery-ui-1.10.4.custom.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/jquery.appendGrid-1.3.1.min.css" />
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/jquery.contextMenu.css">
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/res/styles/kendo.common.min.css" />
@@ -35,14 +35,24 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-
+            <a class="navbar-brand" href="#" onclick="false"><img src="../../res/styles/images/visma.png" width="150" height="30"></a>
+            <ul class="nav navbar-nav navbar-left">
+                <li class="dropdown">
+                    <a id="getBtn" href="#" class="dropdown-toggle" data-toggle="dropdown">Get List <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <div id="savedForms">
+                            <div id="formList"></div>
+                        </div>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
 
 <div class="container">
 
-    <h1>jQuery Drag & Drop</h1>
+    <h1>Form Builder</h1>
     <hr>
 
     <div class="row">
@@ -112,15 +122,6 @@
             <button id="previewBtn" class="btn default-btn">Preview</button>
         </div>
     </div>
-
-        <div id="savedForms" class="col-md-4">
-            <h4>Saved forms</h4>
-            <div id="formList">
-            </div>
-            <button id="getBtn" class="btn default-btn">Get List</button>
-        </div>
-
-
 
     <div id="window" style="display: none"> </div>
     <div id="previewWindow" style="display: none">
