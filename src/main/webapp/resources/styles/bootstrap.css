@@ -3022,7 +3022,6 @@ input[type="button"].btn-block {
   border-radius: 4px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-  background-image: linear-gradient(to bottom, #F3F3F3 11%, #DFDFDF 50%, #F3F3F3 90%);
 }
 .dropdown-menu.pull-right {
   right: 0;
