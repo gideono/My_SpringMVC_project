@@ -176,7 +176,7 @@
                 </select>
                 </div>
 
-<<<<<<< HEAD
+
                 <div class="form-group">
                     <label>Text style </label> <select>
                     <option value="bold">Bold</option>
@@ -271,8 +271,7 @@
         </div>
 
 
-=======
->>>>>>> 13229254a9342e24e60dc64c2c6981bf34d1ee7a
+
     </div>
 </div>
 
