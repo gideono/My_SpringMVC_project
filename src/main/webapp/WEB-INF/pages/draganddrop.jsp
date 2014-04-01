@@ -135,18 +135,134 @@
             </div>
 
         </form>
-        <div id="formComponents" class="col-md-6">
+        <div id="formComponents" class="col-md-4">
             <br>
             <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
         </div>
-
-
-
-
-
     </div>
     <div id="labelGrid" style="display: none"> </div>
     <div id="optionGrid" style="display: none"> </div>
+    <div id="gridWindow" style="display: none">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>ID(unique) *</label>  <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Label name(Swedish) *</label>   <input type="text"><button class="langBtn">Languages</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Tooltip </label>  <input type="text"><button class="langBtn" >Languages</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Label width *</label> <input type="text">
+                </div>
+
+                <div class="form-group ">
+                    <label>Label positioning </label> <select>
+                    <option value="vertical">Vertical</option>
+                    <option value="horizontal">Horizontal</option>
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Text style </label> <select>
+                    <option value="bold">Bold</option>
+                    <option value="normal">Normal</option>
+                    <option value="italic">Italic</option>
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Text size </label> <select>
+                    <option value="12">12</option>
+                    <option value="14">14</option>
+                    <option value="18">18</option>
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Text format </label> <select>
+                    <option value="chars">Chars</option>
+                    <option value="numbers">Numbers</option>
+                    <option value="timeformat">Time format</option>
+                    <option value="dateformat">Date format</option>
+                    <option value="emailformat">Email format</option>
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Mandatory information </label><input type="checkbox">
+                </div>
+
+
+            </div>
+
+            <div  class="col-md-4">
+                <div class="form-group">
+                    <label>Component height *</label> <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Component width *</label> <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>In-mapping default value </label> <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>From-mapping field </label> <select>
+                    <option value="chars">Chars</option>
+                    <option value="numbers">Numbers</option>
+                    <option value="timeformat">Time format</option>
+                    <option value="dateformat">Date format</option>
+                    <option value="emailformat">Email format</option>
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <label>To-mapping field </label> <select>
+                    <option value="chars">Chars</option>
+                    <option value="numbers">Numbers</option>
+                    <option value="timeformat">Time format</option>
+                    <option value="dateformat">Date format</option>
+                    <option value="emailformat">Email format</option>
+                </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Print order </label> <input type="text">
+                </div>
+
+                <div class="form-group">
+                    <label>Print on approval mail </label><input type="checkbox">
+                </div>
+
+                <div class="form-group">
+                    <label>Print on order mail </label><input type="checkbox">
+                </div>
+
+                <div class="form-group">
+                    <label>Keep after adding </label><input type="checkbox">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="grid"></div>
+
+        <div class="form-group">
+            <p>NOTE! Important information when adding languages. (Place the mouse pointer here)</p>
+            <p>* Mandatory information</p>
+        </div>
+
+
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -161,7 +277,6 @@ $(document).ready(function(){
     var objectId = null;
     var optionGridCreated = false;
     var languageGridCreated = false;
-    var i;
     var fromToMappingFieldSrc = [
         { name: "Delivary Day" },
         { name: "Price" },
@@ -1296,6 +1411,7 @@ $(document).ready(function(){
         activateOptionWindow(Observable);
         checkBoxbuilder(Observable);
         checkBoxValidation(Observable);
+        gridWin(Observable);
     };
 
     function checkBoxbuilder(Observable){
@@ -1444,6 +1560,7 @@ $(document).ready(function(){
             $("#addOption").click(function(){
                 Observable.get("addedOptions").push(Observable.newOption);
                 Observable.set("newOption", optionTemplate);
+                console.log(JSON.stringify(Observable.addedOptions));
                 optionTable(Observable);
             });
 
@@ -1454,7 +1571,7 @@ $(document).ready(function(){
 
         function optionTable(Observable){
             var arr = Observable.get("addedOptions");
-           // console.log(JSON.stringify(arr));
+            // console.log(JSON.stringify(arr));
             var count = arr.length - 1;
             console.log(" language length: "+count+" and the content " + arr[count].text +" "+arr[count].value);
             $("#optionList ul").append("<li id='"+ count +"'>index:"+ count +" Text: "+ arr[count].text +" "+" Value: "+ arr[count].value +" " +
@@ -1515,7 +1632,7 @@ $(document).ready(function(){
                 option["polish"] = $("#optionPol").val();
 
                 arr.splice( $.inArray(row, arr), 0 );
-                Observable.set("labelLanguage", arr);
+                Observable.set("addedOptions", arr);
                 console.log(JSON.stringify(Observable.addedOptions));
                 $("#"+buttonNr).attr("disabled", true);
             });
@@ -1542,7 +1659,7 @@ $(document).ready(function(){
 
     $("#previewBtn").on("click", function(){
         $('#formComponents').empty();
-       // console.log("lenght of preview form: "+previewForm.length);
+        // console.log("lenght of preview form: "+previewForm.length);
         $.each(previewForm, function(index, list){
             $('#formComponents').append(list);
         });
@@ -1575,8 +1692,105 @@ $(document).ready(function(){
         title: "Form preview"
     }).data("kendoWindow");
 
+    /*****************************************/
+    /*****************Kendo Grid**************/
+    /*****************************************/
+
+    function gridWin(Observable){
+
+        var options = Observable.get("addedOptions");
 
 
+        var dataSource = new kendo.data.DataSource({
+            data: options,
+            transport: {
+                read: function (object) {
+                    object.success(options);
+                },
+                create: function (object) {
+                    var item = object.data;
+                    object.success(item);
+                },
+                update: function (object) {
+                    object.success();
+                },
+                destroy: function (object) {
+                    object.success();
+                }
+            },
+            schema: {
+                model: {
+                    fields: {
+                        text: { validation: { required: true } },
+                        value: { validation: { required: false } },
+                        returnValue: { validation: { required: false } },
+                        numValue: { type: "number", validation: { min: 0, required: false } },
+                        txtValue: { validation: { required: false } },
+                        english: { validation: { required: false } },
+                        finnish: { validation: { required: false } },
+                        norwegian: { validation: { required: false } },
+                        german: { validation: { required: false } },
+                        danish: { validation: { required: false } },
+                        polish: { validation: { required: false } },
+                        _default: { type: "boolean" },
+                        invalid: { type: "boolean" }
+                    }
+                }
+            },
+            change: function (e) {
+                if (e.action === "add") {
+                    console.log(JSON.stringify(e.items[0]));
+                    // console.log(JSON.stringify(options));
+                    console.log(JSON.stringify(JSON.stringify(Observable.addedOptions.length)));
+
+                }
+            }
+        });
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.setDataSource(dataSource);
+
+
+        $("#gridBtn").on("click", function(){
+            $("#gridWindow").data("kendoWindow").center().open();
+        });
+
+    };
+
+
+    $("#grid").kendoGrid({
+        pageable: false,
+        toolbar: ["create"],
+        editable: "popup",
+        resizable: false,
+        columns: [
+            { field: "text", title: "Text" },
+            { field: "value", title: "Value" },
+            { field: "returnValue", title: "Return Value" },
+            { field: "numValue", title: "Num.Value", format: "{0:c}", width: "100px" },
+            { field: "txtValue", title: "Txt Value" },
+
+            { field: "english", title: "English" },
+            { field: "finnish", title: "Finnish" },
+            { field: "norwegian", title: "Norwegian" },
+            { field: "german", title: "German" },
+            { field: "danish", title: "Danish" },
+            { field: "polish", title: "Polish" },
+            { field: "_default" },
+            { field: "invalid" },
+
+            { command: ["edit", "destroy"], title: "&nbsp;", width: "180px" }
+        ]
+    });
+
+    $("#gridWindow").kendoWindow({
+        width: "1300px",
+        height: "650px",
+        resizable: false,
+        modal: true,
+        title: "Language"
+
+    }).data("kendoWindow");
 
 });
 </script>
@@ -2184,6 +2398,8 @@ $(document).ready(function(){
             <label><input id="keepAfterAdding" class="input_cbox" type="checkbox" />Keep after adding</label>
             <hr>
             <button class="btn btn-primary" id="optionBtn" >Add Option</button>
+            <button class="btn btn-primary" id="gridBtn" >Grid</button>
+
             <hr>
             Checked: <input id="checked" class="input_cbox" type="checkbox" data-bind="checked: checked">
             <hr>

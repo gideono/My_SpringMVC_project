@@ -13,6 +13,26 @@ html {
 body {
   margin: 0;
 }
+
+input, select, .langBtn {
+    float:right;
+    clear:both;
+}
+
+
+/*input, select {*/
+    /*display: inline-block;*/
+    /*float: left;*/
+/*}*/
+
+/*label{*/
+    /*display: inline-block;*/
+    /*float: left;*/
+    /*clear: left;*/
+    /*width: 250px;*/
+    /*text-align: right;*/
+/*}*/
+
 article,
 aside,
 details,
