@@ -810,6 +810,7 @@ body .ui-tooltip {
 	color: #ffffff;
 	font-weight: bold;
     border-radius: 5px;
+    overflow: auto;
 }
 .ui-widget-header a {
 	color: #ffffff;

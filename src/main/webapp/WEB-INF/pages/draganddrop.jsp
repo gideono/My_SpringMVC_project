@@ -30,6 +30,7 @@
     #sortableList { list-style-type: none; margin: 0; padding: 0; width: 60%; }
     #sortableList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em;}
     #sortableList li span { position: absolute; margin-left: -1.3em; }
+    .dropTrue { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; background: #eee; padding: 5px; width: 143px; height: 50px; }
 
 </style>
 <nav class="navbar navbar-default" role="navigation">
@@ -54,16 +55,15 @@
 
     <h1>Form Builder</h1>
     <hr>
-
     <div class="row">
         <div class="col-md-4">
 
             <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none; z-index: 10">
-                <textarea></textarea>
+                <textarea style="pointer-events: none"></textarea>
             </div>
 
             <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                option: <input type="checkbox" name="option" value="option">
+                option: <input style="pointer-events: none" type="checkbox" name="option" value="option">
             </div>
 
             <div id="text" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
@@ -75,21 +75,21 @@
             </div>
 
             <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <input type="text">
+                <input style="pointer-events: none" type="text">
             </div>
 
             <div id="datecomp" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <input type="date">
+                <input style="pointer-events: none" type="date">
             </div>
 
             <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <select >
+                <select style="pointer-events: none" >
                     <option value="option">options...</option>
                 </select>
             </div>
 
             <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <button><a href="#" onclick="false"></a>Link Button</button>
+                <button style="pointer-events: none"><a href="#" onclick="false"></a>Link Button</button>
             </div>
 
             <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
@@ -97,7 +97,7 @@
             </div>
 
             <div id="radio" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                Radio Button: <input type="radio" name="group" value="option">
+                Radio Button: <input style="pointer-events: none" type="radio" name="group" value="option">
             </div>
 
             <div id="calculationfield" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
@@ -112,12 +112,20 @@
             <%------------------%>
             <%--Droppable area--%>
             <%------------------%>
-            <div id="droppableArea" class="ui-widget-header" style="width: 740px; height: 500px; padding: 0.5em; margin: 10px;">
-                <ul id="sortableList">
-                </ul>
-            </div>
+                <div id="droppableArea" class="ui-widget-header"
+                     style="width: 740px; height: 500px; padding: 0.5em; margin: 10px;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul id="sortableList" class="dropTrue"></ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul id="sortableList" class="dropTrue"></ul>
+                        </div>
+                    </div>
+                </div>
 
-            <button id="saveBtn" class="btn default-btn">Save</button>
+
+                <button id="saveBtn" class="btn default-btn">Save</button>
             <button id="updateBtn" class="btn default-btn">Update</button>
             <button id="previewBtn" class="btn default-btn">Preview</button>
         </div>
@@ -139,10 +147,6 @@
             <br>
             <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
         </div>
-
-
-
-
 
     </div>
     <div id="labelGrid" style="display: none"> </div>
@@ -262,7 +266,7 @@ $(document).ready(function(){
         var componentData = returnObservableType(droppedComponent.draggable.attr("id"));
 
         if(droppedComponent.draggable.hasClass("draggable")){
-            $("#droppableArea ul").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
+            $("#sortableList").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
             console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             addToPreviewForm(droppedComponent.draggable.html());
@@ -668,9 +672,13 @@ $(document).ready(function(){
         });
     }
 
-    $("#sortableList").sortable({
+    $("ul.dropTrue").sortable({
+        connectWith: 'ul',
+        dropOnEmpty: true,
         revert: true
     });
+
+    $('#sortableList').disableSelection();
 
     function addToPreviewForm(data){
         previewForm.push(data);
@@ -734,7 +742,7 @@ $(document).ready(function(){
         }
         $('#formList li').remove();
         $.each(list, function(index, form) {
-            $('#formList').append('<li><a class="linkable" id='+ form.form_id +' href="javascript:void(0);">'+form.form_id+ " " +form.name+ " "+ form.date+'</a></li>');
+            $('#formList').append('<li><a class="linkable" id='+ form.form_id +' href="#" onclick="false">'+form.form_id+ " " +form.name+ " "+ form.date+'</a></li>');
         });
     };
 
