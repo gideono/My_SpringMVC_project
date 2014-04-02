@@ -21,13 +21,9 @@ body {
 }
 
 .window-footer {
-<<<<<<< HEAD
     position:fixed;
     bottom:0;
-=======
-    position: fixed;
-    bottom: 0;
->>>>>>> e2a768cb082295a86d0ed4ea17f60d270105c7fc
+
 }
 
 /*.langBtn {*/
