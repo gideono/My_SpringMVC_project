@@ -14,10 +14,22 @@ body {
   margin: 0;
 }
 
+<<<<<<< HEAD
 /*input, select, .forced-right {*/
     /*float:right;*/
     /*clear:both;*/
 /*}*/
+=======
+.langBtn {
+    float:right;
+    clear:both;
+}
+
+input, select {
+    float:right;
+    clear:both;
+}
+>>>>>>> bd42d0563b9aa2ceb719f1212bb5dc33735bafbb
 
 /*.langBtn {*/
     /*height: 10px;*/

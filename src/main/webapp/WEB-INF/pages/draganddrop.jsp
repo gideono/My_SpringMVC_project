@@ -152,7 +152,7 @@
     <div id="optionGrid" style="display: none"> </div>
     <div id="gridWindow" style="display: none">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="form-group">
                     <label>ID(unique) *</label>  <input data-bind="value: uniqueId"  type="text">
                 </div>
