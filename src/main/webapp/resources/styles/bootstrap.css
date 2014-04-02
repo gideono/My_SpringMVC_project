@@ -15,11 +15,15 @@ body {
 }
 
 
-/*input, select, .forced-right {*/
-    /*float:right;*/
-    /*clear:both;*/
-/*}*/
+.forced-right {
+    float:right;
+    clear:both;
+}
 
+.window-footer {
+    position: fixed;
+    bottom: 0;
+}
 
 /*.langBtn {*/
     /*height: 10px;*/
