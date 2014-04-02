@@ -1852,94 +1852,124 @@ $(document).ready(function(){
 <%------------------%>
 
 <script id="text-configuration-menu" type="text/x-kendoui-template">
-    <div role="form" style="width: 750px">
-        <h1>Text</h1>
-        <div class="form-group">
-            <label >ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId" class="form-control"  >
+    <h1>Text</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label >ID (Unigue):</label>
+                <input type="text" data-bind="value: uniqueId" class="forced-right"  >
+            </div>
 
-            <label for="swe-text">Text(Swedish):</label>
-            <input type="text" data-bind="value: label" class="form-control">
-            <button id="swe-textBtn">Language</button>
-        </div>
-        <div class="form-group">
-            <label >Label width</label>
-            <input type="text" data-bind="value: labelWidth" class="form-control" >
+            <div class="form-group">
+                <label for="swe-text">Text(Swedish):</label>
+                <input type="text" data-bind="value: label" class="forced-right">
+                <button id="swe-textBtn" class="forced-right">Language</button>
+            </div>
 
-            <hr>
-            <label >Text style:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textStyleSrc, value: textStyle"></select>
+            <div class="form-group">
+                <label >Label width</label>
+                <input type="text" data-bind="value: labelWidth" class="forced-right" >
+            </div>
 
-            <hr>
-            <label >Text size:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textSizeSrc, value: textSize"></select>
+            <div class="form-group">
+                <label >Text style:</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textStyleSrc, value: textStyle"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label >Text size:</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                 data-text-field="name"
+                                                 data-value-field="value"
+                                                 data-bind="source: textSizeSrc, value: textSize"></select></div>
+            </div>
+
         </div>
-        <div class="form-group">
-            <button class="btn btn-default" id="btnOK">OK</button>
-            <button class="btn btn-default">Cancel</button>
+
+        <div class="col-md-8 window-footer ">
+            <div class="form-group">
+                <p>* Mandatory information</p>
+            </div>
+            <div class="form-group forced-right">
+                <button class="btn btn-default " id="btnOK" >OK</button>
+                <button class="btn btn-default ">Cancel</button>
+            </div>
+
         </div>
+
     </div>
 </script>
 
 <script id="link-configuration-menu" type="text/x-kendoui-template">
     <div role="form" style="width: 750px">
         <h1>Link</h1>
+
         <div class="form-group">
             <label>ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId" class="form-control"  >
-
-            <label for="swe-text">Text(Swedish):</label>
-            <input type="text" data-bind="value: label" class="form-control">
-            <button id="swe-textBtn">Language</button>
-
-            <hr>
-
-            <label>Tooltip</label>
-            <input type="text" data-bind="value: toolTips" class="form-control">
+            <input type="text" data-bind="value: uniqueId" class="forced-right"  >
         </div>
+
+        <div class="form-group">
+            <label for="swe-text">Text(Swedish):</label>
+            <input type="text" data-bind="value: label" class="forced-right">
+            <button id="swe-textBtn" class="forced-right">Language</button>
+        </div>
+
+        <div class="form-group">
+            <label>Tooltip</label>
+            <input type="text" data-bind="value: toolTips" class="forced-right">
+        </div>
+
         <div class="form-group">
             <label>Label width</label>
-            <input type="text" data-bind="value: labelWidth" class="form-control" >
+            <input type="text" data-bind="value: labelWidth" class="forced-right" >
+        </div>
 
             <div class="form-group">
-                <hr>
                 <label>Label positioning</label>
-                <select data-role="dropdownlist"
+                <div class="forced-right"><select data-role="dropdownlist"
                         data-text-field="name"
                         data-value-field="value"
-                        data-bind="source: labelPositionSrc, value: labelPosition"></select>
+                        data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
             </div>
-            <hr>
-            <label>Text style:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textStyleSrc, value: textStyle"></select>
-            <hr>
-            <label>Text size:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textSizeSrc, value: textSize"></select>
-            <hr>
-            <label>Text format</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textFormatSrc, value: textFormat"></select>
-            <hr>
-            <label>Component width</label>
-            <input type="text" data-bind="value: componentWidth" class="form-control">
 
-            <label>URL:</label>
-            <input type="text" data-bind="value: url" class="form-control">
+        <div class="form-group">
+            <label>Text style:</label>
+            <div class="forced-right"><select data-role="dropdownlist"
+                    data-text-field="name"
+                    data-value-field="value"
+                    data-bind="source: textStyleSrc, value: textStyle"></select></div>
         </div>
+
+        <div class="form-group">
+            <label>Text size:</label>
+            <div class="forced-right"><select data-role="dropdownlist"
+                    data-text-field="name"
+                    data-value-field="value"
+                    data-bind="source: textSizeSrc, value: textSize"></select></div>
+            </div>
+
+        <div class="form-group">
+            <label>Text format</label>
+            <div class="forced-right"><select data-role="dropdownlist"
+                    data-text-field="name"
+                    data-value-field="value"
+                    data-bind="source: textFormatSrc, value: textFormat"></select></div>
+            </div>
+
+        <div class="form-group">
+            <label>Component width</label>
+            <input type="text" data-bind="value: componentWidth" class="forced-right">
+        </div>
+
+        <div class="form-group">
+            <label>URL:</label>
+            <input type="text" data-bind="value: url" class="forced-right">
+        </div>
+
         <div class="form-group">
             <button class="btn btn-default" id="btnOK" >OK</button>
             <button class="btn btn-default">Cancel</button>
@@ -1948,107 +1978,162 @@ $(document).ready(function(){
 </script>
 
 
-
 <script id="input-configuration-menu" type="text/x-kendoui-template">
-    <div style="width: 750px">
-        <h1>Input</h1>
-        <div class="form-group">
-            <label for="uniqeu-id">ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId"  class="form-control">
+    <h1>Input</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="uniqeu-id">ID (Unigue):</label>
+                <input type="text" data-bind="value: uniqueId" class="forced-right">
+            </div>
 
-            <label for="swe-text">Text(Swedish):</label>
-            <input type="text" data-bind="value: label" class="form-control">
-            <button id="swe-textBtn">Language</button>
+            <div class="form-group">
+                <label for="swe-text">Text(Swedish):</label>
+                <input type="text" data-bind="value: label" class="forced-right">
+                <button id="swe-textBtn" class="forced-right">Language</button>
+            </div>
 
-            <hr>
+            <div class="form-group">
+                <label for="tooltip">Tooltip:</label>
+                <input type="text" data-bind="value: toolTips" class="forced-right">
+                <button id="tooltipBtn" class="forced-right">Language</button>
+            </div>
 
-            <label for="tooltip">Tooltip:</label>
-            <input type="text" data-bind="value: toolTips" class="form-control">
-            <button id="tooltipBtn" >Language</button>
+            <div class="form-group">
+                <label for="unique-id">Label width:</label>
+                <input type="text" data-bind="value:  labelWidth" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="labelPositioning">Label Positioning:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: labelPositionSrc, value: labelPosition"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textStyle">Text style:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textStyleSrc, value: textStyle"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="textSize">Text Size:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textSizeSrc, value: textSize"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="textFormat">Text format:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textFormatSrc, value: textFormat"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label>Mandatory Info</label>
+                <input id="mandatoryInfo" class="input_cbox forced-right" type="checkbox" value="Apple"/>
+            </div>
+
+            <div class="form-group">
+                <label>Person Number</label>
+                <input id="personNumber" class="input_cbox forced-right" type="checkbox" value="Banana"/>
+            </div>
 
         </div>
-        <div class="form-group">
-            <label for="uniqeu-id">Label width:</label>
-            <input type="text" data-bind="value:  labelWidth" class="form-control">
 
-            <hr>
-            <label for="labelPositioning">Label Positioning:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: labelPositionSrc, value: labelPosition"></select>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="componentHeight">Component Height:</label>
+                <input type="text" data-bind="value: componentHeight" class="forced-right">
+            </div>
 
-            <label for="textStyle">Text style:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textStyleSrc, value: textStyle"></select>
-            <hr>
+            <div class="form-group">
+                <label for="componentWidth">Component Width:</label>
+                <input type="text" data-bind="value: componentWidth" class="forced-right">
+            </div>
 
-            <label for="textSize">Text Size:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textSizeSrc, value: textSize"></select>
+            <div class="form-group">
+                <label for="inMappingDefValue">In-mapping default value:</label>
+                <input type="text" data-bind="value: inMappingDefValue" class="forced-right">
+            </div>
 
-            <label for="textFormat">Text format:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textFormatSrc, value: textFormat"></select>
-            <hr>
+            <div class="form-group">
+                <label for="fromMappingField">From-mapping field:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="toMappingField">To-mapping field:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="printOrder">Print order:</label>
+                <input type="text" data-bind="value: printOrder" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="inputLength">input Length:</label>
+                <input type="text" data-bind="value: inputLength" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label>Print on approval mail</label>
+                <input id="printOnApprovalMail" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
+            <div class="form-group">
+                <label>Print on order mail</label>
+                <input id="printOnOrderMail" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
+            <div class="form-group">
+                <label>Read-only</label>
+                <input id="readOnly" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
+            <div class="form-group">
+                <label>Do not show</label>
+                <input id="doNotShow" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+            <div class="form-group">
+                <label>Keep after adding</label>
+                <input id="keepAfterAdding" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
         </div>
-        <div class="form-group">
-            <label><input id="mandatoryInfo" class="input_cbox" type="checkbox" value="Apple"  />Mandatory Info</label>
-            <label><input id="personNumber" class="input_cbox"  type="checkbox" value="Banana"  />Person Number</label>
-        </div>
-        <hr>
-        <div class="form-group">
-            <label for="componentHeight">Component Height:</label>
-            <input type="text" data-bind="value: componentHeight" class="form-control">
 
-            <label for="componentWidth">Component Width:</label>
-            <input type="text" data-bind="value: componentWidth" class="form-control">
+        <div class="col-md-8 window-footer ">
+            <div class="form-group">
+                <p>* Mandatory information</p>
+            </div>
 
-            <label for="inMappingDefValue">In-mapping default value:</label>
-            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
-
-            <hr>
-
-            <label for="fromMappingField">From-mapping field:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
-
-            <label for="toMappingField">To-mapping field:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
-
-            <hr>
-
-            <label for="printOrder">Print order:</label>
-            <input type="text" data-bind="value: printOrder" class="form-control">
-
-            <label for="inputLength">input Length:</label>
-            <input type="text" data-bind="value: inputLength" class="form-control">
-        </div>
-        <div class="form-group">
-            <hr>
-            <label><input id="printOnApprovalMail" class="input_cbox" type="checkbox" />Print on approval mail</label>
-            <label><input id="printOnOrderMail" class="input_cbox"  type="checkbox" />Print on order mail</label>
-
-            <label><input id="readOnly" class="input_cbox" type="checkbox" />Read-only</label>
-            <label><input id="doNotShow" class="input_cbox"  type="checkbox" />Do not show</label>
-
-            <label><input id="keepAfterAdding" class="input_cbox" type="checkbox" />Keep after adding</label>
-            <hr>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-default" id="btnOK" >OK</button>
-            <button class="btn btn-default">Cancel</button>
+            <div class="form-group forced-right">
+                <button class="btn btn-default " id="btnOK">OK</button>
+                <button class="btn btn-default ">Cancel</button>
+            </div>
         </div>
     </div>
 </script>
@@ -2669,99 +2754,148 @@ $(document).ready(function(){
 </script>
 
 <script id="textarea-configuration-menu" type="text/x-kendoui-template">
-    <div style="width: 750px">
-        <h1>Textarea</h1>
-        <div class="form-group">
-            <label>ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId"  class="form-control">
+    <h1>Input</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="uniqeu-id">ID (Unigue):</label>
+                <input type="text" data-bind="value: uniqueId" class="forced-right">
+            </div>
 
-            <label>Text(Swedish):</label>
-            <input type="text" data-bind="value: label" class="form-control">
-            <button id="swe-textBtn">Language</button>
+            <div class="form-group">
+                <label for="swe-text">Text(Swedish):</label>
+                <input type="text" data-bind="value: label" class="forced-right">
+                <button id="swe-textBtn" class="forced-right">Language</button>
+            </div>
 
-            <hr>
+            <div class="form-group">
+                <label for="tooltip">Tooltip:</label>
+                <input type="text" data-bind="value: toolTips" class="forced-right">
+                <button id="tooltipBtn" class="forced-right">Language</button>
+            </div>
 
-            <label>Tooltip:</label>
-            <input type="text" data-bind="value: toolTips" class="form-control">
-            <button id="tooltipBtn" >Language</button>
+            <div class="form-group">
+                <label for="unique-id">Label width:</label>
+                <input type="text" data-bind="value:  labelWidth" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="labelPositioning">Label Positioning:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: labelPositionSrc, value: labelPosition"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="textStyle">Text style:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textStyleSrc, value: textStyle"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="textSize">Text Size:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textSizeSrc, value: textSize"></select></div>
+            </div>
+
+
+            <div class="form-group">
+                <label>Mandatory Info</label>
+                <input id="mandatoryInfo" class="input_cbox forced-right" type="checkbox" value="Apple"/>
+            </div>
 
         </div>
-        <div class="form-group">
-            <label>Label width:</label>
-            <input type="text" data-bind="value:  labelWidth" class="form-control">
 
-            <hr>
-            <label>Label Positioning:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: labelPositionSrc, value: labelPosition"></select>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="componentHeight">Component Height:</label>
+                <input type="text" data-bind="value: componentHeight" class="forced-right">
+            </div>
 
-            <label>Text style:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textStyleSrc, value: textStyle"></select>
-            <hr>
+            <div class="form-group">
+                <label for="componentWidth">Component Width:</label>
+                <input type="text" data-bind="value: componentWidth" class="forced-right">
+            </div>
 
-            <label>Text Size:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textSizeSrc, value: textSize"></select>
+            <div class="form-group">
+                <label for="inMappingDefValue">In-mapping default value:</label>
+                <input type="text" data-bind="value: inMappingDefValue" class="forced-right">
+            </div>
 
-            <hr>
+            <div class="form-group">
+                <label for="fromMappingField">From-mapping field:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="toMappingField">To-mapping field:</label>
+
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="printOrder">Print order:</label>
+                <input type="text" data-bind="value: printOrder" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="inputLength">input Length:</label>
+                <input type="text" data-bind="value: inputLength" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label>Print on approval mail</label>
+                <input id="printOnApprovalMail" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
+            <div class="form-group">
+                <label>Print on order mail</label>
+                <input id="printOnOrderMail" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
+            <div class="form-group">
+                <label>Read-only</label>
+                <input id="readOnly" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
+            <div class="form-group">
+                <label>Do not show</label>
+                <input id="doNotShow" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+            <div class="form-group">
+                <label>Keep after adding</label>
+                <input id="keepAfterAdding" class="input_cbox forced-right" type="checkbox"/>
+            </div>
+
         </div>
-        <div class="form-group">
-            <label><input id="mandatoryInfo" class="input_cbox" type="checkbox" value="Apple"  />Mandatory Info</label>
-        </div>
-        <hr>
-        <div class="form-group">
-            <label>Component Height:</label>
-            <input type="text" data-bind="value: componentHeight" class="form-control">
 
-            <label>Component Width:</label>
-            <input type="text" data-bind="value: componentWidth" class="form-control">
+        <div class="col-md-8 window-footer ">
+            <div class="form-group">
+                <p>* Mandatory information</p>
+            </div>
 
-            <label>In-mapping default value:</label>
-            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
-
-            <hr>
-
-            <label>From-mapping field:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
-
-            <label>To-mapping field:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
-
-            <hr>
-
-            <label>Print order:</label>
-            <input type="text" data-bind="value: printOrder" class="form-control">
-
-            <label>input Length:</label>
-            <input type="text" data-bind="value: inputLength" class="form-control">
-        </div>
-        <div class="form-group">
-            <hr>
-            <label><input id="printOnApprovalMail" class="input_cbox" type="checkbox" />Print on approval mail</label>
-            <label><input id="printOnOrderMail" class="input_cbox"  type="checkbox" />Print on order mail</label>
-
-            <label><input id="readOnly" class="input_cbox" type="checkbox" />Read-only</label>
-            <label><input id="doNotShow" class="input_cbox"  type="checkbox" />Do not show</label>
-
-            <label><input id="keepAfterAdding" class="input_cbox" type="checkbox" />Keep after adding</label>
-            <hr>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-default" id="btnOK" >OK</button>
-            <button class="btn btn-default">Cancel</button>
+            <div class="form-group forced-right">
+                <button class="btn btn-default " id="btnOK">OK</button>
+                <button class="btn btn-default ">Cancel</button>
+            </div>
         </div>
     </div>
 </script>
