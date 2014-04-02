@@ -14,11 +14,15 @@ body {
   margin: 0;
 }
 
-input, select, .langBtn {
-    float:right;
-    clear:both;
-}
+/*input, select, .forced-right {*/
+    /*float:right;*/
+    /*clear:both;*/
+/*}*/
 
+/*.langBtn {*/
+    /*height: 10px;*/
+    /*width: 65px;*/
+/*}*/
 
 /*input, select {*/
     /*display: inline-block;*/

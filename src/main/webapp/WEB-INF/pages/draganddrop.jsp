@@ -154,57 +154,75 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label>ID(unique) *</label>  <input type="text">
+                    <label>ID(unique) *</label>  <input data-bind="value: uniqueId"  type="text">
                 </div>
 
                 <div class="form-group">
-                    <label>Label name(Swedish) *</label>   <input type="text"><button class="langBtn">Languages</button>
+                    <label>Label name(Swedish) *</label>   <input type="text" data-bind="value: label"><button class="forced-right" >Languages</button>
                 </div>
 
                 <div class="form-group">
-                    <label>Tooltip </label>  <input type="text"><button class="langBtn" >Languages</button>
+                    <label>Tooltip </label>  <input type="text" data-bind="value: toolTips"><button class="forced-right" >Languages</button>
                 </div>
 
                 <div class="form-group">
-                    <label>Label width *</label> <input type="text">
+                    <label>Label width *</label> <input type="text" data-bind="value:  labelWidth">
                 </div>
 
                 <div class="form-group ">
-                    <label>Label positioning </label> <select>
-                    <option value="vertical">Vertical</option>
-                    <option value="horizontal">Horizontal</option>
-                </select>
+                    <label>Label positioning </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                              data-text-field="name"
+                                                              data-value-field="value"
+                                                              data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
+                    <%--<select>--%>
+                    <%--<option value="vertical">Vertical</option>--%>
+                    <%--<option value="horizontal">Horizontal</option>--%>
+                <%--</select>--%>
                 </div>
 
 
                 <div class="form-group">
-                    <label>Text style </label> <select>
-                    <option value="bold">Bold</option>
-                    <option value="normal">Normal</option>
-                    <option value="italic">Italic</option>
-                </select>
+                    <label>Text style </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                       data-text-field="name"
+                                                       data-value-field="value"
+                                                       data-bind="source: textStyleSrc, value: textStyle"></select></div>
+                    <%--<select>--%>
+                    <%--<option value="bold">Bold</option>--%>
+                    <%--<option value="normal">Normal</option>--%>
+                    <%--<option value="italic">Italic</option>--%>
+                <%--</select>--%>
                 </div>
 
                 <div class="form-group">
-                    <label>Text size </label> <select>
-                    <option value="12">12</option>
-                    <option value="14">14</option>
-                    <option value="18">18</option>
-                </select>
+                    <label>Text size </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                      data-text-field="name"
+                                                      data-value-field="value"
+                                                      data-bind="source: textSizeSrc, value: textSize"></select></div>
+
+                    <%--<select>--%>
+                    <%--<option value="12">12</option>--%>
+                    <%--<option value="14">14</option>--%>
+                    <%--<option value="18">18</option>--%>
+                <%--</select>--%>
                 </div>
 
                 <div class="form-group">
-                    <label>Text format </label> <select>
-                    <option value="chars">Chars</option>
-                    <option value="numbers">Numbers</option>
-                    <option value="timeformat">Time format</option>
-                    <option value="dateformat">Date format</option>
-                    <option value="emailformat">Email format</option>
-                </select>
+                    <label>Text format </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                        data-text-field="name"
+                                                        data-value-field="value"
+                                                        data-bind="source: textFormatSrc, value: textFormat"></select></div>
+
+                    <%--<select>--%>
+                    <%--<option value="chars">Chars</option>--%>
+                    <%--<option value="numbers">Numbers</option>--%>
+                    <%--<option value="timeformat">Time format</option>--%>
+                    <%--<option value="dateformat">Date format</option>--%>
+                    <%--<option value="emailformat">Email format</option>--%>
+                <%--</select>--%>
                 </div>
 
                 <div class="form-group">
-                    <label>Mandatory information </label><input type="checkbox">
+                    <label>Mandatory information </label><input id="mandatoryInfo" type="checkbox" class="input_cbox" >
                 </div>
 
 
@@ -212,51 +230,60 @@
 
             <div  class="col-md-4">
                 <div class="form-group">
-                    <label>Component height *</label> <input type="text">
+                    <label>Component height *</label> <input type="text" data-bind="value: componentHeight">
                 </div>
 
                 <div class="form-group">
-                    <label>Component width *</label> <input type="text">
+                    <label>Component width *</label> <input type="text" data-bind="value: componentWidth">
                 </div>
 
                 <div class="form-group">
-                    <label>In-mapping default value </label> <input type="text">
+                    <label>In-mapping default value </label> <input type="text" data-bind="value: inMappingDefValue" >
                 </div>
 
                 <div class="form-group">
-                    <label>From-mapping field </label> <select>
-                    <option value="chars">Chars</option>
-                    <option value="numbers">Numbers</option>
-                    <option value="timeformat">Time format</option>
-                    <option value="dateformat">Date format</option>
-                    <option value="emailformat">Email format</option>
-                </select>
+                    <label>From-mapping field </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                               data-text-field="name"
+                                                               data-value-field="value"
+                                                               data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select></div>
+
+                    <%--<select>--%>
+                    <%--<option value="chars">Chars</option>--%>
+                    <%--<option value="numbers">Numbers</option>--%>
+                    <%--<option value="timeformat">Time format</option>--%>
+                    <%--<option value="dateformat">Date format</option>--%>
+                    <%--<option value="emailformat">Email format</option>--%>
+                <%--</select>--%>
                 </div>
 
                 <div class="form-group">
-                    <label>To-mapping field </label> <select>
-                    <option value="chars">Chars</option>
-                    <option value="numbers">Numbers</option>
-                    <option value="timeformat">Time format</option>
-                    <option value="dateformat">Date format</option>
-                    <option value="emailformat">Email format</option>
-                </select>
+                    <label>To-mapping field </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                             data-text-field="name"
+                                                             data-value-field="value"
+                                                             data-bind="source: toMappingFieldSrc, value: toMappingField"></select></div>
+                    <%--<select>--%>
+                    <%--<option value="chars">Chars</option>--%>
+                    <%--<option value="numbers">Numbers</option>--%>
+                    <%--<option value="timeformat">Time format</option>--%>
+                    <%--<option value="dateformat">Date format</option>--%>
+                    <%--<option value="emailformat">Email format</option>--%>
+                <%--</select>--%>
                 </div>
 
                 <div class="form-group">
-                    <label>Print order </label> <input type="text">
+                    <label>Print order </label> <input type="text" data-bind="value: printOrder">
                 </div>
 
                 <div class="form-group">
-                    <label>Print on approval mail </label><input type="checkbox">
+                    <label>Print on approval mail </label><input id="printOnApprovalMail" type="checkbox" class="input_cbox" >
                 </div>
 
                 <div class="form-group">
-                    <label>Print on order mail </label><input type="checkbox">
+                    <label>Print on order mail </label><input id="printOnOrderMail" type="checkbox" class="input_cbox" >
                 </div>
 
                 <div class="form-group">
-                    <label>Keep after adding </label><input type="checkbox">
+                    <label>Keep after adding </label><input id="keepAfterAdding" type="checkbox" class="input_cbox" >
                 </div>
 
             </div>
@@ -389,7 +416,7 @@ $(document).ready(function(){
         if(droppedComponent.draggable.hasClass("draggable")){
             $("#sortableList").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
-            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+            //console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             addToPreviewForm(droppedComponent.draggable.html());
         }
     };
@@ -1419,7 +1446,12 @@ $(document).ready(function(){
         var configHtml = configurationView.render();
         kendo.bind(configHtml, Observable);
         $("#window").html(configHtml);
-        $("#window").data("kendoWindow").center().open();
+        if(Observable.type == "checkbox"){
+            $("#gridWindow").data("kendoWindow").center().open();
+        }else{
+            $("#window").data("kendoWindow").center().open();
+
+        }
         activateWindowKeyFunction(e);
         activateLabelWindow(Observable);
         activateOptionWindow(Observable);
@@ -1456,6 +1488,8 @@ $(document).ready(function(){
             $("#window").focus();
         }
         $("#btnOK").click(function(){
+            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+
             $("#window").data("kendoWindow").close();
         });
     }
@@ -1764,6 +1798,7 @@ $(document).ready(function(){
         var grid = $("#grid").data("kendoGrid");
         grid.setDataSource(dataSource);
 
+        kendo.bind($("#gridWindow"), Observable);
 
         $("#gridBtn").on("click", function(){
             $("#gridWindow").data("kendoWindow").center().open();
@@ -2213,11 +2248,11 @@ $(document).ready(function(){
     <div style="width: 750px">
         <h1>Input</h1>
         <div class="form-group">
-            <label for="uniqeu-id">ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId"  class="form-control">
+            <label for="unique-id">ID (Unigue):</label>
+            <input type="text" data-bind="value: uniqueId"  >
 
             <label for="swe-text">Text(Swedish):</label>
-            <input type="text" data-bind="value: label" class="form-control">
+            <input type="text" data-bind="value: label" >
             <button id="swe-textBtn">Language</button>
 
             <hr>
@@ -2228,7 +2263,7 @@ $(document).ready(function(){
 
         </div>
         <div class="form-group">
-            <label for="uniqeu-id">Label width:</label>
+            <label for="unique-id">Label width:</label>
             <input type="text" data-bind="value:  labelWidth" class="form-control">
 
             <hr>
@@ -2797,12 +2832,12 @@ $(document).ready(function(){
             <hr>
         </div>
 
-
-
-
     </div>
     <button id="addOption"  class="k-button">add</button>
     <button id="cancelOption" class="btn btn-default">Cancel</button>
 </script>
+
+
+
 </body>
 </html>
