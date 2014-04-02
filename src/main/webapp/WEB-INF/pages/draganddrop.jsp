@@ -53,253 +53,252 @@
 
 <div class="container">
 
-    <h1>Form Builder</h1>
-    <hr>
+<h1>Form Builder</h1>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+
+        <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none; z-index: 10">
+            <textarea style="pointer-events: none"></textarea>
+        </div>
+
+        <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            option: <input style="pointer-events: none" type="checkbox" name="option" value="option">
+        </div>
+
+        <div id="text" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <p style="pointer-events: none">Text</p>
+        </div>
+
+        <div id="link" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <a href="#" onclick="false">Link text</a>
+        </div>
+
+        <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <input style="pointer-events: none" type="text">
+        </div>
+
+        <div id="datecomp" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <input style="pointer-events: none" type="date">
+        </div>
+
+        <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <select style="pointer-events: none" >
+                <option value="option">options...</option>
+            </select>
+        </div>
+
+        <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <button style="pointer-events: none"><a href="#" onclick="false"></a>Link Button</button>
+        </div>
+
+        <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <p style="pointer-events: none;">Image</p>
+        </div>
+
+        <div id="radio" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            Radio Button: <input style="pointer-events: none" type="radio" name="group" value="option">
+        </div>
+
+        <div id="calculationfield" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <p style="pointer-events: none;">Calculation field</p>
+        </div>
+
+        <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <%------------------%>
+        <%--Droppable area--%>
+        <%------------------%>
+        <div id="droppableArea" class="ui-widget-header"
+             style="width: 740px; height: 500px; padding: 0.5em; margin: 10px;">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul id="sortableList" class="dropTrue"></ul>
+                </div>
+                <div class="col-md-6">
+                    <ul id="sortableList" class="dropTrue"></ul>
+                </div>
+            </div>
+        </div>
+
+
+        <button id="saveBtn" class="btn default-btn">Save</button>
+        <button id="updateBtn" class="btn default-btn">Update</button>
+        <button id="previewBtn" class="btn default-btn">Preview</button>
+    </div>
+</div>
+
+<div id="window" style="display: none"> </div>
+<div id="previewWindow" style="display: none">
+
+    <h2>Form</h2>
+    <form action="" method="post">
+        <div id="formComponents" class="col-md-6"></div>
+        <div id="formComponents" class="col-md-6">
+            <hr>
+            <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
+        </div>
+
+    </form>
+    <div id="formComponents" class="col-md-4">
+        <br>
+        <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
+    </div>
+</div>
+<div id="labelGrid" style="display: none"> </div>
+<div id="optionGrid" style="display: none"> </div>
+<div id="gridWindow" style="display: none">
     <div class="row">
         <div class="col-md-4">
-
-            <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none; z-index: 10">
-                <textarea style="pointer-events: none"></textarea>
+            <div class="form-group">
+                <label>ID(unique) *</label>  <input data-bind="value: uniqueId"  type="text">
             </div>
 
-            <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                option: <input style="pointer-events: none" type="checkbox" name="option" value="option">
+            <div class="form-group">
+                <label>Label name(Swedish) *</label>   <input type="text" data-bind="value: label"><button class="forced-right" >Languages</button>
             </div>
 
-            <div id="text" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <p style="pointer-events: none">Text</p>
+            <div class="form-group">
+                <label>Tooltip </label>  <input type="text" data-bind="value: toolTips"><button class="forced-right" >Languages</button>
             </div>
 
-            <div id="link" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <a href="#" onclick="false">Link text</a>
+            <div class="form-group">
+                <label>Label width *</label> <input type="text" data-bind="value:  labelWidth">
             </div>
 
-            <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <input style="pointer-events: none" type="text">
+            <div class="form-group ">
+                <label>Label positioning </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                                                    data-text-field="name"
+                                                                                    data-value-field="value"
+                                                                                    data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
+                <%--<select>--%>
+                <%--<option value="vertical">Vertical</option>--%>
+                <%--<option value="horizontal">Horizontal</option>--%>
+                <%--</select>--%>
             </div>
 
-            <div id="datecomp" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <input style="pointer-events: none" type="date">
+
+            <div class="form-group">
+                <label>Text style </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                                             data-text-field="name"
+                                                                             data-value-field="value"
+                                                                             data-bind="source: textStyleSrc, value: textStyle"></select></div>
+                <%--<select>--%>
+                <%--<option value="bold">Bold</option>--%>
+                <%--<option value="normal">Normal</option>--%>
+                <%--<option value="italic">Italic</option>--%>
+                <%--</select>--%>
             </div>
 
-            <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <select style="pointer-events: none" >
-                    <option value="option">options...</option>
-                </select>
+            <div class="form-group">
+                <label>Text size </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                                            data-text-field="name"
+                                                                            data-value-field="value"
+                                                                            data-bind="source: textSizeSrc, value: textSize"></select></div>
+
+                <%--<select>--%>
+                <%--<option value="12">12</option>--%>
+                <%--<option value="14">14</option>--%>
+                <%--<option value="18">18</option>--%>
+                <%--</select>--%>
             </div>
 
-            <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <button style="pointer-events: none"><a href="#" onclick="false"></a>Link Button</button>
+            <div class="form-group">
+                <label>Text format </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                                              data-text-field="name"
+                                                                              data-value-field="value"
+                                                                              data-bind="source: textFormatSrc, value: textFormat"></select></div>
+
+                <%--<select>--%>
+                <%--<option value="chars">Chars</option>--%>
+                <%--<option value="numbers">Numbers</option>--%>
+                <%--<option value="timeformat">Time format</option>--%>
+                <%--<option value="dateformat">Date format</option>--%>
+                <%--<option value="emailformat">Email format</option>--%>
+                <%--</select>--%>
             </div>
 
-            <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <p style="pointer-events: none;">Image</p>
+            <div class="form-group">
+                <label>Mandatory information </label><input id="mandatoryInfo" type="checkbox" class="input_cbox" >
             </div>
 
-            <div id="radio" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                Radio Button: <input style="pointer-events: none" type="radio" name="group" value="option">
-            </div>
 
-            <div id="calculationfield" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <p style="pointer-events: none;">Calculation field</p>
-            </div>
-
-            <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-                <input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
-            </div>
         </div>
-        <div class="col-md-6">
-            <%------------------%>
-            <%--Droppable area--%>
-            <%------------------%>
-                <div id="droppableArea" class="ui-widget-header"
-                     style="width: 740px; height: 500px; padding: 0.5em; margin: 10px;">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <ul id="sortableList" class="dropTrue"></ul>
-                        </div>
-                        <div class="col-md-6">
-                            <ul id="sortableList" class="dropTrue"></ul>
-                        </div>
-                    </div>
-                </div>
 
+        <div  class="col-md-4">
+            <div class="form-group">
+                <label>Component height *</label> <input type="text" data-bind="value: componentHeight">
+            </div>
 
-                <button id="saveBtn" class="btn default-btn">Save</button>
-            <button id="updateBtn" class="btn default-btn">Update</button>
-            <button id="previewBtn" class="btn default-btn">Preview</button>
+            <div class="form-group">
+                <label>Component width *</label> <input type="text" data-bind="value: componentWidth">
+            </div>
+
+            <div class="form-group">
+                <label>In-mapping default value </label> <input type="text" data-bind="value: inMappingDefValue" >
+            </div>
+
+            <div class="form-group">
+                <label>From-mapping field </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                                                     data-text-field="name"
+                                                                                     data-value-field="value"
+                                                                                     data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select></div>
+
+                <%--<select>--%>
+                <%--<option value="chars">Chars</option>--%>
+                <%--<option value="numbers">Numbers</option>--%>
+                <%--<option value="timeformat">Time format</option>--%>
+                <%--<option value="dateformat">Date format</option>--%>
+                <%--<option value="emailformat">Email format</option>--%>
+                <%--</select>--%>
+            </div>
+
+            <div class="form-group">
+                <label>To-mapping field </label> <div class="forced-right"><select data-role="dropdownlist"
+                                                                                   data-text-field="name"
+                                                                                   data-value-field="value"
+                                                                                   data-bind="source: toMappingFieldSrc, value: toMappingField"></select></div>
+                <%--<select>--%>
+                <%--<option value="chars">Chars</option>--%>
+                <%--<option value="numbers">Numbers</option>--%>
+                <%--<option value="timeformat">Time format</option>--%>
+                <%--<option value="dateformat">Date format</option>--%>
+                <%--<option value="emailformat">Email format</option>--%>
+                <%--</select>--%>
+            </div>
+
+            <div class="form-group">
+                <label>Print order </label> <input type="text" data-bind="value: printOrder">
+            </div>
+
+            <div class="form-group">
+                <label>Print on approval mail </label><input id="printOnApprovalMail" type="checkbox" class="input_cbox" >
+            </div>
+
+            <div class="form-group">
+                <label>Print on order mail </label><input id="printOnOrderMail" type="checkbox" class="input_cbox" >
+            </div>
+
+            <div class="form-group">
+                <label>Keep after adding </label><input id="keepAfterAdding" type="checkbox" class="input_cbox" >
+            </div>
+
         </div>
+
     </div>
 
-    <div id="window" style="display: none"> </div>
-    <div id="previewWindow" style="display: none">
+    <div id="grid"></div>
 
-        <h2>Form</h2>
-        <form action="" method="post">
-            <div id="formComponents" class="col-md-6"></div>
-            <div id="formComponents" class="col-md-6">
-                <hr>
-                <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
-            </div>
-
-        </form>
-        <div id="formComponents" class="col-md-4">
-            <br>
-            <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
-        </div>
+    <div class="form-group">
+        <p>* Mandatory information</p>
     </div>
-    <div id="labelGrid" style="display: none"> </div>
-    <div id="optionGrid" style="display: none"> </div>
-    <div id="gridWindow" style="display: none">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label>ID(unique) *</label>  <input data-bind="value: uniqueId"  type="text">
-                </div>
-
-                <div class="form-group">
-                    <label>Label name(Swedish) *</label>   <input type="text" data-bind="value: label"><button class="forced-right" >Languages</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Tooltip </label>  <input type="text" data-bind="value: toolTips"><button class="forced-right" >Languages</button>
-                </div>
-
-                <div class="form-group">
-                    <label>Label width *</label> <input type="text" data-bind="value:  labelWidth">
-                </div>
-
-                <div class="form-group ">
-                    <label>Label positioning </label> <div class="forced-right"><select data-role="dropdownlist"
-                                                              data-text-field="name"
-                                                              data-value-field="value"
-                                                              data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
-                    <%--<select>--%>
-                    <%--<option value="vertical">Vertical</option>--%>
-                    <%--<option value="horizontal">Horizontal</option>--%>
-                <%--</select>--%>
-                </div>
-
-
-                <div class="form-group">
-                    <label>Text style </label> <div class="forced-right"><select data-role="dropdownlist"
-                                                       data-text-field="name"
-                                                       data-value-field="value"
-                                                       data-bind="source: textStyleSrc, value: textStyle"></select></div>
-                    <%--<select>--%>
-                    <%--<option value="bold">Bold</option>--%>
-                    <%--<option value="normal">Normal</option>--%>
-                    <%--<option value="italic">Italic</option>--%>
-                <%--</select>--%>
-                </div>
-
-                <div class="form-group">
-                    <label>Text size </label> <div class="forced-right"><select data-role="dropdownlist"
-                                                      data-text-field="name"
-                                                      data-value-field="value"
-                                                      data-bind="source: textSizeSrc, value: textSize"></select></div>
-
-                    <%--<select>--%>
-                    <%--<option value="12">12</option>--%>
-                    <%--<option value="14">14</option>--%>
-                    <%--<option value="18">18</option>--%>
-                <%--</select>--%>
-                </div>
-
-                <div class="form-group">
-                    <label>Text format </label> <div class="forced-right"><select data-role="dropdownlist"
-                                                        data-text-field="name"
-                                                        data-value-field="value"
-                                                        data-bind="source: textFormatSrc, value: textFormat"></select></div>
-
-                    <%--<select>--%>
-                    <%--<option value="chars">Chars</option>--%>
-                    <%--<option value="numbers">Numbers</option>--%>
-                    <%--<option value="timeformat">Time format</option>--%>
-                    <%--<option value="dateformat">Date format</option>--%>
-                    <%--<option value="emailformat">Email format</option>--%>
-                <%--</select>--%>
-                </div>
-
-                <div class="form-group">
-                    <label>Mandatory information </label><input id="mandatoryInfo" type="checkbox" class="input_cbox" >
-                </div>
-
-
-            </div>
-
-            <div  class="col-md-4">
-                <div class="form-group">
-                    <label>Component height *</label> <input type="text" data-bind="value: componentHeight">
-                </div>
-
-                <div class="form-group">
-                    <label>Component width *</label> <input type="text" data-bind="value: componentWidth">
-                </div>
-
-                <div class="form-group">
-                    <label>In-mapping default value </label> <input type="text" data-bind="value: inMappingDefValue" >
-                </div>
-
-                <div class="form-group">
-                    <label>From-mapping field </label> <div class="forced-right"><select data-role="dropdownlist"
-                                                               data-text-field="name"
-                                                               data-value-field="value"
-                                                               data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select></div>
-
-                    <%--<select>--%>
-                    <%--<option value="chars">Chars</option>--%>
-                    <%--<option value="numbers">Numbers</option>--%>
-                    <%--<option value="timeformat">Time format</option>--%>
-                    <%--<option value="dateformat">Date format</option>--%>
-                    <%--<option value="emailformat">Email format</option>--%>
-                <%--</select>--%>
-                </div>
-
-                <div class="form-group">
-                    <label>To-mapping field </label> <div class="forced-right"><select data-role="dropdownlist"
-                                                             data-text-field="name"
-                                                             data-value-field="value"
-                                                             data-bind="source: toMappingFieldSrc, value: toMappingField"></select></div>
-                    <%--<select>--%>
-                    <%--<option value="chars">Chars</option>--%>
-                    <%--<option value="numbers">Numbers</option>--%>
-                    <%--<option value="timeformat">Time format</option>--%>
-                    <%--<option value="dateformat">Date format</option>--%>
-                    <%--<option value="emailformat">Email format</option>--%>
-                <%--</select>--%>
-                </div>
-
-                <div class="form-group">
-                    <label>Print order </label> <input type="text" data-bind="value: printOrder">
-                </div>
-
-                <div class="form-group">
-                    <label>Print on approval mail </label><input id="printOnApprovalMail" type="checkbox" class="input_cbox" >
-                </div>
-
-                <div class="form-group">
-                    <label>Print on order mail </label><input id="printOnOrderMail" type="checkbox" class="input_cbox" >
-                </div>
-
-                <div class="form-group">
-                    <label>Keep after adding </label><input id="keepAfterAdding" type="checkbox" class="input_cbox" >
-                </div>
-
-            </div>
-
-        </div>
-
-        <div id="grid"></div>
-
-        <div class="form-group">
-            <p>NOTE! Important information when adding languages. (Place the mouse pointer here)</p>
-            <p>* Mandatory information</p>
-        </div>
 
 
 
-    </div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -695,7 +694,6 @@ $(document).ready(function(){
             textFormat: "Chars",
             textFormatSrc: textFormatSrc,
             mandatoryInfo: false,
-            personNumber: false,
             componentHeight: 18,
             componentWidth: 150,
             inMappingDefValue: "",
@@ -1233,7 +1231,6 @@ $(document).ready(function(){
                     textFormat: formComponentData.textFormat,
                     textFormatSrc: textFormatSrc,
                     mandatoryInfo: formComponentData.mandatoryInfo,
-                    personNumber: formComponentData.personNumber,
                     componentHeight: formComponentData.componentHeight,
                     componentWidth: formComponentData.componentWidth,
                     inMappingDefValue: formComponentData.inMappingDefValue,
@@ -1496,7 +1493,7 @@ $(document).ready(function(){
 
     $("#window").kendoWindow({
         title: "Window",
-        width: "800px",
+        width: "1300px",
         height: "600px",
         modal: true,
         visible: false
@@ -2211,140 +2208,217 @@ $(document).ready(function(){
 </script>
 
 <script id="calc-configuration-menu" type="text/x-kendoui-template">
-    <div role="form" style="width: 750px">
-        <h1>Text</h1>
-        <div class="form-group">
-            <label >ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId" class="form-control"  >
+    <div role="row" >
 
-            <label for="swe-text">Text(Swedish):</label>
-            <input type="text" data-bind="value: label" class="form-control">
-            <button id="swe-textBtn">Language</button>
+        <div class="col-md-8">
+            <h3>Input</h3>
         </div>
-        <div class="form-group">
-            <label> Mapping Operation</label>
-            <textarea  type="text" data-bind="value: mappingOperation" class="form-control" ></textarea>
 
-            <hr>
-            <label for="toMappingField">To-mapping field:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
-            <hr>
-            <label for="printOrder">Print order:</label>
-            <input type="text" data-bind="value: printOrder" class="form-control">
-            <label><input id="printOnApprovalMail" class="input_cbox" type="checkbox" />Print on approval mail</label>
-            <label><input id="printOnOrderMail" class="input_cbox"  type="checkbox" />Print on order mail</label>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="unique-id">ID (Unigue) *</label>
+                <input type="text" data-bind="value: uniqueId" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="swe-text">Text(Swedish) *</label>
+                <input type="text" data-bind="value: label" class="forced-right">
+                <button id="swe-textBtn" class="forced-right">Language</button>
+            </div>
+
+            <div class="form-group">
+                <label> Mapping Operation</label>
+                <textarea  type="text" data-bind="value: mappingOperation"  class="forced-right"></textarea>
+            </div>
         </div>
-        <div class="form-group">
-            <button class="btn btn-default" id="btnOK">OK</button>
-            <button class="btn btn-default">Cancel</button>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="toMappingField">To-mapping field</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: toMappingFieldSrc, value: toMappingField"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="printOrder">Print order</label>
+                <input type="text" data-bind="value: printOrder" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label>Print on approval mail</label><input id="printOnApprovalMail" class="input_cbox forced-right" type="checkbox" />
+            </div>
+
+            <div class="form-group">
+                <label>Print on order mail</label><input id="printOnOrderMail" class="input_cbox forced-right"  type="checkbox" />
+            </div>
         </div>
+
+        <div class="col-md-8 window-footer ">
+            <div class="form-group">
+                <p>* Mandatory information</p>
+            </div>
+
+            <div class="form-group forced-right">
+                <button class="btn btn-default " id="btnOK" >OK</button>
+                <button class="btn btn-default ">Cancel</button>
+            </div>
+        </div>
+
     </div>
 </script>
 
 <script id="supp-configuration-menu" type="text/x-kendoui-template">
-    <div style="width: 750px">
-        <h1>Input</h1>
-        <div class="form-group">
-            <label for="unique-id">ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId"  >
+    <div class="row">
 
-            <label for="swe-text">Text(Swedish):</label>
-            <input type="text" data-bind="value: label" >
-            <button id="swe-textBtn">Language</button>
+        <div class="col-md-8">
+            <h3>Input</h3>
+        </div>
 
-            <hr>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="unique-id">ID (Unigue) *</label>
+                <input type="text" data-bind="value: uniqueId" class="forced-right">
+            </div>
 
-            <label for="tooltip">Tooltip:</label>
-            <input type="text" data-bind="value: toolTips" class="form-control">
-            <button id="tooltipBtn" >Language</button>
+            <div class="form-group">
+                <label for="swe-text">Text(Swedish) *</label>
+                <input type="text" data-bind="value: label" class="forced-right">
+                <button id="swe-textBtn" class="forced-right">Language</button>
+            </div>
+
+            <div class="form-group">
+                <label for="tooltip">Tooltip</label>
+                <input type="text" data-bind="value: toolTips" class="forced-right">
+                <button id="tooltipBtn" class="forced-right">Language</button>
+            </div>
+
+
+            <div class="form-group">
+                <label for="unique-id">Label width *</label>
+                <input type="text" data-bind="value:  labelWidth" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="labelPositioning">Label Positioning:</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="textStyle">Text style</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textStyleSrc, value: textStyle"></select></div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="textSize">Text Size</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textSizeSrc, value: textSize"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="textFormat">Text format</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textFormatSrc, value: textFormat"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label>Mandatory Info</label>
+                <div class="forced-right"><input id="mandatoryInfo" class="input_cbox" type="checkbox" value="Apple"/></div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="componentHeight">Component Height *</label>
+                <input type="text" data-bind="value: componentHeight" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="componentWidth">Component Width *</label>
+                <input type="text" data-bind="value: componentWidth" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="inMappingDefValue">In-mapping default value</label>
+                <input type="text" data-bind="value: inMappingDefValue" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="fromMappingField">From-mapping field</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="toMappingField">To-mapping field</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: toMappingFieldSrc, value: toMappingField"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label for="printOrder">Print order</label>
+                <input type="text" data-bind="value: printOrder" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label for="inputLength">input Length *</label>
+                <input type="text" data-bind="value: inputLength" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label>Print on approval mail</label><input id="printOnApprovalMail" class="input_cbox forced-right" type="checkbox" />
+            </div>
+
+            <div class="form-group">
+                <label>Print on order mail</label><input id="printOnOrderMail" class="input_cbox forced-right"  type="checkbox" />
+            </div>
+
+            <div class="form-group">
+                <label>Read-only</label><input id="readOnly" class="input_cbox forced-right" type="checkbox" />
+            </div>
+
+            <div class="form-group">
+                <label>Do not show</label><input id="doNotShow" class="input_cbox forced-right"  type="checkbox" />
+            </div>
+
+            <div class="form-group">
+                <label>Keep after adding</label><input id="keepAfterAdding" class="input_cbox forced-right" type="checkbox" />
+            </div>
 
         </div>
-        <div class="form-group">
-            <label for="unique-id">Label width:</label>
-            <input type="text" data-bind="value:  labelWidth" class="form-control">
 
-            <hr>
-            <label for="labelPositioning">Label Positioning:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: labelPositionSrc, value: labelPosition"></select>
 
-            <label for="textStyle">Text style:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textStyleSrc, value: textStyle"></select>
-            <hr>
+        <div class="col-md-8 window-footer ">
+            <div class="form-group">
+                <p>NOTE! Important information when adding languages. (Place the mouse pointer here)</p>
+                <p>* Mandatory information</p>
+            </div>
+            <div class="form-group forced-right">
+                <button class="btn btn-default " id="btnOK" >OK</button>
+                <button class="btn btn-default ">Cancel</button>
+            </div>
 
-            <label for="textSize">Text Size:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textSizeSrc, value: textSize"></select>
-
-            <label for="textFormat">Text format:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textFormatSrc, value: textFormat"></select>
-            <hr>
         </div>
-        <div class="form-group">
-            <label><input id="mandatoryInfo" class="input_cbox" type="checkbox" value="Apple"  />Mandatory Info</label>
-            <label><input id="personNumber" class="input_cbox"  type="checkbox" value="Banana"  />Person Number</label>
-        </div>
-        <hr>
-        <div class="form-group">
-            <label for="componentHeight">Component Height:</label>
-            <input type="text" data-bind="value: componentHeight" class="form-control">
 
-            <label for="componentWidth">Component Width:</label>
-            <input type="text" data-bind="value: componentWidth" class="form-control">
+    </div>
 
-            <label for="inMappingDefValue">In-mapping default value:</label>
-            <input type="text" data-bind="value: inMappingDefValue" class="form-control">
-
-            <hr>
-
-            <label for="fromMappingField">From-mapping field:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: fromMappingFieldSrc, value: fromMappingField"></select>
-
-            <label for="toMappingField">To-mapping field:</label>
-            <select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: toMappingFieldSrc, value: toMappingField"></select>
-
-            <hr>
-
-            <label for="printOrder">Print order:</label>
-            <input type="text" data-bind="value: printOrder" class="form-control">
-
-            <label for="inputLength">input Length:</label>
-            <input type="text" data-bind="value: inputLength" class="form-control">
-        </div>
-        <div class="form-group">
-            <hr>
-            <label><input id="printOnApprovalMail" class="input_cbox" type="checkbox" />Print on approval mail</label>
-            <label><input id="printOnOrderMail" class="input_cbox"  type="checkbox" />Print on order mail</label>
-
-            <label><input id="readOnly" class="input_cbox" type="checkbox" />Read-only</label>
-            <label><input id="doNotShow" class="input_cbox"  type="checkbox" />Do not show</label>
-
-            <label><input id="keepAfterAdding" class="input_cbox" type="checkbox" />Keep after adding</label>
-            <hr>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-default" id="btnOK" >OK</button>
-            <button class="btn btn-default">Cancel</button>
-        </div>
     </div>
 </script>
 
