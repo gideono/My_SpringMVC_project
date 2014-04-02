@@ -14,7 +14,12 @@ body {
   margin: 0;
 }
 
-input, select, .langBtn {
+.langBtn {
+    float:right;
+    clear:both;
+}
+
+input, select {
     float:right;
     clear:both;
 }
