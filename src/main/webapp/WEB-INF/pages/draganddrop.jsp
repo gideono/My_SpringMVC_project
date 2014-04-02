@@ -1840,7 +1840,7 @@ $(document).ready(function(){
         height: "650px",
         resizable: false,
         modal: true,
-        title: "Language"
+        title: "Component configuration window"
 
     }).data("kendoWindow");
 
