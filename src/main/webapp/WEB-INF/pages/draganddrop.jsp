@@ -108,17 +108,20 @@
             <input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
         </div>
     </div>
+
+    <%------------------%>
+    <%--Droppable area--%>
+    <%------------------%>
+
     <div class="col-md-6">
-        <%------------------%>
-        <%--Droppable area--%>
-        <%------------------%>
+
         <div id="droppableArea" class="ui-widget-header"
              style="width: 740px; height: 500px; padding: 0.5em; margin: 10px;">
             <div class="row">
-                <div class="col-md-6">
+                <div id="firstColumn" class="col-md-6">
                     <ul id="sortableList" class="dropTrue"></ul>
                 </div>
-                <div class="col-md-6">
+                <div id="secondColumn" class="col-md-6">
                     <ul id="sortableList" class="dropTrue"></ul>
                 </div>
             </div>
@@ -130,6 +133,10 @@
         <button id="previewBtn" class="btn default-btn">Preview</button>
     </div>
 </div>
+
+<%------------------%>
+<%---Kendo windows--%>
+<%------------------%>
 
 <div id="window" style="display: none"> </div>
 <div id="previewWindow" style="display: none">
@@ -312,6 +319,7 @@ $(document).ready(function(){
     var objectId = null;
     var optionGridCreated = false;
     var languageGridCreated = false;
+    var column = null;
     var fromToMappingFieldSrc = [
         { name: "Delivary Day" },
         { name: "Price" },
@@ -414,7 +422,7 @@ $(document).ready(function(){
         if(droppedComponent.draggable.hasClass("draggable")){
             $("#sortableList").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
-            //console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             addToPreviewForm(droppedComponent.draggable.html());
         }
     };
@@ -485,7 +493,8 @@ $(document).ready(function(){
             type: type,
             textSize: 12,
             textSizeSrc: textSizeSrc,
-            viewToCall: "text-configuration-menu"
+            viewToCall: "text-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -508,7 +517,8 @@ $(document).ready(function(){
             componentWidth: 150,
             type: type,
             url: "http://",
-            viewToCall: "link-configuration-menu"
+            viewToCall: "link-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -545,7 +555,8 @@ $(document).ready(function(){
             readOnly: false,
             doNotShow: false,
             keepAfterAdding: false,
-            viewToCall: "input-configuration-menu"
+            viewToCall: "input-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -585,7 +596,8 @@ $(document).ready(function(){
             addedOptions: [],
             newOption: optionTemplate,
             viewToCall: "combobox-configuration-menu",
-            gridView: true
+            gridView: true,
+            column: "firstColumn"
         });
     }
 
@@ -626,7 +638,8 @@ $(document).ready(function(){
             addedOptions: [],
             newOption: optionTemplate,
             viewToCall: "radio-configuration-menu",
-            gridView: true
+            gridView: true,
+            column: "firstColumn"
         });
     }
 
@@ -639,7 +652,8 @@ $(document).ready(function(){
             toolTips: "A Simple Tooltip",
             url: "http://",
             type: type,
-            viewToCall: "linkbutton-configuration-menu"
+            viewToCall: "linkbutton-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -656,7 +670,8 @@ $(document).ready(function(){
             componentWidth: 150,
             imageResize: "Crop",
             imageResizeSrc: imageResizeSrc,
-            viewToCall: "image-configuration-menu"
+            viewToCall: "image-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -673,7 +688,8 @@ $(document).ready(function(){
             printOrder: "Otto",
             printOnApprovalMail: false,
             printOnOrderMail: false,
-            viewToCall: "calc-configuration-menu"
+            viewToCall: "calc-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -709,7 +725,8 @@ $(document).ready(function(){
             readOnly: false,
             doNotShow: false,
             keepAfterAdding: false,
-            viewToCall: "supp-configuration-menu"
+            viewToCall: "supp-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -750,7 +767,8 @@ $(document).ready(function(){
             newOption: optionTemplate,
             checked: false,
             viewToCall: "checkbox-configuration-menu",
-            gridView: true
+            gridView: true,
+            column: "firstColumn"
         });
     }
 
@@ -784,7 +802,8 @@ $(document).ready(function(){
             readOnly: false,
             doNotShow: false,
             keepAfterAdding: false,
-            viewToCall: "textarea-configuration-menu"
+            viewToCall: "textarea-configuration-menu",
+            column: "firstColumn"
         });
     }
 
@@ -816,14 +835,30 @@ $(document).ready(function(){
             printOnApprovalMail: false,
             printOnOrderMail: false,
             keepAfterAdding: false,
-            viewToCall: "datecomp-configuration-menu"
+            viewToCall: "datecomp-configuration-menu",
+            column: "firstColumn"
         });
     }
 
     $("ul.dropTrue").sortable({
         connectWith: 'ul',
         dropOnEmpty: true,
-        revert: true
+        revert: true,
+        receive: function(event, ui) {
+            //console.log("[" + $(this).id + "] received [" + ui.item.html() + "] from [" + ui.sender.attr("id") + "]");
+
+            column = $(this).closest("div").attr("id")
+
+            console.log(column);
+
+            var observableId = $(ui.item).closest("li").attr("id")
+
+            for (var i = 0; i < form.length; i++) {
+                if(form[i].uniqueId == observableId){
+                    form[i].set("column", column);
+                }
+            }
+        }
     });
 
     $('#sortableList').disableSelection();
@@ -936,7 +971,7 @@ $(document).ready(function(){
         console.log(formComponentData.type);
         switch (formComponentData.type){
             case "text":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
@@ -961,7 +996,7 @@ $(document).ready(function(){
                 break;
 
             case "link":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><a href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></li>");
 
@@ -988,13 +1023,14 @@ $(document).ready(function(){
                     textFormatSrc: textFormatSrc,
                     componentWidth: formComponentData.componentWidth,
                     url: formComponentData.url,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 form.push(componentData);
                 break;
 
             case "input":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
 
@@ -1032,14 +1068,15 @@ $(document).ready(function(){
                     readOnly: formComponentData.readOnly,
                     doNotShow: formComponentData.doNotShow,
                     keepAfterAdding: formComponentData.keepAfterAdding,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
                 break;
 
             case "combobox":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getComboOptions(formComponentData.addedOptions)+"</select></li>");
 
@@ -1081,7 +1118,8 @@ $(document).ready(function(){
                     addedOptions: formComponentData.addedOptions,
                     newOption: optionTemplate,
                     viewToCall: formComponentData.viewToCall,
-                    gridView: true
+                    gridView: true,
+                    column: formComponentData.column
 
                 });
                 checkBoxValidation(componentData);
@@ -1089,7 +1127,7 @@ $(document).ready(function(){
                 break;
 
             case "radio":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
 
@@ -1132,7 +1170,8 @@ $(document).ready(function(){
                     addedOptions: formComponentData.addedOptions,
                     newOption: optionTemplate,
                     viewToCall: formComponentData.viewToCall,
-                    gridView: true
+                    gridView: true,
+                    column: formComponentData.column
 
                 });
                 checkBoxValidation(componentData);
@@ -1140,7 +1179,7 @@ $(document).ready(function(){
                 break;
 
             case "linkbutton":
-                $('#sortableList').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><a href='"+ formComponentData.url+ "'><button>"+ formComponentData.label +"</button></a></li>");
 
@@ -1155,13 +1194,14 @@ $(document).ready(function(){
                     labelLanguage: formComponentData.labelLanguage,
                     toolTips: formComponentData.toolTips,
                     url: formComponentData.url,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 form.push(componentData);
                 break;
 
             case "image":
-                $('#sortableList').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id=" + formComponentData.uniqueId + " class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span><img src='"+ formComponentData.url+ "'></li>");
 
@@ -1180,13 +1220,14 @@ $(document).ready(function(){
                     componentWidth: formComponentData.componentWidth,
                     imageResize: formComponentData.imageResize,
                     imageResizeSrc: imageResizeSrc,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 form.push(componentData);
                 break;
 
             case "calculationfield":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> <div>"+ formComponentData.label +" </div></li>");
 
@@ -1206,14 +1247,15 @@ $(document).ready(function(){
                     printOrder: formComponentData.printOrder,
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
                     printOnOrderMail: formComponentData.printOnOrderMail,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
                 break;
 
             case "suppcelector":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
 
@@ -1251,14 +1293,15 @@ $(document).ready(function(){
                     readOnly: formComponentData.readOnly,
                     doNotShow: formComponentData.doNotShow,
                     keepAfterAdding: formComponentData.keepAfterAdding,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
                 break;
 
             case "checkbox":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' type='checkbox'></input></li>");
 
@@ -1300,14 +1343,15 @@ $(document).ready(function(){
                     keepAfterAdding: formComponentData.keepAfterAdding,
                     addedOptions: formComponentData.addedOptions,
                     checked: formComponentData.checked,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
                 break;
 
             case "textarea":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $'#'+formComponentData.column+' ul'.append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"'></textarea></li>");
 
@@ -1343,14 +1387,15 @@ $(document).ready(function(){
                     readOnly: formComponentData.readOnly,
                     doNotShow: formComponentData.doNotShow,
                     keepAfterAdding: formComponentData.keepAfterAdding,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
                 break;
 
             case "datecomp":
-                $('#sortableList').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='date'></input></li>");
 
@@ -1384,12 +1429,12 @@ $(document).ready(function(){
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
                     printOnOrderMail: formComponentData.printOnOrderMail,
                     keepAfterAdding: formComponentData.keepAfterAdding,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
                 break;
-
         }
 
     };
@@ -1882,9 +1927,9 @@ $(document).ready(function(){
             <div class="form-group">
                 <label >Text size:</label>
                 <div class="forced-right"><select data-role="dropdownlist"
-                                                 data-text-field="name"
-                                                 data-value-field="value"
-                                                 data-bind="source: textSizeSrc, value: textSize"></select></div>
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textSizeSrc, value: textSize"></select></div>
             </div>
 
         </div>
@@ -1928,37 +1973,37 @@ $(document).ready(function(){
             <input type="text" data-bind="value: labelWidth" class="forced-right" >
         </div>
 
-            <div class="form-group">
-                <label>Label positioning</label>
-                <div class="forced-right"><select data-role="dropdownlist"
-                        data-text-field="name"
-                        data-value-field="value"
-                        data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
-            </div>
+        <div class="form-group">
+            <label>Label positioning</label>
+            <div class="forced-right"><select data-role="dropdownlist"
+                                              data-text-field="name"
+                                              data-value-field="value"
+                                              data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
+        </div>
 
         <div class="form-group">
             <label>Text style:</label>
             <div class="forced-right"><select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textStyleSrc, value: textStyle"></select></div>
+                                              data-text-field="name"
+                                              data-value-field="value"
+                                              data-bind="source: textStyleSrc, value: textStyle"></select></div>
         </div>
 
         <div class="form-group">
             <label>Text size:</label>
             <div class="forced-right"><select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textSizeSrc, value: textSize"></select></div>
-            </div>
+                                              data-text-field="name"
+                                              data-value-field="value"
+                                              data-bind="source: textSizeSrc, value: textSize"></select></div>
+        </div>
 
         <div class="form-group">
             <label>Text format</label>
             <div class="forced-right"><select data-role="dropdownlist"
-                    data-text-field="name"
-                    data-value-field="value"
-                    data-bind="source: textFormatSrc, value: textFormat"></select></div>
-            </div>
+                                              data-text-field="name"
+                                              data-value-field="value"
+                                              data-bind="source: textFormatSrc, value: textFormat"></select></div>
+        </div>
 
         <div class="form-group">
             <label>Component width</label>

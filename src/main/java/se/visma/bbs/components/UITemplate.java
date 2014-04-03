@@ -30,6 +30,7 @@ public abstract class UITemplate {
     private String fromMappingField = null;
     private String toMappingField = null;
     private String value = null;
+    private String column = null;
 
     public long getUniqueId() {
         return uniqueId;
@@ -61,5 +62,13 @@ public abstract class UITemplate {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getColumn() {
+        return column;
+    }
+
+    public void setColumn(String column) {
+        this.column = column;
     }
 }
