@@ -23,7 +23,10 @@ body {
 .window-footer {
     position:fixed;
     bottom:0;
+}
 
+.datecomp {
+    height: 25px;
 }
 
 /*.langBtn {*/
