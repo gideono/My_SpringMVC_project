@@ -1351,7 +1351,7 @@ $(document).ready(function(){
                 break;
 
             case "textarea":
-                $'#'+formComponentData.column+' ul'.append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"'></textarea></li>");
 
