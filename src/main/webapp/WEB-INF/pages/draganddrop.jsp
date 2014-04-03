@@ -28,7 +28,7 @@
 <style>
 
     #sortableList { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #sortableList li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em;}
+    #sortableList li { margin: 0 3px 0px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em;}
     #sortableList li span { position: absolute; margin-left: -1.3em; }
     .dropTrue { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; background: #eee; padding: 5px; width: 143px; height: 50px; }
 
@@ -79,7 +79,7 @@
         </div>
 
         <div id="datecomp" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <input style="pointer-events: none" type="date">
+            <input class="datecomp" style="pointer-events: none" type="date">
         </div>
 
         <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
@@ -104,7 +104,7 @@
             <p style="pointer-events: none;">Calculation field</p>
         </div>
 
-        <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+        <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em;  z-index: 10">
             <input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
         </div>
     </div>
