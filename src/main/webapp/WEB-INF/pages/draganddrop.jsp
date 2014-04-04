@@ -872,7 +872,7 @@ $(document).ready(function(){
         });
     }
 
-<<<<<<< HEAD
+
     function createEmptyStrutObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
@@ -880,11 +880,11 @@ $(document).ready(function(){
             column: "firstColumn"
         })
     }
-=======
+
     var formRow = null;
     var fromIndex = null;
     var columnChanged = false;
->>>>>>> origin/master
+
 
     $("ul.dropTrue").sortable({
         connectWith: 'ul',
