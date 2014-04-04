@@ -24,7 +24,8 @@ import org.codehaus.jackson.annotate.JsonTypeInfo;
         @Type(value = Suppcelector.class, name = "suppcelector"),
         @Type(value = Checkbox.class, name = "checkbox"),
         @Type(value = Textarea.class, name = "textarea"),
-        @Type(value = DateComp.class, name = "datecomp")})
+        @Type(value = DateComp.class, name = "datecomp"),
+        @Type(value = EmptyStrut.class, name = "emptystrut")})
 public abstract class UITemplate {
     private long uniqueId;
     private String fromMappingField = null;

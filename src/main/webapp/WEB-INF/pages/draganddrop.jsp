@@ -56,7 +56,7 @@
 <h1>Form Builder</h1>
 <hr>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
 
         <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none; z-index: 10">
             <textarea style="pointer-events: none"></textarea>
@@ -107,6 +107,11 @@
         <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em;  z-index: 10">
             <input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
         </div>
+
+        <div id="emptystrut" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <br>
+            <br>
+        </div>
     </div>
 
     <%------------------%>
@@ -146,15 +151,12 @@
         <div id="formComponents" class="col-md-6"></div>
         <div id="formComponents" class="col-md-6">
             <hr>
-            <button id="preSubmit" onclick="false" class="btn default-btn">submit</button>
+            <button id="preSubmit" onclick="false" class="btn default-btn">Submit</button>
+            <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
         </div>
-
     </form>
-    <div id="formComponents" class="col-md-4">
-        <br>
-        <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
-    </div>
 </div>
+
 <div id="labelGrid" style="display: none"> </div>
 <div id="optionGrid" style="display: none"> </div>
 <div id="gridWindow" style="display: none">
@@ -478,6 +480,10 @@ $(document).ready(function(){
             case "datecomp":
                 return createDatecompObservableObject(objectId, type);
                 break;
+
+            case "emptystrut":
+                return createEmptyStrutObservableObject(objectId, type);
+            break;
         }
     };
 
@@ -838,6 +844,14 @@ $(document).ready(function(){
             viewToCall: "datecomp-configuration-menu",
             column: "firstColumn"
         });
+    }
+
+    function createEmptyStrutObservableObject(objectId, type){
+        return new kendo.data.ObservableObject({
+            uniqueId: objectId,
+            type: type,
+            column: "firstColumn"
+        })
     }
 
     $("ul.dropTrue").sortable({
@@ -1435,6 +1449,24 @@ $(document).ready(function(){
                 checkBoxValidation(componentData);
                 form.push(componentData);
                 break;
+
+            case "emptystrut":
+                $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
+                        "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
+                        "</span><br><br></li>");
+
+                var htmlDomComponent = "<div class='form-group'><br><br></div>";
+
+                addToPreviewForm(htmlDomComponent);
+
+                var componentData = new kendo.data.ObservableObject({
+                    uniqueId: formComponentData.uniqueId,
+                    type: formComponentData.type,
+                    column: formComponentData.column
+                });
+                checkBoxValidation(componentData);
+                form.push(componentData);
+                break;
         }
 
     };
@@ -1782,8 +1814,8 @@ $(document).ready(function(){
 
 
     $("#previewWindow").kendoWindow({
-        width: "500px",
-        height: "450px",
+        width: "650px",
+        height: "600px",
         modal: true,
         title: "Form preview"
     }).data("kendoWindow");

@@ -20,7 +20,8 @@ import java.util.List;
 @XmlRootElement(name="form")
 @XmlSeeAlso({UITemplate.class, Link.class, Text.class, Input.class, ComboBox.class,
         Radio.class, LinkButton.class, Image.class, CalculationField.class,
-        Suppcelector.class, Checkbox.class, Textarea.class, DateComp.class})
+        Suppcelector.class, Checkbox.class, Textarea.class, DateComp.class,
+        EmptyStrut.class})
 public class Form extends ArrayList<UITemplate>{
 
     private Date date = null;
