@@ -381,6 +381,19 @@ $(document).ready(function(){
     var previewForm = [];
 
     $('#previewBtn').attr("disabled", true);
+    $('#updateBtn').attr("disabled", true);
+
+    Array.prototype.move = function (old_index, new_index) {
+        if (new_index >= this.length) {
+            var k = new_index - this.length;
+            while ((k--) + 1) {
+                this.push(undefined);
+            }
+        }
+        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+        return this; // for testing purposes
+    };
+
 
     /****************************************************/
     /*************Right click functionality**************/
@@ -422,14 +435,15 @@ $(document).ready(function(){
         if(droppedComponent.draggable.hasClass("draggable")){
             $("#sortableList").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
-            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+            //console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             addToPreviewForm(droppedComponent.draggable.html());
+            $('#previewBtn').attr("disabled", false);
         }
     };
 
     function returnObservableType(type){
         objectId = new Date().getUTCMilliseconds();
-        console.log(type);
+        //console.log(type);
         switch (type){
             case "text":
                 return createTextObservableObject(objectId, type);
@@ -494,7 +508,8 @@ $(document).ready(function(){
             textSize: 12,
             textSizeSrc: textSizeSrc,
             viewToCall: "text-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -518,7 +533,8 @@ $(document).ready(function(){
             type: type,
             url: "http://",
             viewToCall: "link-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -556,7 +572,8 @@ $(document).ready(function(){
             doNotShow: false,
             keepAfterAdding: false,
             viewToCall: "input-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -597,7 +614,8 @@ $(document).ready(function(){
             newOption: optionTemplate,
             viewToCall: "combobox-configuration-menu",
             gridView: true,
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -639,7 +657,8 @@ $(document).ready(function(){
             newOption: optionTemplate,
             viewToCall: "radio-configuration-menu",
             gridView: true,
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -653,7 +672,8 @@ $(document).ready(function(){
             url: "http://",
             type: type,
             viewToCall: "linkbutton-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -671,7 +691,8 @@ $(document).ready(function(){
             imageResize: "Crop",
             imageResizeSrc: imageResizeSrc,
             viewToCall: "image-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -689,7 +710,8 @@ $(document).ready(function(){
             printOnApprovalMail: false,
             printOnOrderMail: false,
             viewToCall: "calc-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -726,7 +748,8 @@ $(document).ready(function(){
             doNotShow: false,
             keepAfterAdding: false,
             viewToCall: "supp-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -768,7 +791,8 @@ $(document).ready(function(){
             checked: false,
             viewToCall: "checkbox-configuration-menu",
             gridView: true,
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -803,7 +827,8 @@ $(document).ready(function(){
             doNotShow: false,
             keepAfterAdding: false,
             viewToCall: "textarea-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
 
@@ -836,30 +861,65 @@ $(document).ready(function(){
             printOnOrderMail: false,
             keepAfterAdding: false,
             viewToCall: "datecomp-configuration-menu",
-            column: "firstColumn"
+            column: "firstColumn",
+            row: ""
         });
     }
+
+    var formRow = null;
+    var fromIndex = null;
+    var columnChanged = false;
 
     $("ul.dropTrue").sortable({
         connectWith: 'ul',
         dropOnEmpty: true,
         revert: true,
         receive: function(event, ui) {
-            //console.log("[" + $(this).id + "] received [" + ui.item.html() + "] from [" + ui.sender.attr("id") + "]");
+            console.log("receive");
 
             column = $(this).closest("div").attr("id")
-
-            console.log(column);
-
-            var observableId = $(ui.item).closest("li").attr("id")
-
+            var observableId = $(ui.item).closest("li").attr("id");
             for (var i = 0; i < form.length; i++) {
                 if(form[i].uniqueId == observableId){
                     form[i].set("column", column);
                 }
             }
+            columnChanged = true;
+        },
+        start: function(event, ui) {
+            console.log("Start component: " + $(ui.item).closest("li").attr("id") +" from index: "+ ui.item.index() + " and column: " + $(this).closest("div").attr("id"));
+            var observableId = $(ui.item).closest("li").attr("id");
+            fromIndex = ui.item.index();
+            for (var i = 0; i < form.length; i++) {
+                if(form[i].uniqueId == observableId){
+                    formRow = form[i];
+                }
+            }
+        },
+        stop: function(event, ui) {
+            var toIndex = ui.item.index();
+            if(!columnChanged){
+                console.log("Stop component: " + $(ui.item).closest("li").attr("id") +" to index: "+ ui.item.index() + " and column: " + $(this).closest("div").attr("id"));
+
+                form.move(fromIndex, toIndex);
+            }
+            columnChanged = false;
+            console.log("array lenght: " + JSON.stringify(form));
+            console.log("array lenght: " + JSON.stringify(form.length));
+
         }
     });
+
+    Array.prototype.move = function (old_index, new_index) {
+        if (new_index >= this.length) {
+            var k = new_index - this.length;
+            while ((k--) + 1) {
+                this.push(undefined);
+            }
+        }
+        this.splice(new_index, 0, this.splice(old_index, 1)[0]);
+        return this; // for testing purposes
+    };
 
     $('#sortableList').disableSelection();
 
@@ -882,6 +942,7 @@ $(document).ready(function(){
                     console.log("u are cool");
                 }
             });
+            $('#previewBtn').attr("disabled", true);
             $("#droppableArea ul li").remove();
             form = [];
         }else{
@@ -942,6 +1003,7 @@ $(document).ready(function(){
             success: renderForm
         });
         $('#saveBtn').attr("disabled", true);
+        $('#updateBtn').attr("disabled", false);
         $('#previewBtn').attr("disabled", false);
     });
 
@@ -989,7 +1051,8 @@ $(document).ready(function(){
                     type: formComponentData.type,
                     textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
-                    viewToCall: formComponentData.viewToCall
+                    viewToCall: formComponentData.viewToCall,
+                    column: formComponentData.column
                 });
                 form.push(componentData);
                 console.log(JSON.stringify(form));
@@ -1344,7 +1407,8 @@ $(document).ready(function(){
                     addedOptions: formComponentData.addedOptions,
                     checked: formComponentData.checked,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    gridView: true
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
@@ -1452,6 +1516,8 @@ $(document).ready(function(){
         $("#droppableArea ul li").remove();
         form = [];
         $('#saveBtn').attr("disabled", false);
+        $('#updateBtn').attr("disabled", true);
+        $('#previewBtn').attr("disabled", true);
 
     });
 
@@ -1897,8 +1963,11 @@ $(document).ready(function(){
 <%------------------%>
 
 <script id="text-configuration-menu" type="text/x-kendoui-template">
-    <h1>Text</h1>
     <div class="row">
+        <div class="col-md-8">
+            <h3>Text</h3>
+        </div>
+
         <div class="col-md-4">
             <div class="form-group">
                 <label >ID (Unigue):</label>
@@ -1949,83 +2018,100 @@ $(document).ready(function(){
 </script>
 
 <script id="link-configuration-menu" type="text/x-kendoui-template">
-    <div role="form" style="width: 750px">
-        <h1>Link</h1>
+    <div class="row">
 
-        <div class="form-group">
-            <label>ID (Unigue):</label>
-            <input type="text" data-bind="value: uniqueId" class="forced-right"  >
+        <div class="col-md-8">
+            <h3>Link</h3>
         </div>
 
-        <div class="form-group">
-            <label for="swe-text">Text(Swedish):</label>
-            <input type="text" data-bind="value: label" class="forced-right">
-            <button id="swe-textBtn" class="forced-right">Language</button>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>ID (Unigue):</label>
+                <input type="text" data-bind="value: uniqueId" class="forced-right"  >
+            </div>
+
+            <div class="form-group">
+                <label for="swe-text">Text(Swedish):</label>
+                <input type="text" data-bind="value: label" class="forced-right">
+                <button id="swe-textBtn" class="forced-right">Language</button>
+            </div>
+
+            <div class="form-group">
+                <label>Tooltip</label>
+                <input type="text" data-bind="value: toolTips" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label>Label width</label>
+                <input type="text" data-bind="value: labelWidth" class="forced-right" >
+            </div>
+
+            <div class="form-group">
+                <label>Label positioning</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label>Text style:</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textStyleSrc, value: textStyle"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label>Text size:</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textSizeSrc, value: textSize"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label>Text format</label>
+                <div class="forced-right"><select data-role="dropdownlist"
+                                                  data-text-field="name"
+                                                  data-value-field="value"
+                                                  data-bind="source: textFormatSrc, value: textFormat"></select></div>
+            </div>
+
+            <div class="form-group">
+                <label>Component width</label>
+                <input type="text" data-bind="value: componentWidth" class="forced-right">
+            </div>
+
+            <div class="form-group">
+                <label>URL:</label>
+                <input type="text" data-bind="value: url" class="forced-right">
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>Tooltip</label>
-            <input type="text" data-bind="value: toolTips" class="forced-right">
-        </div>
 
-        <div class="form-group">
-            <label>Label width</label>
-            <input type="text" data-bind="value: labelWidth" class="forced-right" >
-        </div>
+        <div class="col-md-8 window-footer ">
+            <div class="form-group">
+                <p>* Mandatory information</p>
+            </div>
+            <div class="form-group forced-right">
+                <button class="btn btn-default " id="btnOK" >OK</button>
+                <button class="btn btn-default ">Cancel</button>
+            </div>
 
-        <div class="form-group">
-            <label>Label positioning</label>
-            <div class="forced-right"><select data-role="dropdownlist"
-                                              data-text-field="name"
-                                              data-value-field="value"
-                                              data-bind="source: labelPositionSrc, value: labelPosition"></select></div>
-        </div>
-
-        <div class="form-group">
-            <label>Text style:</label>
-            <div class="forced-right"><select data-role="dropdownlist"
-                                              data-text-field="name"
-                                              data-value-field="value"
-                                              data-bind="source: textStyleSrc, value: textStyle"></select></div>
-        </div>
-
-        <div class="form-group">
-            <label>Text size:</label>
-            <div class="forced-right"><select data-role="dropdownlist"
-                                              data-text-field="name"
-                                              data-value-field="value"
-                                              data-bind="source: textSizeSrc, value: textSize"></select></div>
-        </div>
-
-        <div class="form-group">
-            <label>Text format</label>
-            <div class="forced-right"><select data-role="dropdownlist"
-                                              data-text-field="name"
-                                              data-value-field="value"
-                                              data-bind="source: textFormatSrc, value: textFormat"></select></div>
-        </div>
-
-        <div class="form-group">
-            <label>Component width</label>
-            <input type="text" data-bind="value: componentWidth" class="forced-right">
-        </div>
-
-        <div class="form-group">
-            <label>URL:</label>
-            <input type="text" data-bind="value: url" class="forced-right">
-        </div>
-
-        <div class="form-group">
-            <button class="btn btn-default" id="btnOK" >OK</button>
-            <button class="btn btn-default">Cancel</button>
         </div>
     </div>
 </script>
 
 
 <script id="input-configuration-menu" type="text/x-kendoui-template">
-    <h1>Input</h1>
     <div class="row">
+
+        <div class="col-md-8">
+            <h3>Input</h3>
+        </div>
+
         <div class="col-md-4">
             <div class="form-group">
                 <label for="uniqeu-id">ID (Unigue):</label>
@@ -2272,8 +2358,12 @@ $(document).ready(function(){
 </script>
 
 <script id="linkbutton-configuration-menu" type="text/x-kendoui-template">
-    <h1>LinkButton</h1>
     <div class="row">
+
+        <div class="col-md-8">
+            <h3>Linkbutton</h3>
+        </div>
+
         <div class="col-md-4">
             <div class="form-group">
                 <label for="unique-id">ID (Unigue) *</label>
@@ -2443,7 +2533,7 @@ $(document).ready(function(){
     <div class="row">
 
         <div class="col-md-8">
-            <h3>Input</h3>
+            <h3>Suppcelector</h3>
         </div>
 
         <div class="col-md-4">
@@ -2799,8 +2889,12 @@ $(document).ready(function(){
 </script>
 
 <script id="textarea-configuration-menu" type="text/x-kendoui-template">
-    <h1>Input</h1>
     <div class="row">
+
+        <div class="col-md-8">
+            <h3>Input</h3>
+        </div>
+
         <div class="col-md-4">
             <div class="form-group">
                 <label for="uniqeu-id">ID (Unigue):</label>
@@ -2949,7 +3043,7 @@ $(document).ready(function(){
     <div class="row">
 
         <div class="col-md-8">
-            <h3>Input</h3>
+            <h3>Datecomp</h3>
         </div>
 
 
