@@ -27,10 +27,10 @@
 
 <style>
 
-    #sortableList { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+    #sortableList { list-style-type: none; margin: 0; padding: 0; width: 100%; }
     #sortableList li { margin: 0 3px 0px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em;}
     #sortableList li span { position: absolute; margin-left: -1.3em; }
-    .dropTrue { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; background: #eee; padding: 5px; width: 143px; height: 50px; }
+    .dropTrue { list-style-type: none; margin: 0; padding: 0; float: left; margin-right: 10px; background: #eee; padding: 5px; width: 143px; height: 380px; }
 
 </style>
 <nav class="navbar navbar-default" role="navigation">
