@@ -58,54 +58,54 @@
 <div class="row">
     <div class="col-md-3">
 
-        <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none; z-index: 10">
-            <textarea style="pointer-events: none"></textarea>
-        </div>
-
-        <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            option: <input style="pointer-events: none" type="checkbox" name="option" value="option">
-        </div>
-
         <div id="text" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <p style="pointer-events: none">Text</p>
+            <p style="pointer-events: none" data-bind='text: label'>Text</p>
         </div>
 
         <div id="link" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <a href="#" onclick="false">Link text</a>
+            <a href="#" onclick="false" data-bind='text: label'>Link text</a>
+        </div>
+
+        <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <p style="pointer-events: none;" data-bind='text: label'>Image</p>
+        </div>
+
+        <div id="textarea" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em; resize: none; z-index: 10">
+            <label data-bind='text: label'></label><textarea style="pointer-events: none"></textarea>
         </div>
 
         <div id="input" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <input style="pointer-events: none" type="text">
+            <label data-bind='text: label'></label><input style="pointer-events: none" type="text">
         </div>
 
         <div id="datecomp" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <input class="datecomp" style="pointer-events: none" type="date">
+            <label data-bind='text: label'></label><input class="datecomp" style="pointer-events: none" type="date">
         </div>
 
         <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <select style="pointer-events: none" >
+            <label data-bind='text: label'></label><select style="pointer-events: none" >
                 <option value="option">options...</option>
             </select>
         </div>
 
         <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <button style="pointer-events: none"><a href="#" onclick="false"></a>Link Button</button>
-        </div>
-
-        <div id="image" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <p style="pointer-events: none;">Image</p>
+            <button style="pointer-events: none" data-bind='text: label'><a href="#" onclick="false"></a>Link Button</button>
         </div>
 
         <div id="radio" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            Radio Button: <input style="pointer-events: none" type="radio" name="group" value="option">
+            <label data-bind='text: label'>Radio Button</label><input style="pointer-events: none" type="radio" name="group" value="option">
+        </div>
+
+        <div id="checkbox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
+            <label data-bind='text: label'>Checkbox</label><input style="pointer-events: none" type="checkbox" name="option" value="option">
         </div>
 
         <div id="calculationfield" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
-            <p style="pointer-events: none;">Calculation field</p>
+            <p style="pointer-events: none;" data-bind='text: label'>Calculation field</p>
         </div>
 
         <div id="suppcelector" class="draggable ui-widget-content" style="width: 170px; height: 60px; padding: 0.5em;  z-index: 10">
-            <input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
+            <label data-bind='text: label'></label><input type="text" style="pointer-events: none"><button>select</button> <button>clear</button>
         </div>
 
         <div id="emptystrut" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
@@ -301,10 +301,20 @@
 
     <div id="grid"></div>
 
-    <div class="form-group">
-        <p>NOTE! Important information when adding languages. (Place the mouse pointer here)</p>
-        <p>* Mandatory information</p>
+    <div class="col-md-8 window-footer ">
+        <div class="form-group">
+            <p>NOTE! Important information when adding languages. (Place the mouse pointer here)</p>
+            <p>* Mandatory information</p>
+        </div>
+        <div class="form-group forced-right">
+            <button id="btnOK" >OK</button>
+            <button id="gridCancelBtn">Cancel</button>
+        </div>
+
     </div>
+
+
+
 
 </div>
 </div>
@@ -405,8 +415,12 @@ $(document).ready(function(){
         $.contextMenu({
             selector: '.ui-state-default',
             callback: function(key, options) {
-                var m = "clicked: " + key;
-                window.console && console.log(m) || alert(m);
+                if(key == "delete"){
+                    deleteComponent(this);
+                }else{
+                    var m = "clicked: " + key;
+                    window.console && console.log(m) || alert(m);
+                }
             },
             items: {
                 "edit": {name: "Edit", icon: "edit"},
@@ -416,6 +430,18 @@ $(document).ready(function(){
             }
         });
     });
+
+    function deleteComponent(component){
+
+        var componentId = $(component).attr("id");
+        $.each(form, function(i, data){
+            if(form[i].uniqueId == componentId){
+                form.splice(i, 1);
+            }
+        });
+        $(component).remove();
+    }
+
 
     /****************************************************/
     /*******************Drag & drop**********************/
@@ -445,7 +471,7 @@ $(document).ready(function(){
 
     function returnObservableType(type){
         objectId = new Date().getUTCMilliseconds();
-        //console.log(type);
+        console.log(type);
         switch (type){
             case "text":
                 return createTextObservableObject(objectId, type);
@@ -504,7 +530,7 @@ $(document).ready(function(){
     function createTextObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             labelWidth: 100,
@@ -522,7 +548,7 @@ $(document).ready(function(){
     function createLinkObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "A simple tooltip",
@@ -547,7 +573,7 @@ $(document).ready(function(){
     function createInputObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "tip",
@@ -586,7 +612,7 @@ $(document).ready(function(){
     function createComboboxObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "tip",
@@ -628,7 +654,7 @@ $(document).ready(function(){
     function createRadioObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "tip",
@@ -671,7 +697,7 @@ $(document).ready(function(){
     function createLinkButtonObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage: [],
             toolTips: "A Simple Tooltip",
@@ -705,7 +731,7 @@ $(document).ready(function(){
     function createCalculationfieldObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             type: type,
@@ -724,7 +750,7 @@ $(document).ready(function(){
     function createSuppcelectorObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "tip",
@@ -762,7 +788,7 @@ $(document).ready(function(){
     function createCheckboxObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "tip",
@@ -805,7 +831,7 @@ $(document).ready(function(){
     function createTextareaObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             labelLanguage:[],
             newLanguage:labelLanguagetemplate,
             toolTips: "tip",
@@ -841,7 +867,7 @@ $(document).ready(function(){
     function createDatecompObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "name",
+            label: "label",
             labelLanguage:[],
             newLanguage:labelLanguagetemplate,
             toolTips: "tip",
@@ -920,9 +946,8 @@ $(document).ready(function(){
                 form.move(fromIndex, toIndex);
             }
             columnChanged = false;
-            console.log("array lenght: " + JSON.stringify(form));
-            console.log("array lenght: " + JSON.stringify(form.length));
-
+           // console.log("array length: " + JSON.stringify(form));
+           // console.log("array length: " + JSON.stringify(form.length));
         }
     });
 
@@ -1051,7 +1076,7 @@ $(document).ready(function(){
             case "text":
                 $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> <div>"+ formComponentData.label +" </div></li>");
+                        "</span> <div style='pointer-events: none;' >"+ formComponentData.label +" </div></li>");
 
                 var htmlDomComponent = "<div class='form-group'><div id='"+ formComponentData.uniqueId +"' class='form-group' >"+formComponentData.label+"</div></div>";
                 addToPreviewForm(htmlDomComponent);
@@ -1593,12 +1618,12 @@ $(document).ready(function(){
         var configurationView = new kendo.View(Observable.viewToCall);
         var configHtml = configurationView.render();
         kendo.bind(configHtml, Observable);
+        kendo.bind($("#"+Observable.uniqueId), Observable);
         $("#window").html(configHtml);
         if(Observable.gridView){
             $("#gridWindow").data("kendoWindow").center().open();
         }else{
             $("#window").data("kendoWindow").center().open();
-
         }
         activateWindowKeyFunction(e);
         activateLabelWindow(Observable);
@@ -1635,9 +1660,12 @@ $(document).ready(function(){
         if (e.altKey && e.keyCode === 87 /* w */) {
             $("#window").focus();
         }
+
+        $("#gridCancelBtn").on("click", function(){
+            $("#window").data("kendoWindow").close();
+        });
         $("#btnOK").click(function(){
             console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
-
             $("#window").data("kendoWindow").close();
         });
     }
@@ -1667,10 +1695,8 @@ $(document).ready(function(){
         return o;
     };
 
-
-
     /****************************************************/
-    /*****************Configutation windows**************/
+    /*****************Configuration windows**************/
     /****************************************************/
 
 
@@ -1951,7 +1977,6 @@ $(document).ready(function(){
         $("#gridBtn").on("click", function(){
             $("#gridWindow").data("kendoWindow").center().open();
         });
-
     };
 
 
@@ -2042,8 +2067,8 @@ $(document).ready(function(){
                 <p>* Mandatory information</p>
             </div>
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK" >OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK" >OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
 
         </div>
@@ -2130,8 +2155,8 @@ $(document).ready(function(){
                 <p>* Mandatory information</p>
             </div>
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK" >OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK" >OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
 
         </div>
@@ -2296,8 +2321,8 @@ $(document).ready(function(){
             </div>
 
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK">OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK">OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
         </div>
     </div>
@@ -2429,8 +2454,8 @@ $(document).ready(function(){
                 <p>* Mandatory information</p>
             </div>
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK" >OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK" >OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
 
         </div>
@@ -2491,8 +2516,8 @@ $(document).ready(function(){
                 <p>* Mandatory information</p>
             </div>
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK" >OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK" >OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
 
         </div>
@@ -2555,8 +2580,8 @@ $(document).ready(function(){
             </div>
 
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK" >OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK" >OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
         </div>
 
@@ -2705,8 +2730,8 @@ $(document).ready(function(){
                 <p>* Mandatory information</p>
             </div>
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK" >OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK" >OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
 
         </div>
@@ -2926,7 +2951,7 @@ $(document).ready(function(){
     <div class="row">
 
         <div class="col-md-8">
-            <h3>Input</h3>
+            <h3>Textarea</h3>
         </div>
 
         <div class="col-md-4">
@@ -3066,8 +3091,8 @@ $(document).ready(function(){
             </div>
 
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK">OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK">OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
         </div>
     </div>
@@ -3176,8 +3201,8 @@ $(document).ready(function(){
             </div>
 
             <div class="form-group forced-right">
-                <button class="btn btn-default " id="btnOK" >OK</button>
-                <button class="btn btn-default ">Cancel</button>
+                <button id="btnOK" >OK</button>
+                <button id="gridCancelBtn">Cancel</button>
             </div>
         </div>
     </div>
