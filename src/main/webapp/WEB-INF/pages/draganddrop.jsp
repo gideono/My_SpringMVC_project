@@ -84,8 +84,8 @@
 
         <div id="combobox" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
             <label data-bind='text: label'></label><select style="pointer-events: none" >
-                <option value="option">options...</option>
-            </select>
+            <option value="option">options...</option>
+        </select>
         </div>
 
         <div id="linkbutton" class="draggable ui-widget-content" style="width: 170px; height: 45px; padding: 0.5em;  z-index: 10">
@@ -149,18 +149,19 @@
     <h2>Form</h2>
     <form action="" method="post">
         <div class="row">
-            <div id="formComponents" class="col-md-4">
+            <div class="formComponents col-md-4">
                 <div id="columnFirst"></div>
             </div>
-            <div id="formComponents" class="col-md-4">
+            <div class="formComponents col-md-4">
                 <div id="columnSecond"></div>
             </div>
+            <div class="col-md-8">
+                <hr>
+                <button id="preSubmit" onclick="false" class="btn default-btn">Submit</button>
+                <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
+            </div>
         </div>
-        <div class="col-md-5">
-            <hr>
-            <button id="preSubmit" onclick="false" class="btn default-btn">Submit</button>
-            <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
-        </div>
+
     </form>
 </div>
 
@@ -320,9 +321,6 @@
 
     </div>
 
-
-
-
 </div>
 </div>
 
@@ -470,7 +468,7 @@ $(document).ready(function(){
             $("#sortableList").append( "<li id="+ objectId +" class='ui-state-default'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>" + droppedComponent.draggable.html() + "</li>");
             form.push(componentData);
             //console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
-            addToPreviewForm(droppedComponent.draggable.html());
+            addToPreviewForm(droppedComponent.draggable.html(), componentData.uniqueId);
             $('#previewBtn').attr("disabled", false);
         }
     };
@@ -529,7 +527,7 @@ $(document).ready(function(){
 
             case "emptystrut":
                 return createEmptyStrutObservableObject(objectId, type);
-            break;
+                break;
         }
     };
 
@@ -952,8 +950,8 @@ $(document).ready(function(){
                 form.move(fromIndex, toIndex);
             }
             columnChanged = false;
-           // console.log("array length: " + JSON.stringify(form));
-           // console.log("array length: " + JSON.stringify(form.length));
+            // console.log("array length: " + JSON.stringify(form));
+            // console.log("array length: " + JSON.stringify(form.length));
         }
     });
 
@@ -970,10 +968,10 @@ $(document).ready(function(){
 
     $('#sortableList').disableSelection();
 
-    function addToPreviewForm(html, column){
+    function addToPreviewForm(html, id){
         var data = {
             html: html,
-            column: column
+            id: id
         }
         previewForm.push(data);
 
@@ -1091,7 +1089,7 @@ $(document).ready(function(){
                         "</span> <div style='pointer-events: none;' >"+ formComponentData.label +" </div></li>");
 
                 var htmlDomComponent = "<div class='form-group'><div id='"+ formComponentData.uniqueId +"' class='form-group' >"+formComponentData.label+"</div></div>";
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1118,7 +1116,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'><a id='"+ formComponentData.uniqueId +"' href='"+ formComponentData.url +"'>"+ formComponentData.label +"</a></div>";
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
 
                 var componentData = new kendo.data.ObservableObject({
@@ -1151,7 +1149,7 @@ $(document).ready(function(){
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
 
                 var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+": <input name='"+ formComponentData.uniqueId +"' class='form-control input-sm' type='text'></div>";
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1198,7 +1196,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+" : <select name='"+ formComponentData.uniqueId +"' class='form-control'>"+getComboOptions(formComponentData.addedOptions)+"</select></div>";
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1249,7 +1247,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = " "+formComponentData.label+" : <div class='form-group'> "+ getRadioOptions(formComponentData.addedOptions, formComponentData.uniqueId) +" </div>";
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1301,7 +1299,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'><a href='"+ formComponentData.url+ "'><button>"+ formComponentData.label +"</button></a></div>" ;
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1323,7 +1321,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'><img id='"+ formComponentData.uniqueId +"' src='"+ formComponentData.url+ "'></div>" ;
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1349,7 +1347,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'> <div name='"+ formComponentData.uniqueId +"' >"+ formComponentData.label +" </div> </div>" ;
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1377,7 +1375,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' class='form-control' type='text'></input><button>select</button> <button>clear</button></div>" ;
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1423,7 +1421,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = " <div class='form-group'>"+formComponentData.label+" : <input name='"+ formComponentData.uniqueId +"'  type='checkbox' value='"+ formComponentData.checked +"' ></input></div>" ;
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1474,7 +1472,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = " <div class='form-group'> "+formComponentData.label+" :   <textarea name='"+ formComponentData.uniqueId +"' value='textarea' class='form-control'></textarea></div>" ;
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1518,7 +1516,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' value='date' class='form-control' type='date'></input> </div>" ;
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1560,7 +1558,7 @@ $(document).ready(function(){
 
                 var htmlDomComponent = "<div class='form-group'><br><br></div>";
 
-                addToPreviewForm(htmlDomComponent, formComponentData.column);
+                addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
@@ -1892,14 +1890,27 @@ $(document).ready(function(){
     /**********************************************/
 
     $("#previewBtn").on("click", function(){
-        $('#formComponents').empty();
-        // console.log("lenght of preview form: "+previewForm.length);
+        $('#columnFirst').empty();
+        $('#columnSecond').empty();
         $.each(previewForm, function(index, list){
-            console.log(list.column + " " +  list.html);
-            if(list.column == "firstColumn"){
-                $("#columnFirst").append(list.html);
-            }else if(list.column == "secondColumn"){
-                $("#columnSecond").append(list.html);
+            //console.log("length of array: " + previewForm.length + " ID col : " + list.id + " Obs Id: " + form[index].uniqueId);
+           /* for(var i = 0 ; i < previewForm.length ; i++){
+                if(form[index].uniqueId == previewForm[i].id){
+                    console.log(true);
+                }else{
+                    console.log(false);
+                }
+            }*/
+           if(form[index].uniqueId == list.id){
+                console.log(true);
+                if(form[index].column == "firstColumn"){
+                    console.log("type: " + form[index].type + " col: " +form[index].column)
+                    $("#columnFirst").append(list.html);
+                }else if(form[index].column == "secondColumn"){
+                    $("#columnSecond").append(list.html);
+                }
+            }else{
+                console.log(false);
             }
         });
 
@@ -1926,7 +1937,7 @@ $(document).ready(function(){
 
     $("#previewWindow").kendoWindow({
         width: "1050px",
-        height: "900px",
+        height: "600px",
         modal: true,
         title: "Form preview"
     }).data("kendoWindow");
