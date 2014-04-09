@@ -121,7 +121,7 @@
     <div class="col-md-6">
 
         <div id="droppableArea" class="ui-widget-header"
-             style="width: 740px; height: 500px; padding: 0.5em; margin: 10px;">
+             style="width: 740px; height: 500px; padding: 0.5em; margin-bottom: 10px;">
             <div class="row">
                 <div id="firstColumn" class="col-md-6">
                     <ul id="sortableList" class="dropTrue"></ul>
@@ -169,6 +169,11 @@
 <div id="optionGrid" style="display: none"> </div>
 <div id="gridWindow" style="display: none">
     <div class="row">
+
+        <div class="col-md-8">
+            <h3>Checkbox</h3>
+        </div>
+
         <div class="col-md-4">
             <div class="form-group">
                 <label>ID(unique) *</label>  <input data-bind="value: uniqueId"  type="text" class="forced-right">
@@ -288,7 +293,7 @@
             </div>
 
             <div class="form-group">
-                <label>Print order </label> <input type="text" data-bind="value: printOrder">
+                <label>Print order </label> <input type="text" data-bind="value: printOrder" class="forced-right">
             </div>
 
             <div class="form-group">
@@ -315,8 +320,8 @@
             <p>* Mandatory information</p>
         </div>
         <div class="form-group forced-right">
-            <button id="btnOK" >OK</button>
-            <button id="gridCancelBtn">Cancel</button>
+            <button id="okButton" >OK</button>
+            <button id="cancelGridBtn">Cancel</button>
         </div>
 
     </div>
@@ -1691,6 +1696,14 @@ $(document).ready(function(){
            // console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             $("#window").data("kendoWindow").close();
         });
+
+        $("#okButton").click(function(){
+            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+            $("#gridWindow").data("kendoWindow").close();
+        });
+        $("#cancelGridBtn").on("click", function(){
+            $("#gridWindow").data("kendoWindow").close();
+        });
     }
 
     $("#window").kendoWindow({
@@ -2889,8 +2902,8 @@ $(document).ready(function(){
         </div>
 
         <div class="form-group">
-            <button class="btn btn-default" id="btnOK" >OK</button>
-            <button class="btn btn-default">Cancel</button>
+            <button id="btnOK" >OK</button>
+            <button id="gridCancelBtn">Cancel</button>
         </div>
     </div>
 </script>
@@ -2981,8 +2994,8 @@ $(document).ready(function(){
             <button class="btn btn-primary" id="optionBtn" >Add Option</button>
         </div>
         <div class="form-group">
-            <button class="btn btn-default" id="btnOK" >OK</button>
-            <button class="btn btn-default">Cancel</button>
+            <button id="btnOK" >OK</button>
+            <button id="gridCancelBtn">Cancel</button>
         </div>
     </div>
 </script>

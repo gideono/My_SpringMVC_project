@@ -1689,6 +1689,7 @@ label {
   display: inline-block;
   margin-bottom: 5px;
   font-weight: bold;
+  margin-right: 5px;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;
