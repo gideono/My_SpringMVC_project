@@ -78,12 +78,14 @@ public class HelloController {
         }
 
         for(int i = 0; i < form.size(); i++){
+
             key = String.valueOf(form.get(i).getUniqueId());
             String value = map.get(key);
             form.get(i).setValue(value);
-            System.out.println(form.get(i).getValue()+ " mapping to: " + form.get(i).getToMappingField());
+            if(!(form.get(i).getToMappingField() == null)){
+                System.out.println(form.get(i).getValue()+ " mapping to: " + form.get(i).getToMappingField());
+            }
         }
-
     }
 
     @RequestMapping("/draganddrop")

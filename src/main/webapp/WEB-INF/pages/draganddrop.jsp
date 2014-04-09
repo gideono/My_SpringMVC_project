@@ -157,8 +157,8 @@
             </div>
             <div class="col-md-8">
                 <hr>
-                <button id="preSubmit" onclick="false" class="btn default-btn">Submit</button>
-                <button id="preCancel" onclick="false" class="btn default-btn">Cancel</button>
+                <button id="preSubmit" onclick="false" >Submit</button>
+                <button id="preCancel" onclick="false" >Cancel</button>
             </div>
         </div>
 
@@ -469,7 +469,7 @@ $(document).ready(function(){
             form.push(componentData);
             //console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             addToPreviewForm(droppedComponent.draggable.html(), componentData.uniqueId);
-            $('#previewBtn').attr("disabled", false);
+            $('#previewBtn').attr("disabled", true);
         }
     };
 
@@ -534,7 +534,7 @@ $(document).ready(function(){
     function createTextObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "label",
+            label: "text",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             labelWidth: 100,
@@ -552,7 +552,7 @@ $(document).ready(function(){
     function createLinkObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "label",
+            label: "link",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "A simple tooltip",
@@ -577,7 +577,7 @@ $(document).ready(function(){
     function createInputObservableObject(objectId, type){
         return new kendo.data.ObservableObject({
             uniqueId: objectId,
-            label: "label",
+            label: "input",
             newLanguage:labelLanguagetemplate,
             labelLanguage:[],
             toolTips: "tip",
@@ -950,7 +950,7 @@ $(document).ready(function(){
                 form.move(fromIndex, toIndex);
             }
             columnChanged = false;
-            // console.log("array length: " + JSON.stringify(form));
+             //console.log("array length: " + JSON.stringify(form));
             // console.log("array length: " + JSON.stringify(form.length));
         }
     });
@@ -1103,7 +1103,8 @@ $(document).ready(function(){
                     textSize: formComponentData.textSize,
                     textSizeSrc: textSizeSrc,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 form.push(componentData);
                 console.log(JSON.stringify(form));
@@ -1138,7 +1139,8 @@ $(document).ready(function(){
                     componentWidth: formComponentData.componentWidth,
                     url: formComponentData.url,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 form.push(componentData);
                 break;
@@ -1148,7 +1150,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input></li>");
 
-                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+": <input name='"+ formComponentData.uniqueId +"' class='form-control input-sm' type='text'></div>";
+                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+": <input name='"+ formComponentData.uniqueId +"' class='forced-right' type='text'></div>";
                 addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
                 var componentData = new kendo.data.ObservableObject({
@@ -1183,7 +1185,8 @@ $(document).ready(function(){
                     doNotShow: formComponentData.doNotShow,
                     keepAfterAdding: formComponentData.keepAfterAdding,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
@@ -1192,9 +1195,9 @@ $(document).ready(function(){
             case "combobox":
                 $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getComboOptions(formComponentData.addedOptions)+"</select></li>");
+                        "</span data-bind='text: label'> "+formComponentData.label+" :   <select id='"+ formComponentData.uniqueId +"'>"+getComboOptions(formComponentData.addedOptions)+"</select></li>");
 
-                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+" : <select name='"+ formComponentData.uniqueId +"' class='form-control'>"+getComboOptions(formComponentData.addedOptions)+"</select></div>";
+                var htmlDomComponent = "<div class='form-group'>"+formComponentData.label+" : <select name='"+ formComponentData.uniqueId +"' class='forced-right'>"+getComboOptions(formComponentData.addedOptions)+"</select></div>";
 
                 addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
@@ -1233,7 +1236,8 @@ $(document).ready(function(){
                     newOption: optionTemplate,
                     viewToCall: formComponentData.viewToCall,
                     gridView: true,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
 
                 });
                 checkBoxValidation(componentData);
@@ -1243,7 +1247,7 @@ $(document).ready(function(){
             case "radio":
                 $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
+                        "</span data-bind='text: label'> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' name='"+ formComponentData.group +"' type='"+ formComponentData.type +"' > </input></li>");
 
                 var htmlDomComponent = " "+formComponentData.label+" : <div class='form-group'> "+ getRadioOptions(formComponentData.addedOptions, formComponentData.uniqueId) +" </div>";
 
@@ -1285,7 +1289,8 @@ $(document).ready(function(){
                     newOption: optionTemplate,
                     viewToCall: formComponentData.viewToCall,
                     gridView: true,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
 
                 });
                 checkBoxValidation(componentData);
@@ -1309,7 +1314,8 @@ $(document).ready(function(){
                     toolTips: formComponentData.toolTips,
                     url: formComponentData.url,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 form.push(componentData);
                 break;
@@ -1335,7 +1341,8 @@ $(document).ready(function(){
                     imageResize: formComponentData.imageResize,
                     imageResizeSrc: imageResizeSrc,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 form.push(componentData);
                 break;
@@ -1362,7 +1369,8 @@ $(document).ready(function(){
                     printOnApprovalMail: formComponentData.printOnApprovalMail,
                     printOnOrderMail: formComponentData.printOnOrderMail,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
@@ -1373,7 +1381,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='text'></input><button>select</button> <button>clear</button></li>");
 
-                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' class='form-control' type='text'></input><button>select</button> <button>clear</button></div>" ;
+                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' class='forced-right' type='text'></input><button>select</button> <button>clear</button></div>" ;
 
                 addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
@@ -1408,7 +1416,8 @@ $(document).ready(function(){
                     doNotShow: formComponentData.doNotShow,
                     keepAfterAdding: formComponentData.keepAfterAdding,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
@@ -1417,7 +1426,7 @@ $(document).ready(function(){
             case "checkbox":
                 $('#'+formComponentData.column+' ul').append("<li id="+ formComponentData.uniqueId +" class='ui-state-default'>" +
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
-                        "</span> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' type='checkbox'></input></li>");
+                        "</span data-bind='text: label'> "+formComponentData.label+" : <input id='"+ formComponentData.uniqueId +"' type='checkbox'></input></li>");
 
                 var htmlDomComponent = " <div class='form-group'>"+formComponentData.label+" : <input name='"+ formComponentData.uniqueId +"'  type='checkbox' value='"+ formComponentData.checked +"' ></input></div>" ;
 
@@ -1459,6 +1468,7 @@ $(document).ready(function(){
                     checked: formComponentData.checked,
                     viewToCall: formComponentData.viewToCall,
                     column: formComponentData.column,
+                    row: formComponentData.row,
                     gridView: true
                 });
                 checkBoxValidation(componentData);
@@ -1470,7 +1480,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <textarea id='"+ formComponentData.uniqueId +"'></textarea></li>");
 
-                var htmlDomComponent = " <div class='form-group'> "+formComponentData.label+" :   <textarea name='"+ formComponentData.uniqueId +"' value='textarea' class='form-control'></textarea></div>" ;
+                var htmlDomComponent = " <div class='form-group'> "+formComponentData.label+" :   <textarea name='"+ formComponentData.uniqueId +"' value='textarea' class='forced-right'></textarea></div>" ;
 
                 addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
@@ -1503,7 +1513,8 @@ $(document).ready(function(){
                     doNotShow: formComponentData.doNotShow,
                     keepAfterAdding: formComponentData.keepAfterAdding,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
@@ -1514,7 +1525,7 @@ $(document).ready(function(){
                         "<span class='ui-icon ui-icon-arrowthick-2-n-s'>" +
                         "</span> "+formComponentData.label+" :   <input id='"+ formComponentData.uniqueId +"' type='date'></input></li>");
 
-                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' value='date' class='form-control' type='date'></input> </div>" ;
+                var htmlDomComponent = "<div class='form-group'> "+formComponentData.label+" :   <input name='"+ formComponentData.uniqueId +"' value='date' class='forced-right' type='date'></input> </div>" ;
 
                 addToPreviewForm(htmlDomComponent, formComponentData.uniqueId);
 
@@ -1545,7 +1556,8 @@ $(document).ready(function(){
                     printOnOrderMail: formComponentData.printOnOrderMail,
                     keepAfterAdding: formComponentData.keepAfterAdding,
                     viewToCall: formComponentData.viewToCall,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
@@ -1563,7 +1575,8 @@ $(document).ready(function(){
                 var componentData = new kendo.data.ObservableObject({
                     uniqueId: formComponentData.uniqueId,
                     type: formComponentData.type,
-                    column: formComponentData.column
+                    column: formComponentData.column,
+                    row: formComponentData.row
                 });
                 checkBoxValidation(componentData);
                 form.push(componentData);
@@ -1675,7 +1688,7 @@ $(document).ready(function(){
             $("#window").data("kendoWindow").close();
         });
         $("#btnOK").click(function(){
-            console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
+           // console.log("Array lenght: " + form.length +" "+ JSON.stringify(form));
             $("#window").data("kendoWindow").close();
         });
     }
@@ -1925,9 +1938,8 @@ $(document).ready(function(){
             console.log(JSON.stringify($('form').serializeObject()));
             var data = JSON.stringify($('form').serializeObject());
             postPreviewForm(data);
-
         });
-
+        
 
         $("#preCancel").on("click", function(){
             $("#previewWindow").data("kendoWindow").close();
@@ -1936,7 +1948,7 @@ $(document).ready(function(){
 
 
     $("#previewWindow").kendoWindow({
-        width: "1050px",
+        width: "800px",
         height: "600px",
         modal: true,
         title: "Form preview"
@@ -2017,7 +2029,7 @@ $(document).ready(function(){
             { field: "text", title: "Text" },
             { field: "value", title: "Value" },
             { field: "returnValue", title: "Return Value" },
-            { field: "numValue", title: "Num.Value", format: "{0:c}", width: "100px" },
+            { field: "numValue", title: "Num.Value", format: "0.00", width: "100px" },
             { field: "txtValue", title: "Txt Value" },
 
             { field: "english", title: "English" },
